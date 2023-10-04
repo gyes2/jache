@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="e66e7787-c529-4d68-9454-fa728f118752" name="변경" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/jache/receipe/entity/Orders.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/jache/user/entity/Chef.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/jache/chat/entity/Chat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/jache/chat/entity/Chat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/jache/chat/entity/ChatRoom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/jache/chat/entity/ChatRoom.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/jache/constant/entity/BaseEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/jache/constant/entity/BaseEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/jache/receipe/entity/Ingredient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/jache/receipe/entity/Ingredient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/jache/receipe/entity/Order.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/jache/receipe/entity/Receipe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/jache/receipe/entity/Receipe.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/jache/receipe/entity/ReceipeImgUrl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/jache/receipe/entity/ReceipeImgUrl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/jache/receipe/entity/love.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/jache/receipe/entity/love.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/jache/user/entity/User.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="2WFEoQRUVyQTs1RKPp59u37tjIJ" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/woals/OneDrive/문서/GitHub/MiniProject3&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;04317f176bfc473296421dc7350d26ba&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RunManager">
+    <configuration name="JacheApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="17" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="jache.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.jache.JacheApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="애플리케이션 수준" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="디폴트 작업">
+      <changelist id="e66e7787-c529-4d68-9454-fa728f118752" name="변경" comment="" />
+      <created>1696320101703</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1696320101703</updated>
+      <workItem from="1696320102760" duration="1466000" />
+      <workItem from="1696322454653" duration="794000" />
+      <workItem from="1696323262017" duration="333000" />
+      <workItem from="1696323606028" duration="8282000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
