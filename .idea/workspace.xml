@@ -5,17 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e66e7787-c529-4d68-9454-fa728f118752" name="변경" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/jache/receipe/entity/Orders.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/jache/user/entity/Chef.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/jache/chat/entity/Chat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/jache/chat/entity/Chat.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/jache/chat/entity/ChatRoom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/jache/chat/entity/ChatRoom.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/jache/constant/entity/BaseEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/jache/constant/entity/BaseEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/jache/receipe/entity/Ingredient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/jache/receipe/entity/Ingredient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/jache/receipe/entity/Order.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/jache/receipe/entity/Receipe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/jache/receipe/entity/Receipe.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/jache/receipe/entity/ReceipeImgUrl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/jache/receipe/entity/ReceipeImgUrl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/jache/receipe/entity/love.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/jache/receipe/entity/love.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/jache/user/entity/User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,26 +44,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/woals/OneDrive/문서/GitHub/MiniProject3&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;,
-    &quot;spring.configuration.checksum&quot;: &quot;04317f176bfc473296421dc7350d26ba&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "dev",
+    "last_opened_file_path": "C:/Users/woals/OneDrive/문서/GitHub/MiniProject3/src/main/resources/static/js",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
+    "spring.configuration.checksum": "04317f176bfc473296421dc7350d26ba",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\woals\OneDrive\문서\GitHub\MiniProject3\src\main\resources\static\js" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="JacheApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <option name="ALTERNATIVE_JRE_PATH" value="17" />
@@ -96,7 +92,8 @@
       <workItem from="1696320102760" duration="1466000" />
       <workItem from="1696322454653" duration="794000" />
       <workItem from="1696323262017" duration="333000" />
-      <workItem from="1696323606028" duration="8282000" />
+      <workItem from="1696323606028" duration="10155000" />
+      <workItem from="1696470056174" duration="692000" />
     </task>
     <servers />
   </component>
