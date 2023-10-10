@@ -49,6 +49,10 @@ tasks.named('test') {
 // Querydsl 설정부
 def generated = 'src/main/generated'
 
+tasks.withType(JavaCompile) {
+	options.generatedSourceOutputDirectory = file(generated)
+}
+
 sourceSets {
 	main.java.srcDirs += [ generated ]
 }
@@ -56,6 +60,4 @@ sourceSets {
 clean {
 	delete file(generated)
 }
-tasks.withType(JavaCompile) {
-	options.generatedSourceOutputDirectory = file(generated)
-}
+
