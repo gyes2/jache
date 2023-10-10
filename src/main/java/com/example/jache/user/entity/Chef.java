@@ -5,6 +5,7 @@ import com.example.jache.chat.entity.ChatRoom;
 import com.example.jache.constant.entity.BaseEntity;
 import com.example.jache.receipe.entity.Receipe;
 import com.example.jache.receipe.entity.love;
+import com.fasterxml.jackson.databind.ser.Serializers;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -20,7 +21,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Getter
-public class Chef {
+public class Chef extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long chefId;
@@ -41,9 +42,6 @@ public class Chef {
     private String chefDetail;
 
     private String chefImgUrl;
-
-    @Embedded
-    private BaseEntity baseEntity;
 
     @OneToMany(mappedBy = "chef")
     private List<ChatRoom> chatRooms = new ArrayList<>();

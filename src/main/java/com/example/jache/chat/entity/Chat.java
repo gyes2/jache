@@ -5,7 +5,7 @@ import com.example.jache.user.entity.Chef;
 import jakarta.persistence.*;
 
 @Entity
-public class Chat {
+public class Chat extends BaseEntity {
     @Id @GeneratedValue
     private Long chatId;
 
@@ -20,6 +20,4 @@ public class Chat {
     @Column(nullable = false)
     private String content;
 
-    @Embedded
-    private BaseEntity baseEntity;
 }

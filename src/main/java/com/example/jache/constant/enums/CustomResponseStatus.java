@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
-@AllArgsConstructor
 public enum CustomResponseStatus {
     //100 성공
     SUCCESS(true,100,"요청에 성공했습니다."),

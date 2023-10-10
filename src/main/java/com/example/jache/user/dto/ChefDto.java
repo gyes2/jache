@@ -37,7 +37,7 @@ public class ChefDto {
     @AllArgsConstructor
     @NoArgsConstructor
     @Builder
-    public class SignUpResponseDto{
+    public static class SignUpResponseDto{
         private String chefName;
     }
 }
