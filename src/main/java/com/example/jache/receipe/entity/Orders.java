@@ -3,16 +3,14 @@ package com.example.jache.receipe.entity;
 import jakarta.persistence.*;
 
 @Entity
-public class ReceipeImgUrl {
+public class Orders {
     @Id @GeneratedValue
-    private Long receipeImgId;
-
+    private Long ordersId;
+    private String content;
     @Column(nullable = false)
-    private String receipeImgUrl;
+    private String ContentUrl;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "receipeId")
     private Receipe receipe;
-
-
 }
