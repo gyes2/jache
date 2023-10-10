@@ -1,5 +1,7 @@
 package com.example.jache.user.service;
 
+import com.example.jache.constant.enums.CustomResponseStatus;
+import com.example.jache.constant.exception.CustomException;
 import com.example.jache.user.dto.ChefDto;
 import com.example.jache.user.entity.Chef;
 import com.example.jache.user.repository.ChefRepository;
@@ -16,10 +18,6 @@ public class ChefServiceImpl implements ChefService{
      */
     @Override
     public ChefDto.SignUpResponseDto saveChef(ChefDto.SignUpRequestDto signup){
-        if(chefRepository.findChefByChefName(signup.getChefName()) == null){
-            //나중에 custom exception 만들 것
-            return null;
-        }
 
         Chef chef = Chef.builder()
                 .chefName(signup.getChefName())
@@ -36,12 +34,20 @@ public class ChefServiceImpl implements ChefService{
 
     @Override
     public boolean checkDuplicateCheckName(String chefname) {
-        return false;
+
+        if(chefRepository.findChefByChefName(chefname).isEmpty()){
+            //나중에 custom exception 만들 것
+            throw new CustomException(CustomResponseStatus.DUPLICATE_CHEFNAME);
+        }
+        return true;
     }
 
     @Override
     public boolean checkDuplicateEmail(String email) {
-        return false;
+        if(chefRepository.findChefByEmail(email).isEmpty()){
+            throw new CustomException(CustomResponseStatus.DUPLICATE_EMAIL);
+        }
+        return true;
     }
 
     @Override
