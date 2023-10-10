@@ -8,6 +8,7 @@ public class JacheApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(JacheApplication.class, args);
+
 	}
 
 }

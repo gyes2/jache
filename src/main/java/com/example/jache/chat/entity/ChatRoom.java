@@ -1,24 +1,26 @@
 package com.example.jache.chat.entity;
 
 import com.example.jache.constant.entity.BaseEntity;
+import com.example.jache.receipe.entity.Receipe;
 import com.example.jache.user.entity.Chef;
 import jakarta.persistence.*;
 
-@Entity
-public class Chat {
-    @Id @GeneratedValue
-    private Long chatId;
+import java.util.ArrayList;
+import java.util.List;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "chateRoomId")
-    private ChatRoom chatRoom;
+@Entity
+public class ChatRoom {
+    @Id @GeneratedValue
+    private Long chateRoomId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "chefId")
     private Chef chef;
 
-    @Column(nullable = false)
-    private String content;
+    @OneToMany(mappedBy = "chatRoom")
+    private List<Chat> chats = new ArrayList<>();
+
+    private Long chatChefId;
 
     @Embedded
     private BaseEntity baseEntity;
