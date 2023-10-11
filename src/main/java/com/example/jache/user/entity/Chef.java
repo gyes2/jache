@@ -5,23 +5,43 @@ import com.example.jache.chat.entity.ChatRoom;
 import com.example.jache.constant.entity.BaseEntity;
 import com.example.jache.receipe.entity.Receipe;
 import com.example.jache.receipe.entity.love;
+import com.fasterxml.jackson.databind.ser.Serializers;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Chef {
-    @Id @GeneratedValue
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Getter
+public class Chef extends BaseEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long chefId;
+
+    @Column(nullable = false, length = 45)
     private String chefName;
+
+    @Column(nullable = false, length = 45)
     private String password;
+
+    @Column(nullable = false, length = 13)
     private String phone;
+
+    @Column(nullable = false)
     private String email;
 
-    @Embedded
-    private BaseEntity baseEntity;
+    @Column(nullable = false, length = 25)
+    private String chefDetail;
+
+    private String chefImgUrl;
 
     @OneToMany(mappedBy = "chef")
     private List<ChatRoom> chatRooms = new ArrayList<>();
@@ -34,11 +54,5 @@ public class Chef {
 
     @OneToMany(mappedBy = "chef")
     private List<Chat> chats = new ArrayList<>();
-
-    @Column(nullable = false)
-    private String chefDetail;
-    @Column(nullable = false)
-    private String chefImgUrl;
-
 
 }
