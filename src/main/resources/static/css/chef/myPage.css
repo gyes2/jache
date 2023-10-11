@@ -1,0 +1,72 @@
+#container {
+    margin-left: 10rem;
+    display: flex;
+    justify-content: space-between; 
+    text-align:center;
+    padding: 20px;
+}
+
+.chefInfo table {
+    border-collapse: collapse;
+    margin-bottom: 25px;
+    margin-left: 3.5rem;
+}
+
+.menu table {
+    border-collapse: collapse;
+    margin-bottom: 25px;
+    margin-left: 15rem;
+}
+
+.chefInfo table tr td, .loginForm {
+    border : solid 3px #e3e5e8;
+}
+
+ .chefInfo table tr, .menu table tr
+ {
+    text-align: center;
+ }
+
+ .chefInfo table #chefId
+ {
+    width: 300px;
+ }
+
+.chefInfo table img, .loginForm table img {
+    width: 90px;
+    height: 90px;
+}
+
+.loginForm {
+    text-align: center;
+}
+
+.loginForm table #loginFormId {
+    width: 200px;
+}
+
+aside {
+    float: right;
+    margin-right: 5rem;
+
+}
+
+.menu table td {
+    padding: 0.5rem;
+    width: 650px;
+    background-color: #ddf7df;
+}
+
+ #menuButton {
+    background-color:#79AC78;
+    color : #FFFFFF;
+    border: 0;
+    width: 600px;
+    height: 70px;
+    cursor: pointer;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
