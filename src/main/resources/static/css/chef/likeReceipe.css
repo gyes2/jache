@@ -1,0 +1,54 @@
+#container {
+    margin-left: 7rem;
+    display: flex;
+    justify-content: flex-start; 
+    text-align:center;
+    padding: 20px;
+}
+
+.menu {
+    margin-top: 1.5rem;
+}
+
+.menu table td {
+    padding: 0.5rem;
+    width: 150px;
+    background-color: #ddf7df;
+}
+
+h2 {
+    text-align: left;
+}
+
+.receipeList table img {
+    width: 90px;
+    height: 90px;
+}
+
+.receipeList table td {
+    padding: 0.5rem;
+    width: 750px;
+    background-color: #ddf7df;
+}
+
+.receipeList table #foodImg{
+    width: 90px;
+}
+
+.receipeList table #writer{
+    text-align: right;
+}
+
+ #menuButton {
+    background-color:#79AC78;
+    color : #FFFFFF;
+    border: 0;
+    width: 120px;
+    height: 40px;
+    cursor: pointer;
+}
+
+aside {
+    float: right;
+    margin-right: 5rem;
+}

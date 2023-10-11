@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../static/css/common/header.css">
+    <link rel="stylesheet" href="../../static/css/common/footer.css">
+    <link rel="stylesheet" href="../../static/css/chef/likeReceipe.css">
+    <title> 찜한 레시피 </title>
+</head>
+<body>
+    <header data-include="../common/header.html"></header>
+    <hr>
+   <div id = "container">
+    <aside>
+        <form class="menu">
+            <table>
+                <tr>
+                    <td> <button id="menuButton" type="button" onclick="myList()"> 내가 쓴 글 </button> </td>
+                </tr>
+                <tr>
+                    <td> <button id="menuButton" type="button" onclick="likeReceipe()"> 찜한 레시피 </button> </td>
+                </tr>
+                <tr>
+                    <td> <button id="menuButton" type="button" onclick="chat()"> 나의 정보 공유 </button> </td>
+                </tr>
+                <tr>
+                    <td> <button id="menuButton" type="button" onclick="infoEdit()"> 내 정보 수정 </button> </td>
+                </tr>
+            </table>
+        </form>
+    </aside>
+    <form class="receipeList">
+        <table>
+            <tr>
+                <h2>찜한 레시피</h2>
+            </tr>
+            <tr>
+                <td id = "foodImg" rowspan="2">  <img src="../common/login.jpg" alt="chef-img"> </td>
+                <td id = "title"> 
+                    <div>
+                        제목
+                    </div> <br><br>
+                    <div id = "writer">
+                        작성자
+                    </div>
+                 </td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td id = "foodImg" rowspan="2">  <img src="../common/login.jpg" alt="chef-img"> </td>
+                <td id = "title"> 
+                    <div>
+                        제목
+                    </div> <br><br>
+                    <div id = "writer">
+                        작성자
+                    </div>
+                 </td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td id = "foodImg" rowspan="2">  <img src="../common/login.jpg" alt="chef-img"> </td>
+                <td id = "title"> 
+                    <div>
+                        제목
+                    </div> <br><br>
+                    <div id = "writer">
+                        작성자
+                    </div>
+                 </td>
+            </tr>
+        </table>
+    </form>
+   </div>
+    <footer data-include="../common/footer.html"></footer>
+</body>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+    // header를 포함한 모든 요소에 대해 반복합니다.
+    const elementsToInclude = document.querySelectorAll('[data-include]');
+    elementsToInclude.forEach(element => {
+        const fileName = element.getAttribute('data-include');
+
+        // 파일을 가져와서 해당 요소에 삽입합니다.
+        fetch(fileName)
+            .then(response => response.text())
+            .then(data => {
+                element.innerHTML = data;
+            });
+    });
+});
+
+</script>
+<script src="../../static/js/chef/likeReceipe.js"></script>
+</html>
