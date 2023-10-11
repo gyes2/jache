@@ -1,0 +1,56 @@
+@font-face {
+    font-family: "hanaAir"; /* 사용하고 싶은 font-family명을 지정 */
+    src: url("/static/fonts/BMHANNAAir_otf.otf") format("opentype"); /* 폰트파일 불러오기 */
+  }
+@font-face {
+    font-family: "doHyeon"; /* 사용하고 싶은 font-family명을 지정 */
+    src: url("/static/fonts/BMDOHYEON_otf.otf") format("opentype"); /* 폰트파일 불러오기 */
+  }
+@font-face {
+    font-family: "namu"; /* 사용하고 싶은 font-family명을 지정 */
+    src: url("/static/fonts/NanumSquareB.otf") format("opentype"); /* 폰트파일 불러오기 */
+  }
+
+/* 공통 기능 관리 */ 
+a{
+    text-decoration: none;
+    color: black;
+}
+
+button{
+    cursor: pointer;
+    background-color: #79AC78;
+}
+
+
+/* Font 관리 */ 
+*{
+    font-family: "namu";
+}
+
+input{
+    font-family: sans-serif;
+    font-weight: bold;
+}
+
+button{
+    font-family: "doHyeon";
+    color: white;
+}
+
+#main-header p{
+    font-family: "doHyeon";
+}
+
+.nav_menu_item{
+    font-family: "doHyeon";
+}
+
+#main-aside-text-bar{
+    font-family: "hanaAir";
+}
+
+#main-aside-content button{
+    font-family: "doHyeon";
+}
+

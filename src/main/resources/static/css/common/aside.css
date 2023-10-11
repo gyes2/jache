@@ -1,0 +1,32 @@
+#main-aside-bg{
+    width: 20rem;
+    height: 15rem;
+    border-radius: 10px;
+    border: solid #e3e5e8;
+    box-shadow: 0.5px 0.5px 1px 0px black;
+    
+}
+
+#main-aside-content{
+    text-align: center;
+}
+
+#main-aside-content button{
+    margin-top: 3.5rem;
+    margin-bottom: 1rem;
+    width: 15rem;
+    height: 5rem;
+    background-color: #79AC78;
+    border: none;   
+    border-radius: 10px;
+    color: white;
+    font-size: 2.5rem;
+}
+
+#main-aside-text-bar{
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+
