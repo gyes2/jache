@@ -59,4 +59,9 @@ public class ChefServiceImpl implements ChefService{
     public ChefDto.SigninResponseDto signinChef(ChefDto.SigninRequestDto signin) {
         return null;
     }
+
+    @Override
+    public boolean sendEmail(String email) {
+        return false;
+    }
 }

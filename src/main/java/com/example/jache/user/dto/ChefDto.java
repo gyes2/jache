@@ -40,4 +40,11 @@ public class ChefDto {
     public static class SignUpResponseDto{
         private String chefName;
     }
+    @Getter
+    @AllArgsConstructor
+    @Data
+    @NoArgsConstructor
+    public static class SendEmailRequestDto{
+        private String email;
+    }
 }

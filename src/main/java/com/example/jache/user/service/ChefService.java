@@ -10,4 +10,6 @@ public interface ChefService {
 
     ChefDto.SigninResponseDto signinChef(ChefDto.SigninRequestDto signin);
 
+    boolean sendEmail(String email);
+
 }

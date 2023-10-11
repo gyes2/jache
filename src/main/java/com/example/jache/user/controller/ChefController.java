@@ -2,6 +2,7 @@ package com.example.jache.user.controller;
 
 import com.example.jache.constant.dto.ApiResponse;
 import com.example.jache.constant.enums.CustomResponseStatus;
+import com.example.jache.email.service.EmailService;
 import com.example.jache.user.dto.ChefDto;
 import com.example.jache.user.service.ChefService;
 import com.example.jache.user.service.ChefServiceImpl;
@@ -11,12 +12,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
 @Slf4j
 public class ChefController {
     private final ChefService chefService;
+    private final EmailService emailService;
     @PostMapping("/join")
     public String join(Model model, @RequestBody ChefDto.SignUpRequestDto signup){
         log.info(signup.toString());
@@ -37,6 +39,16 @@ public class ChefController {
 
         return null;
     }
+
+    @PostMapping("/email-verification")
+    public ApiResponse<String> sendEmail(@RequestBody ChefDto.SendEmailRequestDto send) throws Exception {
+        log.info(send.getEmail());
+        String code = emailService.sendVerificationCode(send.getEmail());
+        //model.addAttribute("verifacationCode",ApiResponse.createSuccess(code,CustomResponseStatus.SUCCESS));
+        log.info("이메일 인증 코드: "+code);
+        return ApiResponse.createSuccess(code,CustomResponseStatus.SUCCESS);
+    }
+
 
 
 }
