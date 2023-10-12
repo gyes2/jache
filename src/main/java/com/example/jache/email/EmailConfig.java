@@ -28,7 +28,7 @@ public class EmailConfig {
     private boolean fallback;
     @Value("${spring.mail.username}")
     private String id;
-    @Value("kvfqxthmxvsxpczq")
+    @Value("dmdbsnzpvlppzgho")
     private String password;
     @Value("${spring.mail.host}")
     private String host;
