@@ -8,10 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Controller
 public class StaticController {
-    @RequestMapping("/")
-    public String ttPage(){
-        return "common/tt";
-    }
 
     @RequestMapping("/main")
     public String indexPage(){
