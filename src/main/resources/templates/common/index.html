@@ -1,13 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
+<!--<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../static/css/common/style.css">
-    <link rel="stylesheet" href="../../static/css/common/header.css">
-    <link rel="stylesheet" href="../../static/css/common/nav.css">
-    <link rel="stylesheet" href="../../static/css/common/footer.css">
-    <link rel="stylesheet" href="../../static/css/common/aside.css">
+    <link rel="stylesheet" href="/static/css/common/style.css">
+    <link rel="stylesheet" href="/static/css/common/header.css">
+    <link rel="stylesheet" href="/static/css/common/nav.css">
+    <link rel="stylesheet" href="/static/css/common/footer.css">
+    <link rel="stylesheet" href="/static/css/common/aside.css">
 
     <style>
         #main-div{
@@ -18,17 +18,49 @@
         }
 
     </style>
-    <script src="../../static/js/adapter.js" defer></script>
+    <script src="/static/js/adapter.js" defer></script>
     <title>Document</title>
 </head>
 <body>
-    <header data-include="../common/header.html"></header>
-    <nav data-include="../common/nav.html"></nav>
+    <header data-include="/templates/common/header.html"></header>
+    <nav data-include="/templates/common/nav.html"></nav>
     <div id="main-div">
-        <main data-include="../common/main.html"></main>
-        <aside data-include="../common/main-aside.html"></aside>
+        <main data-include="/templates/common/main.html"></main>
+        <aside data-include="/templates/common/main-aside.html"></aside>
     </div>
-    
-    <footer data-include="../common/footer.html"></footer>
+
+    <footer data-include="/templates/common/footer.html"></footer>
+</body>
+</html>-->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{css/common/style.css}">
+    <link rel="stylesheet" th:href="@{css/common/header.css}">
+    <link rel="stylesheet" th:href="@{css/common/nav.css}">
+    <link rel="stylesheet" th:href="@{css/common/footer.css}">
+    <link rel="stylesheet" th:href="@{css/common/aside.css}">
+    <style>
+        #main-div{
+            display: flex;
+        }
+        #main-aside-login{
+            position: fixed;
+        }
+    </style>
+    <script th:src="@{js/adapter.js}" defer></script>
+    <title>Document</title>
+</head>
+<body>
+<header th:replace="common/header.html"></header>
+<nav th:replace="common/nav.html"></nav>
+<div id="main-div">
+    <main th:replace="common/main.html"></main>
+    <aside th:replace="common/main-aside.html"></aside>
+</div>
+<footer th:replace="common/footer.html"></footer>
 </body>
 </html>
