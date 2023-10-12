@@ -1,9 +1,10 @@
 package com.example.jache.receipe.entity;
 
+import com.example.jache.constant.entity.BaseEntity;
 import jakarta.persistence.*;
 
 @Entity
-public class ReceipeImgUrl {
+public class ReceipeImgUrl extends BaseEntity {
     @Id @GeneratedValue
     private Long receipeImgId;
 

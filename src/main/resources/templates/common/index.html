@@ -1,66 +1,39 @@
-<!--<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/css/common/style.css">
-    <link rel="stylesheet" href="/static/css/common/header.css">
-    <link rel="stylesheet" href="/static/css/common/nav.css">
-    <link rel="stylesheet" href="/static/css/common/footer.css">
-    <link rel="stylesheet" href="/static/css/common/aside.css">
-
-    <style>
-        #main-div{
-            display: flex;
-        }
-        #main-aside-login{
-            position: fixed;
-        }
-
-    </style>
-    <script src="/static/js/adapter.js" defer></script>
-    <title>Document</title>
-</head>
-<body>
-    <header data-include="/templates/common/header.html"></header>
-    <nav data-include="/templates/common/nav.html"></nav>
-    <div id="main-div">
-        <main data-include="/templates/common/main.html"></main>
-        <aside data-include="/templates/common/main-aside.html"></aside>
-    </div>
-
-    <footer data-include="/templates/common/footer.html"></footer>
-</body>
-</html>-->
-
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" th:href="@{css/common/style.css}">
-    <link rel="stylesheet" th:href="@{css/common/header.css}">
-    <link rel="stylesheet" th:href="@{css/common/nav.css}">
-    <link rel="stylesheet" th:href="@{css/common/footer.css}">
-    <link rel="stylesheet" th:href="@{css/common/aside.css}">
+    <link rel="stylesheet" th:href="@{/static/css/common/style.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/static/css/common/header.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/static/css/common/nav.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/static/css/common/footer.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/static/css/common/aside.css}" type="text/css">
     <style>
-        #main-div{
+        #main-div {
             display: flex;
+            padding-right: 100px; /* sidebarFragment의 너비에 따라 조절해야 합니다. */
         }
-        #main-aside-login{
+
+        #sidebarFragment {
             position: fixed;
+            right: 0;
+            width: 250px;  /* 필요에 따라 조절하세요. */
+            height: 100%;  /* 높이를 전체 화면으로 설정합니다. */
         }
+        /*#main-aside-login {*/
+        /*    position: fixed;*/
+        /*}*/
     </style>
-    <script th:src="@{js/adapter.js}" defer></script>
+    <script th:src="@{/static/js/adapter.js}"></script>
     <title>Document</title>
 </head>
 <body>
-<header th:replace="common/header.html"></header>
-<nav th:replace="common/nav.html"></nav>
+<div th:replace="~{/common/header :: headerFragment}"></div>
+<div th:replace="~{/common/nav :: navFragment}"></div>
 <div id="main-div">
-    <main th:replace="common/main.html"></main>
-    <aside th:replace="common/main-aside.html"></aside>
+    <div th:replace="~{/common/main :: mainFragment}"></div>
+    <div th:replace="~{/common/main-aside :: sidebarFragment}"></div>
 </div>
-<footer th:replace="common/footer.html"></footer>
+<div th:replace="~{/common/footer :: footerFragment}"></div>
 </body>
 </html>

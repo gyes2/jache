@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class ChatRoom {
+public class ChatRoom extends BaseEntity{
     @Id @GeneratedValue
     private Long chateRoomId;
 
@@ -22,6 +22,4 @@ public class ChatRoom {
 
     private Long chatChefId;
 
-    @Embedded
-    private BaseEntity baseEntity;
 }

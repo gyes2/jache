@@ -1,12 +1,14 @@
 package com.example.jache.receipe.entity;
 
+import com.example.jache.constant.entity.BaseEntity;
 import com.example.jache.user.entity.Chef;
 import jakarta.persistence.*;
 
 @Entity
-public class love {
+public class love extends BaseEntity {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
