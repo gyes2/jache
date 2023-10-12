@@ -1,34 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/css/common/header.css">
-    <link rel="stylesheet" href="/static/css/common/nav.css">
-    <link rel="stylesheet" href="/static/css/common/footer.css">
+    <link rel="stylesheet" th:href="@{/static/css/common/style.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/static/css/common/header.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/static/css/common/nav.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/static/css/common/footer.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/static/css/common/aside.css}" type="text/css">
+    <style>
+        #main-div {
+            display: flex;
+            padding-right: 100px; /* sidebarFragment의 너비에 따라 조절해야 합니다. */
+        }
+
+        #sidebarFragment {
+            position: fixed;
+            right: 0;
+            width: 250px;  /* 필요에 따라 조절하세요. */
+            height: 100%;  /* 높이를 전체 화면으로 설정합니다. */
+        }
+        /*#main-aside-login {*/
+        /*    position: fixed;*/
+        /*}*/
+    </style>
+    <script th:src="@{/static/js/adapter.js}"></script>
     <title>Document</title>
 </head>
 <body>
-    <header data-include="header.html"></header>
-    <nav data-include="nav.html"></nav>
-    <!-- <main><html:include page="main.html" /></main> -->
-    <footer data-include="footer.html"></footer>
+<div th:replace="~{/common/header :: headerFragment}"></div>
+<div th:replace="~{/common/nav :: navFragment}"></div>
+<div id="main-div">
+    <div th:replace="~{/common/main :: mainFragment}"></div>
+    <div th:replace="~{/common/main-aside :: sidebarFragment}"></div>
+</div>
+<div th:replace="~{/common/footer :: footerFragment}"></div>
 </body>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-    // header를 포함한 모든 요소에 대해 반복합니다.
-    const elementsToInclude = document.querySelectorAll('[data-include]');
-    elementsToInclude.forEach(element => {
-        const fileName = element.getAttribute('data-include');
-        
-        // 파일을 가져와서 해당 요소에 삽입합니다.
-        fetch(fileName)
-            .then(response => response.text())
-            .then(data => {
-                element.innerHTML = data;
-            });
-    });
-});
-
-</script>
 </html>
