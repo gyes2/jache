@@ -8,6 +8,7 @@ import com.example.jache.user.service.ChefService;
 import com.example.jache.user.service.ChefServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -28,12 +29,35 @@ public class ChefController {
         return "main";
     }
 
+    /**
+     * 아이디 중복 체크
+     */
     @GetMapping("/check/name/{chefname}")
-    public String checkdupChefName(Model model, @RequestParam String chefname){
+    public ResponseEntity<ApiResponse<Boolean>> checkdupChefName(@RequestParam String chefname){
         boolean bool = chefService.checkDuplicateCheckName(chefname);
-        model.addAttribute("checkChefName",ApiResponse.createSuccess(bool,CustomResponseStatus.SUCCESS));
-        return "/api/join";
+        if(!bool){
+            return ResponseEntity.ok().body(ApiResponse.createSuccess(false,CustomResponseStatus.DUPLICATE_CHEFNAME));
+        }
+        else {
+            return ResponseEntity.ok().body(ApiResponse.createSuccess(true,CustomResponseStatus.SUCCESS));
+        }
     }
+
+    /**
+     * 이메일 중복 체크
+     */
+    @GetMapping("/check/email/{email}")
+    public ResponseEntity<ApiResponse<Boolean>> checkDupEmail(@RequestParam(value = "email")String email){
+        boolean result = chefService.checkDuplicateEmail(email);
+        if(!result){
+            return ResponseEntity.ok().body(ApiResponse.createSuccess(false,CustomResponseStatus.DUPLICATE_EMAIL));
+        }
+        else{
+            return ResponseEntity.ok().body(ApiResponse.createSuccess(true,CustomResponseStatus.SUCCESS));
+        }
+    }
+
+
     @GetMapping("/signin")
     public String signin(Model model, @RequestBody ChefDto.SigninRequestDto signin){
 
@@ -41,12 +65,12 @@ public class ChefController {
     }
 
     @PostMapping("/email-verification")
-    public ApiResponse<String> sendEmail(@RequestBody ChefDto.SendEmailRequestDto send) throws Exception {
+    public ResponseEntity<ApiResponse<String>> sendEmail(@RequestBody ChefDto.SendEmailRequestDto send) throws Exception {
         log.info(send.getEmail());
         String code = emailService.sendVerificationCode(send.getEmail());
         //model.addAttribute("verifacationCode",ApiResponse.createSuccess(code,CustomResponseStatus.SUCCESS));
         log.info("이메일 인증 코드: "+code);
-        return ApiResponse.createSuccess(code,CustomResponseStatus.SUCCESS);
+        return ResponseEntity.ok().body(ApiResponse.createSuccess(code,CustomResponseStatus.SUCCESS));
     }
 
 

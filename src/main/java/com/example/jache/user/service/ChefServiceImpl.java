@@ -34,20 +34,23 @@ public class ChefServiceImpl implements ChefService{
 
     @Override
     public boolean checkDuplicateCheckName(String chefname) {
-
         if(chefRepository.findChefByChefName(chefname).isEmpty()){
-            //나중에 custom exception 만들 것
-            throw new CustomException(CustomResponseStatus.DUPLICATE_CHEFNAME);
+            //중복이면 false
+            return false;
         }
-        return true;
+        else {
+            return true;
+        }
     }
 
     @Override
     public boolean checkDuplicateEmail(String email) {
         if(chefRepository.findChefByEmail(email).isEmpty()){
-            throw new CustomException(CustomResponseStatus.DUPLICATE_EMAIL);
+            return true;
         }
-        return true;
+        else{
+            return false;
+        }
     }
 
     @Override
