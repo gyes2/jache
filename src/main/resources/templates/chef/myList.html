@@ -15,13 +15,39 @@
     <header data-include="../common/header.html"></header>
     <hr>
    <div id = "container">
-        <div>
-            <h2>내가 작성한 레시피</h2>
+        <div class = "leftMain">
+            <h2> 내가 작성한 레시피 </h2>
+            <div class="myReceipe">
+                <div class="receipeBox">
+                    <div>
+                        <p><img src="../../static/img/login.jpg" alt="chef-img"></p>
+                    </div>
+                    <div>
+                        <p> 글제목 </p>
+                        <p> 간략한 글 내용 </p>
+                        <p class = "writer"> 작성자 </p>
+                    </div>
+                </div>
+            
+                <div class="receipeBox">
+                    <div>
+                        <p><img src="../../static/img/login.jpg" alt="chef-img"></p>
+                    </div>
+                    <div>
+                        <p> 글제목 </p>
+                        <p> 간략한 글 내용 </p>
+                        <p class = "writer"> 작성자 </p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div>
-
+        <div class = "rightMain">
+            <aside class="login" data-include="../common/infoSide.html"></aside>
+            <div class = "btn">
+                <button onclick=""> 글쓰기 </button>
+                <button onclick="chat()"> 채팅 목록 </button>
+            </div>
         </div>
-        <aside class="login" data-include="../common/infoSide.html"></aside>
    </div>
     <footer data-include="../common/footer.html"></footer>
 </body>

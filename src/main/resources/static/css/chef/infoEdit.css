@@ -1,16 +1,16 @@
 #container {
-    margin-left: 7rem;
+    margin-left: 11rem;
     display: flex;
-    justify-content: flex-start; 
-    text-align:center;
+    text-align: center;
     padding: 20px;
     align-items: center;
 }
 
 #container .infoEdit {
     margin-left: 10rem;
-    width: 750px;
+    width: 650px;
 }
+
 
 .info {
     display: flex;
@@ -46,15 +46,26 @@
 }
 
 input {
-    width: 450px;
+    width: 350px;
     margin-bottom: 1rem;
-    margin-left : 1rem;
+    margin-left: 1rem;
 }
 
 textarea {
-    width: 450px;
+    width: 350px;
     height: 150px;
-    margin-left : 5px;
-    margin-right :1rem;
-    margin-bottom: 2rem;
+    margin-right: 1rem;
+    resize: none;
+}
+
+.editBtn {
+    text-align: right;
+    margin-right: 1rem;
+    margin-top: 1rem;
+}
+
+.editBtn button {
+    width: 5rem;
+    height: 2rem;
+    border: 0;
 }
