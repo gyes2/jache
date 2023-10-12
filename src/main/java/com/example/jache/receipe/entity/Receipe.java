@@ -9,8 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Receipe {
-    @Id @GeneratedValue
+public class Receipe extends BaseEntity{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long receipeId;
     private String theme;
     private String title;
@@ -31,6 +32,4 @@ public class Receipe {
     @OneToMany(mappedBy = "receipe")
     private List<ReceipeImgUrl> receipeImgUrls = new ArrayList<>();
 
-    @Embedded
-    private BaseEntity baseEntity;
 }
