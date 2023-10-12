@@ -1,0 +1,13 @@
+#container {
+    margin-left: 10rem;
+    display: flex;
+    justify-content: space-between; 
+    text-align:center;
+    align-items: flex-start;
+    padding: 10px;
+}
+
+aside img{ 
+    width: 90px;
+    height: 90px;
+}

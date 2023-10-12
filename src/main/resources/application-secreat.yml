@@ -4,3 +4,49 @@ spring:
     url: jdbc:oracle:thin:@localhost:1521:orcl
     username: c##admin
     password: 1234
+
+
+  mvc:
+    static-path-pattern: /static/**
+  web:
+    resources:
+      static-locations:
+        - classpath:/static/css/
+        - classpath:/static/fonts/
+        - classpath:/static/img/
+        - classpath:/static/js/
+
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    #수정사항을 바로 반영하기 위해 false 로 설정한다.
+    cache: false
+    check-template-location: true
+    enabled: true
+
+
+  mail:
+    properties:
+      mail:
+        smtp:
+          auth: true
+          timeout: 5000
+          starttls:
+            required: true
+            enable: true
+          socketFactory:
+            class: javax.net.ssl.SSLSocketFactory
+            fallback: false
+            port: 587
+          ssl:
+            enable: true
+            trust: smtp.gmail.com
+    host: smtp.gmail.com
+    username: jache2964@gmail.com
+    password: dmdbsnzpvlppzgho
+    port: 587
+    #구글계정 비밀번호: jache1234
+
+  devtools:
+    livereload:
+      enabled: true
