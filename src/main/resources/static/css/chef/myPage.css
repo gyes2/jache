@@ -3,58 +3,56 @@
     display: flex;
     justify-content: space-between; 
     text-align:center;
-    padding: 20px;
+    align-items: flex-start;
+    padding: 10px;
 }
 
-.chefInfo table {
-    border-collapse: collapse;
-    margin-bottom: 25px;
-    margin-left: 3.5rem;
+.chefInfo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.menu table {
-    border-collapse: collapse;
-    margin-bottom: 25px;
-    margin-left: 15rem;
+.chefInfo #chefId {
+    width: 20rem;
+    height: 10rem;
+    display: grid;
+    align-items: center;
+    align-content: center;
 }
 
-.chefInfo table tr td, .loginForm {
-    border : solid 3px #e3e5e8;
-}
-
- .chefInfo table tr, .menu table tr
- {
-    text-align: center;
- }
-
- .chefInfo table #chefId
- {
-    width: 300px;
- }
-
-.chefInfo table img, .loginForm table img {
+.chefInfo img, aside img {
     width: 90px;
     height: 90px;
-}
-
-.loginForm {
-    text-align: center;
-}
-
-.loginForm table #loginFormId {
-    width: 200px;
 }
 
 aside {
     float: right;
     margin-right: 5rem;
-
 }
 
-.menu table td {
+.chefInfo{
+    margin-left: 20rem;
+}
+
+.menu{
+    display: flex;
     padding: 0.5rem;
     width: 650px;
     background-color: #ddf7df;
+    margin-top:-4rem;
+    margin-left: 20rem;
+    margin-bottom: 2rem;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.menu div {
+    align-items: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
  #menuButton {
@@ -64,9 +62,4 @@ aside {
     width: 600px;
     height: 70px;
     cursor: pointer;
-}
-
-a {
-    text-decoration: none;
-    color: black;
 }

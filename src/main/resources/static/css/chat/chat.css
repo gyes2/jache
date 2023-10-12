@@ -1,0 +1,41 @@
+#container {
+    margin-left: 7rem;
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+aside img {
+    width: 90px;
+    height: 90px;
+}
+
+h2 {
+    text-align: left;
+}
+
+.chatList {
+    border : solid 3px #e3e5e8;
+    border-collapse: collapse;
+    border-spacing: 0;
+    padding: 1rem;
+    width: 450px;
+    background-color: #79AC78;
+    text-align: left;
+    color: black;
+    font-weight: bold;
+}
+
+.chatList div {
+    background-color:#ddf7df;
+    color : black;
+    border: 0;
+    width: 450px;
+    height: 110px;
+}
+
+.chatList div a {
+    margin-top: 1px;
+    font-size: 20px;
+    text-align: right;
+}

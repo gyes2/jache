@@ -1,0 +1,60 @@
+#container {
+    margin-left: 7rem;
+    display: flex;
+    justify-content: flex-start; 
+    text-align:center;
+    padding: 20px;
+    align-items: center;
+}
+
+#container .infoEdit {
+    margin-left: 10rem;
+    width: 750px;
+}
+
+.info {
+    display: flex;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    align-content: space-around;
+}
+
+.info img {
+    width: 90px;
+    height: 90px;
+}
+
+.chefImg { 
+    margin-left: 2rem;
+    margin-right: 1rem;
+    margin-bottom : 5rem;
+}
+
+.info .box {
+    display: grid;
+    justify-items: stretch;
+}
+
+.chefInfo {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.chefInfo label {
+    margin-left: 1rem;
+    margin-right: 4rem;
+}
+
+input {
+    width: 450px;
+    margin-bottom: 1rem;
+    margin-left : 1rem;
+}
+
+textarea {
+    width: 450px;
+    height: 150px;
+    margin-left : 5px;
+    margin-right :1rem;
+    margin-bottom: 2rem;
+}

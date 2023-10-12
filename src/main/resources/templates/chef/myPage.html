@@ -1,11 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../static/css/common/header.css">
     <link rel="stylesheet" href="../../static/css/common/footer.css">
     <link rel="stylesheet" href="../../static/css/chef/myPage.css">
+    <link rel="stylesheet" href="../../static/css/common/style.css">
+    <link rel="stylesheet" href="../../static/css/common/aside.css">
     <title>마이페이지</title>
 </head>
 <body>
@@ -14,50 +17,31 @@
     <!-- <main><html:include page="main.html" /></main> -->
     <div id = "container">
         <form class = "chefInfo">
-            <table>
-                <tr>
-                    <td rowspan="2">  <img src="../common/login.jpg" alt="chef-img"> </td>
-                    <td id = "chefId"> 사용자 아이디 </td>
-                </tr>
-                <tr>
-                    <td id = "myInfo"> 내 소개 </td>
-                </tr>
-            </table>
+            <div>
+                <p><img src="../../static/img/login.jpg" alt="chef-img"></p>
+            </div>
+            <div id = "chefId">
+                <p> 사용자 아이디 </p>
+                <p> 내 소개 </p>
+            </div>
         </form>
        
-        <aside class="login">
-            <form class = "loginForm">
-                <table>
-                    <tr>
-                        <td><img src="../common/login.jpg" alt="chef-img"></td>
-                        <td id = "loginFormId"> 사용자 아이디 </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2"> <a href="../chef/myList.html">내 글  </a>
-                                        | <a href="../chef/myPage.html">마이페이지 </a>
-                                        | <a href="#">로그아웃 </a>
-                        </td>
-                    </tr>
-                </table>
-            </form>
-        </aside>
+        <aside class="login" data-include="../common/infoSide.html"></aside>
     </div>
     <form class="menu">
-        <table>
-            <tr>
-                <td> <button id="menuButton" type="button" onclick="myList()"> 내가 쓴 글 </button> </td>
-            </tr>
-            <tr>
-                <td> <button id="menuButton" type="button" onclick="likeReceipe()"> 찜한 레시피 </button> </td>
-            </tr>
-            <tr>
-                <td> <button id="menuButton" type="button" onclick="chat()"> 나의 정보 공유 </button> </td>
-            </tr>
-            <tr>
-                <td> <button id="menuButton" type="button" onclick="infoEdit()"> 내 정보 수정 </button> </td>
-            </tr>
-        </table>
-    </form>
+        <div>
+             <button id="menuButton" type="button" onclick="myList()"> 내가 쓴 글 </button> 
+        </div><br>
+        <div> 
+            <button id="menuButton" type="button" onclick="likeReceipe()"> 찜한 레시피 </button>
+        </div><br>
+        <div>
+            <button id="menuButton" type="button" onclick="chat()"> 나의 정보 공유 </button> 
+        </div><br>
+       <div>
+            <button id="menuButton" type="button" onclick="infoEdit()"> 내 정보 수정 </button>
+       </div><br>
+    </form> 
     <footer data-include="../common/footer.html"></footer>
 </body>
 <script>

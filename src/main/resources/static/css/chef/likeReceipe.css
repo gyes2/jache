@@ -1,19 +1,9 @@
-#container {
+ #container {
     margin-left: 7rem;
     display: flex;
     justify-content: flex-start; 
     text-align:center;
     padding: 20px;
-}
-
-.menu {
-    margin-top: 1.5rem;
-}
-
-.menu table td {
-    padding: 0.5rem;
-    width: 150px;
-    background-color: #ddf7df;
 }
 
 h2 {
@@ -37,15 +27,6 @@ h2 {
 
 .receipeList table #writer{
     text-align: right;
-}
-
- #menuButton {
-    background-color:#79AC78;
-    color : #FFFFFF;
-    border: 0;
-    width: 120px;
-    height: 40px;
-    cursor: pointer;
 }
 
 aside {
