@@ -4,13 +4,11 @@ import lombok.*;
 
 
 public class ChefDto {
-    public class ChefRequestDto{
 
-    }
     @Data
     @AllArgsConstructor
     @NoArgsConstructor
-    public class SignUpRequestDto{
+    public static class SignUpRequestDto{
         private String chefName;
         private String password;
         private String phone;
@@ -20,31 +18,40 @@ public class ChefDto {
     @Data
     @AllArgsConstructor
     @NoArgsConstructor
-    public class SigninRequestDto{
+    @Builder
+    public static class SignUpResponseDto{
+        private String chefName;
+    }
+
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class SigninRequestDto{
         private String chefName;
         private String password;
     }
     @Data
     @AllArgsConstructor
     @NoArgsConstructor
-    public class SigninResponseDto{
-        private String chefName;
-        private String chefImgUrl;
-        private String chefDetail;
+    @Builder
+    public static class SigninResponseDto{
+        private String token;
+        private String refresh;
     }
 
-    @Getter
-    @AllArgsConstructor
-    @NoArgsConstructor
+
     @Builder
-    public static class SignUpResponseDto{
-        private String chefName;
-    }
-    @Getter
     @AllArgsConstructor
     @Data
     @NoArgsConstructor
-    public static class SendEmailRequestDto{
-        private String email;
+    public static class GetChefInfoResDto{
+        private String chefName;
+        private String chefImgUrl;
+    }
+
+    @Builder
+    public static class RefreshResDto{
+        private String newAccessToken;
+        private String newRefreshToken;
     }
 }

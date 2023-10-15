@@ -1,15 +1,19 @@
 package com.example.jache.user.service;
 
 import com.example.jache.user.dto.ChefDto;
+import com.example.jache.user.entity.Chef;
 
 public interface ChefService {
-    ChefDto.SignUpResponseDto saveChef(ChefDto.SignUpRequestDto signup);
+
+    ChefDto.SignUpResponseDto register(ChefDto.SignUpRequestDto signup);
+
     boolean checkDuplicateCheckName(String chefname);
     boolean checkDuplicateEmail(String email);
     boolean checkAuthenticateNumber(String authenticateCode);
 
-    ChefDto.SigninResponseDto signinChef(ChefDto.SigninRequestDto signin);
+    ChefDto.SigninResponseDto login(ChefDto.SigninRequestDto signinRequestDto);
 
-    boolean sendEmail(String email);
+    ChefDto.GetChefInfoResDto getInfo(String chefName);
 
+    ChefDto.RefreshResDto getRefresh(String refresh);
 }
