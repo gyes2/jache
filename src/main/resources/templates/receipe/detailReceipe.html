@@ -1,26 +1,25 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../static/css/common/header.css">
-    <link rel="stylesheet" href="../../static/css/common/footer.css">
-    <link rel="stylesheet" href="../../static/css/common/nav.css">
-    <link rel="stylesheet" href="../../static/css/common/style.css">
-    <link rel="stylesheet" href="../../static/css/receipe/detailReceipe.css">
+    <link rel="stylesheet" th:href="@{/static/css/common/header.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/static/css/common/footer.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/static/css/common/style.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/static/css/common/nav.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/static/css/receipe/detailReceipe.css}" type="text/css">
     <title> 레시피 상세 페이지 </title>
 </head>
 <body>
-    <header data-include="../common/header.html"></header>
-    <nav data-include="../common/nav.html"></nav>
+    <div th:replace="~{/common/header :: headerFragment}"></div>
+    <div th:replace="~{/common/nav :: navFragment}"></div>
    <div id = "container">
         <form class = "receipe">
             <div class = "mainTop">
                 <div class = "thumbnail">
                     <label> 대표사진 </label>
                     <div class = "thumImg">
-                        <img src="../../static/img/login.jpg" alt="chef-img">
+                        <img th:src="@{/static/img/login.jpg}" alt="chef-img">
                     </div>
                 </div>
                 <div class = "title-cate">
@@ -39,8 +38,8 @@
                         <input type="text" name="카테고리" disabled>
                     </div>
                     <p class = "like" >
-                        <img class="heart" src="../../static/img/like_empty.png" alt="heart">
-                        <img class="heart-liked" src="../../static/img/like_click.png" alt="heart-liked" hidden>
+                        <img class="heart" th:src="@{/static/img/like_empty.jpg}" alt="heart">
+                        <img class="heart-liked" th:src="@{/static/img/like_click.jpg}" alt="heart-liked" hidden>
                     </p>
               </div>
            </div>
@@ -54,12 +53,12 @@
             </div><br>
             <div class = "file">
                 <label> 사진 & 동영상 </label><br>
-                <img src="../../static/img/login.jpg" alt="chef-img"> <br>
+                <img th:src="@{/static/img/login.jpg}" alt="chef-img"> <br>
             </div>
         </form>
    </div>
-   <footer data-include="../common/footer.html"></footer>
+   <div th:replace="~{/common/footer :: footerFragment}"></div>
 </body>
-<script src = "../../static/js/adapter.js"></script>
-<script src="../../static/js/receipe/detailReceipe.js"></script>
+<script th:src="@{/static/js/adapter.js}"></script>
+<script th:src="@{/static/js/receipe/detailReceipe.js}"></script>
 </html>

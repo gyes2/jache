@@ -1,68 +1,68 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../static/css/common/header.css">
-    <link rel="stylesheet" href="../../static/css/common/footer.css">
-    <link rel="stylesheet" href="../../static/css/common/sideMenu.css">
-    <link rel="stylesheet" href="../../static/css/chef/likeReceipe.css">
-    <link rel="stylesheet" href="../../static/css/common/style.css">
+    <link rel="stylesheet" th:href="@{/static/css/common/header.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/static/css/common/footer.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/static/css/common/sideMenu.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/static/css/chef/likereceipe.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/static/css/common/style.css}" type="text/css">
     <title> 찜한 레시피 </title>
 </head>
 <body>
-    <header data-include="../common/header.html"></header>
+    <div th:replace="~{/common/header :: headerFragment}"></div>
     <hr>
    <div id = "container">
-    <aside data-include="../common/sideMenu.html"></aside>
-    <form class="receipeList">
-        <table>
-            <tr>
-                <h2>찜한 레시피</h2>
-            </tr>
-            <tr>
-                <td id = "foodImg" rowspan="2">  <img src="../../static/img/login.jpg" alt="chef-img"> </td>
-                <td id = "title"> 
-                    <div>
-                        제목
-                    </div> <br><br>
-                    <div id = "writer">
-                        작성자
-                    </div>
-                 </td>
-            </tr>
-        </table>
-        <table>
-            <tr>
-                <td id = "foodImg" rowspan="2">  <img src="../../static/img/login.jpg"  alt="chef-img"> </td>
-                <td id = "title"> 
-                    <div>
-                        제목
-                    </div> <br><br>
-                    <div id = "writer">
-                        작성자
-                    </div>
-                 </td>
-            </tr>
-        </table>
-        <table>
-            <tr>
-                <td id = "foodImg" rowspan="2">  <img src="../../static/img/login.jpg"  alt="chef-img"> </td>
-                <td id = "title"> 
-                    <div>
-                        제목
-                    </div> <br><br>
-                    <div id = "writer">
-                        작성자
-                    </div>
-                 </td>
-            </tr>
-        </table>
-    </form>
+       <div th:replace="~{/common/sideMenu :: sidebarFragment}"></div>
+       <form class="receipeList">
+            <table>
+                <tr>
+                    <h2>찜한 레시피</h2>
+                </tr>
+                <tr>
+                    <td id = "foodImg" rowspan="2">  <img th:src="@{/static/img/login.jpg}"alt="chef-img"> </td>
+                    <td id = "title">
+                        <div>
+                            제목
+                        </div> <br><br>
+                        <div id = "writer">
+                            작성자
+                        </div>
+                     </td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <td id = "foodImg" rowspan="2">  <img th:src="@{/static/img/login.jpg}"  alt="chef-img"> </td>
+                    <td id = "title">
+                        <div>
+                            제목
+                        </div> <br><br>
+                        <div id = "writer">
+                            작성자
+                        </div>
+                     </td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <td id = "foodImg" rowspan="2">  <img th:src="@{/static/img/login.jpg}"  alt="chef-img"> </td>
+                    <td id = "title">
+                        <div>
+                            제목
+                        </div> <br><br>
+                        <div id = "writer">
+                            작성자
+                        </div>
+                     </td>
+                </tr>
+            </table>
+        </form>
    </div>
-   <footer data-include="../common/footer.html"></footer>
+    <div th:replace="~{/common/footer :: footerFragment}"></div>
 </body>
-<script src = "../../static/js/adapter.js"></script>
-<script src="../../static/js/chef/likeReceipe.js"></script>
+<script th:src="@{/static/js/adapter.js}"></script>
+<script th:src="@{/static/js/chef/likereceipe.js}"></script>
+<!-- <script type="text/javascript" th:src="@{/js/chef/likereceipe.js}"></script> -->
 </html>

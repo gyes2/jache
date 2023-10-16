@@ -6,12 +6,17 @@ import com.example.jache.user.dto.ChefDto;
 import com.example.jache.user.entity.Chef;
 import com.example.jache.user.repository.ChefRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 @Service
-@AllArgsConstructor
+//@AllArgsConstructor
 public class ChefServiceImpl implements ChefService{
-    private final ChefRepository chefRepository;
+    //private final ChefRepository chefRepository;
+    ChefRepository chefRepository;
 
     /**
      * 회원가입

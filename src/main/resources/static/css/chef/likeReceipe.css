@@ -1,7 +1,6 @@
  #container {
-    margin-left: 11rem;
     display: flex;
-    justify-content: flex-start; 
+    justify-content: space-evenly;
     text-align:center;
     padding: 20px;
 }

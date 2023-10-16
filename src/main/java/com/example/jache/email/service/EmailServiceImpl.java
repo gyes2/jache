@@ -8,8 +8,10 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.Random;
@@ -17,10 +19,11 @@ import java.util.Random;
 @Service
 @RequiredArgsConstructor
 @Transactional
+
 public class EmailServiceImpl implements EmailService{
     private final Logger LOGGER = LoggerFactory.getLogger(ChefServiceImpl.class);
 
-    @Autowired
+    @Autowired(required=false)
     JavaMailSender emailSender;
 
     public static final String verifyCode = createKey();

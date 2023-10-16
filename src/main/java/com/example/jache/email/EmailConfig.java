@@ -18,19 +18,20 @@ public class EmailConfig {
     private int port;
     @Value("587")
     private int socketPort;
-    @Value("${spring.mail.properties.mail.smtp.auth}")
+    //@Value("${spring.mail.properties.mail.smtp.auth}")
+    @Value("true")
     private boolean auth;
     @Value("true")
     private boolean starttls;
-    @Value("${spring.mail.properties.mail.smtp.starttls.required}")
+    @Value("true")
     private boolean startlls_required;
-    @Value("${spring.mail.properties.mail.smtp.socketFactory.fallback}")
+    @Value("false")
     private boolean fallback;
-    @Value("${spring.mail.username}")
+    @Value("jache2964@gmail.com")
     private String id;
     @Value("dmdbsnzpvlppzgho")
     private String password;
-    @Value("${spring.mail.host}")
+    @Value("smtp.gmail.com")
     private String host;
 
     @Bean

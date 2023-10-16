@@ -1,43 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../static/css/common/header.css">
-    <link rel="stylesheet" href="../../static/css/common/footer.css">
-    <link rel="stylesheet" href="../../static/css/common/aside.css">
-    <link rel="stylesheet" href="../../static/css/common/style.css">
-    <link rel="stylesheet" href="../../static/css/common/sideMenu.css">
-    <link rel="stylesheet" href="../../static/css/chat/chat.css">
+    <link rel="stylesheet" th:href="@{/static/css/common/header.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/static/css/common/footer.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/static/css/common/style.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/static/css/common/aside.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/static/css/common/sideMenu.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/static/css/chat/chat.css}" type="text/css">
     <title> 나의 채팅 </title>
 </head>
 <body>
-    <header data-include="../common/header.html"></header>
+    <div th:replace="~{/common/header :: headerFragment}"></div>
     <hr>
    <div id = "container">
-        <aside data-include="../common/sideMenu.html"></aside>
+        <div th:replace="~{/common/sideMenu :: sidebarFragment}"></div>
         <div>
             <h2> 나의 채팅 </h2>
             <form class="chatList">
                 <!-- 타임리프 th:each 로 바꾸기  -->
                 <div>
                     <p><h2> 채팅 상대 아이디 </h2></p>
-                    <a href="../chat/chatPage.html"> <p> > </p> </a> 
+                    <a th:href="@{/chat/chatPage}"> <span> > </span> </a> 
                     <p> 마지막 채팅 아이디 </p>
                 </div>
                 <br>
                 <div>
                     <p><h2> 채팅 상대 아이디 </h2></p>
-                    <a href="../chat/chatPage.html"> <p> > </p> </a> 
+                    <a th:href="@{/chat/chatPage}"> <span> > </span> </a> 
                     <p> 마지막 채팅 아이디 </p>
                 </div>
                 <br>
             </form>
         </div>
-        <aside id="infoSide" data-include="../common/infoSide.html"></aside>
+        <div class = "aside">
+            <div th:replace="~{/common/infoSide :: sidebarFragment}"></div>
+        </div>
    </div>
-    <footer data-include="../common/footer.html"></footer>
+   <div th:replace="~{/common/footer :: footerFragment}"></div>
 </body>
-<script src = "../../static/js/adapter.js"></script>
-<script src="../../static/js/chat/chat.js"></script>
+<script th:src="@{/static/js/adapter.js}"></script>
+<!-- <script src="../../static/js/chat/chat.js"></script> -->
 </html>

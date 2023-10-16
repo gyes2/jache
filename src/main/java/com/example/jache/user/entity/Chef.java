@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.context.annotation.Bean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,15 +45,19 @@ public class Chef extends BaseEntity {
     private String chefImgUrl;
 
     @OneToMany(mappedBy = "chef")
-    private List<ChatRoom> chatRooms = new ArrayList<>();
+    //private List<ChatRoom> chatRooms = new ArrayList<>();
+    private final List<ChatRoom> chatRooms = new ArrayList<>();
 
     @OneToMany(mappedBy = "chef")
-    private List<love> loves = new ArrayList<>();
+    //private List<love> loves = new ArrayList<>();
+    private final List<love> loves = new ArrayList<>();
 
     @OneToMany(mappedBy = "chef")
-    private List<Receipe> receipes = new ArrayList<>();
+    //private List<Receipe> receipes = new ArrayList<>();
+    private final List<Receipe> receipes = new ArrayList<>();
 
     @OneToMany(mappedBy = "chef")
-    private List<Chat> chats = new ArrayList<>();
+    //private List<Chat> chats = new ArrayList<>();
+    private final List<Chat> chats = new ArrayList<>();
 
 }

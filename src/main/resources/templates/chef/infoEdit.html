@@ -1,27 +1,27 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../static/css/common/header.css">
-    <link rel="stylesheet" href="../../static/css/common/footer.css">
-    <link rel="stylesheet" href="../../static/css/common/style.css">
-    <link rel="stylesheet" href="../../static/css/common/aside.css">
-    <link rel="stylesheet" href="../../static/css/common/sideMenu.css">
-    <link rel="stylesheet" href="../../static/css/chef/infoEdit.css">
+    <link rel="stylesheet" th:href="@{/static/css/common/header.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/static/css/common/footer.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/static/css/common/style.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/static/css/common/aside.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/static/css/common/sideMenu.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/static/css/chef/infoEdit.css}" type="text/css">
     <title> 수정페이지 </title>
 </head>
 <body>
-    <header data-include="../common/header.html"></header>
+    <div th:replace="~{/common/header :: headerFragment}"></div>
     <hr>
    <div id = "container">
-        <aside data-include="../common/sideMenu.html"></aside>
+        <div th:replace="~{/common/sideMenu :: sidebarFragment}"></div>
         <div class = "infoEdit">
             <h2>나의 정보</h2>
             <hr>
             <form class="info">
                 <div class = "chefImg">
-                    <p><img src="../../static/img/login.jpg" alt="chef-img"></p>
+                    <p><img th:src="@{/static/img/login.jpg}" alt="chef-img"></p>
                     <p><a href="#">수정</a> | <a href="#">삭제</a></p>
                 </div>
                 <div class = "box">
@@ -42,8 +42,8 @@
             </form>
         </div>
    </div>
-    <footer data-include="../common/footer.html"></footer>
+   <div th:replace="~{/common/footer :: footerFragment}"></div>
 </body>
-<script src = "../../static/js/adapter.js"></script>
-<script src="../../static/js/chef/infoEdit.js"></script>
+<script th:src="@{/static/js/adapter.js}"></script>
+<script th:src="@{/static/js/chef/infoEdit.js}"></script>
 </html>

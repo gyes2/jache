@@ -7,11 +7,11 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 
 //@SpringBootApplication(exclude = SecurityAutoConfiguration.class)
 @SpringBootApplication(exclude={DataSourceAutoConfiguration.class})
+//@SpringBootApplication
 public class JacheApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(JacheApplication.class, args);
-
 	}
 
 }
