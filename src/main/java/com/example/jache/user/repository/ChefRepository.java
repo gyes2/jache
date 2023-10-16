@@ -8,8 +8,12 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface ChefRepository extends JpaRepository<Chef, Long> {
+public interface ChefRepository extends JpaRepository<Chef, Long>, ChefRepositoryCustom {
 
-    Optional<Chef> findChefByChefName(String chefName);
+    Optional<Chef> findByChefName(String chefName);
     Optional<Chef> findChefByEmail(String email);
+
+    Optional<Chef> findByEmail(String email);
+
+    Optional<Chef> findByRefreshToken(String token);
 }
