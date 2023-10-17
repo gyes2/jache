@@ -2,6 +2,8 @@ package com.example.jache.user.service;
 
 import com.example.jache.constant.enums.CustomResponseStatus;
 import com.example.jache.constant.exception.CustomException;
+import com.example.jache.receipe.dto.ImgUploadDto;
+import com.example.jache.s3.service.S3Service;
 import com.example.jache.security.jwtTokens.JwtTokenUtil;
 import com.example.jache.user.dto.ChefDto;
 import com.example.jache.user.entity.Chef;
@@ -9,7 +11,7 @@ import com.example.jache.user.entity.enums.Role;
 import com.example.jache.user.repository.ChefRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +23,7 @@ public class ChefServiceImpl implements ChefService{
     private final ChefRepository chefRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenUtil jwtTokenUtil;
-
+    private final S3Service s3Service;
 
     /**
      * 회원가입
@@ -35,6 +37,7 @@ public class ChefServiceImpl implements ChefService{
                 .phone(signup.getPhone())
                 .email(signup.getEmail())
                 .role(Role.ROLE_USER)
+                .chefImgUrl("https://3rdprojectbucket.s3.ap-northeast-2.amazonaws.com/initial/userInitial.jpg")
                 .build();
         chefRepository.save(chef);
 
@@ -93,6 +96,14 @@ public class ChefServiceImpl implements ChefService{
     }
 
     @Override
+    public void logout() {
+        Chef chef = (Chef) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if(chef.getRefreshToken() != null){
+            chef.modifyRefreshToken(null);
+        }
+    }
+
+    @Override
     public ChefDto.GetChefInfoResDto getInfo(String chefName) {
         Chef chef = chefRepository.findByChefName(chefName).orElseThrow(
                 ()->new CustomException(CustomResponseStatus.USER_NOT_FOUND)
@@ -101,6 +112,7 @@ public class ChefServiceImpl implements ChefService{
         return ChefDto.GetChefInfoResDto.builder()
                 .chefName(chef.getChefName())
                 .chefImgUrl(chef.getChefImgUrl())
+                .chefDetial(chef.getChefDetail())
                 .build();
     }
 
@@ -125,6 +137,64 @@ public class ChefServiceImpl implements ChefService{
                     .newRefreshToken(newRefreshToken)
                     .build();
         }
+    }
+
+    @Override
+    public ChefDto.UpdateImgResDto updateMyImage(ImgUploadDto receipeImgUploadDto, String chefName) {
+        Chef chef = chefRepository.findByChefName(chefName).orElseThrow(
+                () -> new CustomException(CustomResponseStatus.USER_NOT_FOUND)
+        );
+        s3Service.deleteFile(chef.getChefImgUrl());
+        String updateImgUrl = s3Service.uploadFile(receipeImgUploadDto.getMultipartFile(), "chef");
+        chef.modifyChefImgUrl(updateImgUrl);
+        return ChefDto.UpdateImgResDto.builder()
+                .updateImgUrl(updateImgUrl)
+                .build();
+    }
+
+    @Override
+    public ChefDto.DeleteImgResDto deleteMyImage(ChefDto.DeleteImgReqDto deleteImgReqDto, String chefName) {
+        s3Service.deleteFile(deleteImgReqDto.getChefImgUrl());
+        Chef chef = chefRepository.findByChefName(chefName).orElseThrow(
+                () -> new CustomException(CustomResponseStatus.USER_NOT_FOUND)
+        );
+        chef.modifyChefImgUrl("https://3rdprojectbucket.s3.ap-northeast-2.amazonaws.com/initial/userInitial.jpg");
+        return ChefDto.DeleteImgResDto.builder()
+                .chefImgUrl(chef.getChefImgUrl())
+                .build();
+    }
+
+    @Override
+    public ChefDto.UpdateChefDetailResDto updateMyDetail(ChefDto.UpdateChefDetailReqDto req, String chefName) {
+        Chef chef = chefRepository.findByChefName(chefName).orElseThrow(
+                () -> new CustomException(CustomResponseStatus.USER_NOT_FOUND)
+        );
+        chef.modifyChefDetail(req.getChefDetails());
+        return ChefDto.UpdateChefDetailResDto.builder()
+                .chefDetails(chef.getChefDetail())
+                .build();
+    }
+
+
+    /**
+     * 상대방 페이지 관련
+     */
+    @Override
+    public boolean isOtherProfile(String otherName, String chefName) {
+        if(otherName.equals(chefName)){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+
+    @Override
+    public ChefDto.GetChefInfoResDto getOtherProfile(String otherName) {
+        Chef chef = chefRepository.findByChefName(otherName).orElseThrow(
+                () -> new CustomException(CustomResponseStatus.USER_NOT_FOUND)
+        );
+        return new ChefDto.GetChefInfoResDto(chef);
     }
 
 

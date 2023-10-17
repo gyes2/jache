@@ -35,7 +35,7 @@ public class ApiResponse<T> {
         return new ApiResponse<>(true, status.getCode(),status.getMessage(), data);
     }
 
-    public static ApiResponse<?> createSuccessWithNoContent(CustomResponseStatus status) {
+    public static ApiResponse<String> createSuccessWithNoContent(CustomResponseStatus status) {
         return new ApiResponse<>(true, status.getCode(),status.getMessage(), null);
     }
 

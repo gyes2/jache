@@ -24,6 +24,7 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
         if (exception == null) {
             log.info("토큰 없는 경우");
             response.sendRedirect("/exception/entrypoint/nullToken");
+            return;
         }
 
         /**
@@ -32,6 +33,7 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
         if(exception.equals(CustomResponseStatus.EXPIRED_TOKEN.getMessage())) {
             log.info("토큰이 만료된 경우임 !!!");
             response.sendRedirect("/exception/entrypoint/expiredToken");
+            return;
         }
 
         /**
@@ -40,7 +42,7 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
         if(exception.equals(CustomResponseStatus.BAD_JWT.getMessage())) {
             log.info("이상한 토큰이 들어옴 !!!");
             response.sendRedirect("/exception/entrypoint/badToken");
-
+            return;
         }
     }
 }

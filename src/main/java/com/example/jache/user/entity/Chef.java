@@ -3,8 +3,8 @@ package com.example.jache.user.entity;
 import com.example.jache.chat.entity.Chat;
 import com.example.jache.chat.entity.ChatRoom;
 import com.example.jache.constant.entity.BaseEntity;
+import com.example.jache.receipe.entity.Love;
 import com.example.jache.receipe.entity.Receipe;
-import com.example.jache.receipe.entity.love;
 import com.example.jache.user.entity.enums.Role;
 import com.fasterxml.jackson.databind.ser.Serializers;
 import jakarta.persistence.*;
@@ -40,7 +40,7 @@ public class Chef extends BaseEntity implements UserDetails {
     @Column(nullable = false)
     private String email;
 
-    @Column(nullable = true)
+    @Column(length = 10)
     private String chefDetail;
 
     private String chefImgUrl;
@@ -48,10 +48,10 @@ public class Chef extends BaseEntity implements UserDetails {
     @OneToMany(mappedBy = "chef")
     private List<ChatRoom> chatRooms = new ArrayList<>();
 
-    @OneToMany(mappedBy = "chef")
-    private List<love> loves = new ArrayList<>();
+    @OneToMany(mappedBy = "chef", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<Love> loves = new ArrayList<>();
 
-    @OneToMany(mappedBy = "chef")
+    @OneToMany(mappedBy = "chef",cascade = {CascadeType.REMOVE,CascadeType.PERSIST},fetch = FetchType.LAZY)
     private List<Receipe> receipes = new ArrayList<>();
 
     @OneToMany(mappedBy = "chef")
@@ -100,6 +100,14 @@ public class Chef extends BaseEntity implements UserDetails {
 
     public void modifyRefreshToken(String refreshToken){
         this.refreshToken = refreshToken;
+    }
+
+    public void modifyChefImgUrl(String chefImgUrl){
+        this.chefImgUrl = chefImgUrl;
+    }
+
+    public void modifyChefDetail(String chefDetail){
+        this.chefDetail = chefDetail;
     }
 
 }

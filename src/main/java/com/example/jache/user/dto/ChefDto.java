@@ -1,5 +1,6 @@
 package com.example.jache.user.dto;
 
+import com.example.jache.user.entity.Chef;
 import lombok.*;
 
 
@@ -46,12 +47,47 @@ public class ChefDto {
     @NoArgsConstructor
     public static class GetChefInfoResDto{
         private String chefName;
+        private String chefDetial;
         private String chefImgUrl;
+
+        public GetChefInfoResDto(Chef chef) {
+            this.chefName = chef.getChefName();
+            this.chefDetial = chef.getChefDetail();
+            this.chefImgUrl = chef.getChefImgUrl();
+        }
     }
 
     @Builder
     public static class RefreshResDto{
         private String newAccessToken;
         private String newRefreshToken;
+    }
+
+    @Builder
+    @Getter
+    public static class DeleteImgReqDto{
+        private String chefImgUrl;
+    }
+
+    @Builder
+    @Getter
+    public static class DeleteImgResDto{
+        private String chefImgUrl;
+    }
+
+    @Builder
+    public static class UpdateImgResDto{
+        private String updateImgUrl;
+    }
+
+    @Builder
+    @Getter
+    public static class UpdateChefDetailReqDto{
+        private String chefDetails;
+    }
+
+    @Builder
+    public static class UpdateChefDetailResDto{
+        private String chefDetails;
     }
 }
