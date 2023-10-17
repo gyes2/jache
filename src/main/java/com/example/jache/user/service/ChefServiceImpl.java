@@ -138,7 +138,6 @@ public class ChefServiceImpl implements ChefService{
                     .build();
         }
     }
-
     @Override
     public ChefDto.UpdateImgResDto updateMyImage(ImgUploadDto receipeImgUploadDto, String chefName) {
         Chef chef = chefRepository.findByChefName(chefName).orElseThrow(
