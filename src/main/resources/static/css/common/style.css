@@ -1,15 +1,15 @@
 @font-face {
     font-family: "hanaAir"; /* 사용하고 싶은 font-family명을 지정 */
-    src: url("../../fonts/BMHANNAAir_otf.otf") format("opentype"); /* 폰트파일 불러오기 */
-  }
+    src: url("/static/fonts/BMHANNAAir_otf.otf") format("opentype"); /* 폰트파일 불러오기 */
+}
 @font-face {
     font-family: "doHyeon"; /* 사용하고 싶은 font-family명을 지정 */
-    src: url("../../fonts/BMDOHYEON_otf.otf") format("opentype"); /* 폰트파일 불러오기 */
-  }
+    src: url("/static/fonts/BMDOHYEON_otf.otf") format("opentype"); /* 폰트파일 불러오기 */
+}
 @font-face {
     font-family: "namu"; /* 사용하고 싶은 font-family명을 지정 */
-    src: url("../../fonts/NanumSquareB.otf") format("opentype"); /* 폰트파일 불러오기 */
-  }
+    src: url("/static/fonts/NanumSquareB.otf") format("opentype"); /* 폰트파일 불러오기 */
+}
 
 /* 공통 기능 관리 */ 
 a{
@@ -21,6 +21,16 @@ button{
     cursor: pointer;
     background-color: #79AC78;
 }
+
+button:hover{
+    cursor: pointer;
+    background-color: #5e735e;
+}
+
+.hidden{
+    display: none !important;
+}
+
 
 
 /* Font 관리 */ 

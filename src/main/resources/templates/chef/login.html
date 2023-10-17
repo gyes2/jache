@@ -1,45 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../static/css/common/style.css">
-    <link rel="stylesheet" href="../../static/css/common/header.css">
-    <link rel="stylesheet" href="../../static/css/common/footer.css">
-    <link rel="stylesheet" href="../../static/css/chef/login.css">
-    <script src="../../static/js/adapter.js" defer></script>
+    <link rel="stylesheet" th:href="@{/static/css/common/style.css}">
+    <link rel="stylesheet" th:href="@{/static/css/common/header.css}">
+    <link rel="stylesheet" th:href="@{/static/css/common/nav.css}">
+    <link rel="stylesheet" th:href="@{/static/css/chef/login.css}">
+    <link rel="stylesheet" th:href="@{/static/css/common/footer.css}">
     <title>Document</title>
 </head>
 
 <body>
-    <header data-include="../../templates/common/header.html"></header>
-    <hr>
+<div th:replace="~{/common/header :: headerFragment}"></div>
+<div th:replace="~{/common/nav :: navFragment}"></div>
 <main class="login-container">
-
     <div class="form-text">
-            <h2>로그인</h2>
-        <form action="#" method="post">
-        <div id="login-form">
-            <div id="login-form-text">
-                <label></label>
-                <input type="text" name="userName" id="login-userName" placeholder="아이디를 입력하세요.." required>
-                <label></label>
-                <input type="password" name="password" id="login-Password" placeholder="비밀번호를 입력하세요.." required>
-        </div>
-            <button type="submit">로그인</button>
-        </div>
-    </div>
-        </form>
-        
-        <div class="reg">
-            <p><a href="#">아이디 찾기</a></p>
-            <p> | </p>
-            <p><a href="#">비밀번호 찾기</a></p>
-            <p> | </p>
-            <p><a href="#">회원가입</a></p>
+        <h2>로그인</h2>
+        <form action="#" th:action="@{/login}" method="post">
+            <div id="login-form">
+                <div id="login-form-text">
+                    <label></label>
+                    <input type="text" name="userName" id="login-userName" placeholder="아이디를 입력하세요.." required>
+                    <label></label>
+                    <input type="password" name="password" id="login-Password" placeholder="비밀번호를 입력하세요.." required>
+                </div>
+                <button type="submit">로그인</button>
             </div>
+
+    </form>
+    </div>
+    <div class="reg">
+        <p><a th:href="@{/findId}">아이디 찾기</a></p>
+        <p> | </p>
+        <p><a th:href="@{/findPassword}">비밀번호 찾기</a></p>
+        <p> | </p>
+        <p><a th:href="@{/register}">회원가입</a></p>
+    </div>
     </div>
 </main>
-<footer data-include="../../templates/common/footer.html"></footer>
+<div th:replace="~{/common/footer :: footerFragment}"></div>
 </body>
 </html>
