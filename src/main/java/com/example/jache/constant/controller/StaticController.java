@@ -27,9 +27,9 @@ public class StaticController {
         return "chef/myList";
     }
 
-    @RequestMapping("/chef/myPage")
+    @RequestMapping("/chef/profilePage")
     public String myPage(){
-        return "profilePage";
+        return "/chef/profilePage";
     }
 
     @RequestMapping("/receipe/detailReceipe")
@@ -45,5 +45,10 @@ public class StaticController {
     @RequestMapping("/chat/chatPage")
     public String chatPage(){
         return "/chat/chatPage";
+    }
+
+    @RequestMapping("/receipe/receipe-form")
+    public String receipeForm(){
+        return "/receipe/receipe-form";
     }
 }
