@@ -20,15 +20,17 @@
             <h2> 나의 채팅 </h2>
             <form class="chatList">
                 <!-- 타임리프 th:each 로 바꾸기  -->
-                <div>
+                <div class = "chatListForm" th:each="chat:${chat}">
+                    <!--상대 아이디, 마지막 채팅 아이디 받아오는 법 찾아보기 -->
                     <p><h2> 채팅 상대 아이디 </h2></p>
-                    <a th:href="@{/chat/chatPage}"> <span> > </span> </a> 
+                    <!-- 채팅룸 id 번호로 연결되는지, 받는 변수명 맞는지 확인 <a th:href="|'@{/chat/chatPage(chatRoomId=${chatRoom.chatRoomId})}'|">-->
+                    <a th:href="@{/chat/chatPage}"> <span> > </span> </a>
                     <p> 마지막 채팅 아이디 </p>
                 </div>
                 <br>
                 <div>
                     <p><h2> 채팅 상대 아이디 </h2></p>
-                    <a th:href="@{/chat/chatPage}"> <span> > </span> </a> 
+                    <a th:href="@{/chat/chatPage}"> <span> > </span> </a>
                     <p> 마지막 채팅 아이디 </p>
                 </div>
                 <br>

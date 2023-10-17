@@ -15,9 +15,12 @@
     <div id = "container">
         <div class = "returnBtn">
             <label> 채팅 목록으로 돌아가기</label>
-            <button th:onclick="|location.href='@{/chat/chat}'|"> ◀ </button>
+            <button th:onclick="back()"> ◀ </button>
          </div><br>
          <form class = "chat">
+             <div class = "chatMessage">
+
+             </div>
             <div class = "inputMessage">
                 <hr>
                 <input type="text" placeholder="보낼 메시지">
@@ -29,5 +32,5 @@
 </body>
 
 <script th:src="@{/static/js/adapter.js}"></script>
-<!-- <script src="../../static/js/chat/chat.js"></script> -->
+ <script src="../../static/js/chat/chat.js"></script>
 </html>

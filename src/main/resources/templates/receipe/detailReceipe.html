@@ -14,17 +14,23 @@
     <div th:replace="~{/common/header :: headerFragment}"></div>
     <div th:replace="~{/common/nav :: navFragment}"></div>
    <div id = "container">
+       <div class = "returnBtn">
+           <label> 이전 목록으로 돌아가기</label>
+           <button th:onclick="back()"> ◀ </button>
+       </div><br>
         <form class = "receipe">
             <div class = "mainTop">
                 <div class = "thumbnail">
                     <label> 대표사진 </label>
                     <div class = "thumImg">
+                        <!--사진 경로 수정 -->
                         <img th:src="@{/static/img/login.jpg}" alt="chef-img">
                     </div>
                 </div>
                 <div class = "title-cate">
                     <div class = "title">
                         <label> 제목 </label><br>
+                        <!-- -->
                         <input type="text" name="제목" disabled>
                     </div><br>
                     
@@ -38,8 +44,8 @@
                         <input type="text" name="카테고리" disabled>
                     </div>
                     <p class = "like" >
-                        <img class="heart" th:src="@{/static/img/like_empty.jpg}" alt="heart">
-                        <img class="heart-liked" th:src="@{/static/img/like_click.jpg}" alt="heart-liked" hidden>
+                        <img class="heart" th:src="@{/static/img/like_empty.png}" alt="heart">
+                        <img class="heart-liked" th:src="@{/static/img/like_click.png}" alt="heart-liked" hidden>
                     </p>
               </div>
            </div>

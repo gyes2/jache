@@ -20,39 +20,13 @@
                 <tr>
                     <h2>찜한 레시피</h2>
                 </tr>
-                <tr>
-                    <td id = "foodImg" rowspan="2">  <img th:src="@{/static/img/login.jpg}"alt="chef-img"> </td>
+                <tr class="receipeContent" th:each="receipe : ${list}" th:onclick="|location.href='@{/receipe/detailReceipe(receipeId=${receipe.receipeId})}'|">
+                    <td id = "foodImg" rowspan="2">  <img th:src="@{/static/img/login.jpg}" alt="chef-img"> </td>
                     <td id = "title">
-                        <div>
+                        <div id = "receipeTitle" th:text="${receipe.title}">
                             제목
                         </div> <br><br>
-                        <div id = "writer">
-                            작성자
-                        </div>
-                     </td>
-                </tr>
-            </table>
-            <table>
-                <tr>
-                    <td id = "foodImg" rowspan="2">  <img th:src="@{/static/img/login.jpg}"  alt="chef-img"> </td>
-                    <td id = "title">
-                        <div>
-                            제목
-                        </div> <br><br>
-                        <div id = "writer">
-                            작성자
-                        </div>
-                     </td>
-                </tr>
-            </table>
-            <table>
-                <tr>
-                    <td id = "foodImg" rowspan="2">  <img th:src="@{/static/img/login.jpg}"  alt="chef-img"> </td>
-                    <td id = "title">
-                        <div>
-                            제목
-                        </div> <br><br>
-                        <div id = "writer">
+                        <div id = "writer" th:text="${receipe.chef}">
                             작성자
                         </div>
                      </td>
@@ -63,6 +37,5 @@
     <div th:replace="~{/common/footer :: footerFragment}"></div>
 </body>
 <script th:src="@{/static/js/adapter.js}"></script>
-<script th:src="@{/static/js/chef/likereceipe.js}"></script>
-<!-- <script type="text/javascript" th:src="@{/js/chef/likereceipe.js}"></script> -->
+<!--<script th:src="@{/static/js/chef/likeReceipe.js}"></script>-->
 </html>

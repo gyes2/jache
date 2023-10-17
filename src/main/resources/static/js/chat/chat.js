@@ -1,15 +1,5 @@
-function myList() {
-    location.href="../chef/myList.html";
-}
-
-function likeReceipe() {
-    location.href="../chef/likeReceipe.html";
-}
-
-function chat() {
-    location.href="../chat/chat.html";
-}
-
-function infoEdit() {
-    location.href="../chef/infoEdit.html";
+function back() { //이전 페이지로 돌아가기
+    var referrer = document.referrer;
+    window.location.href = referrer;
+    console.log(referrer);
 }

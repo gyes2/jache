@@ -12,6 +12,15 @@
     background-color: #ddf7df;
 }
 
+.chatMessage {
+    height: 82%;
+    overflow-y: scroll;
+}
+
+.chatMessage::-webkit-scrollbar {
+    display: none !important;
+}
+
 .chat .inputMessage {
     margin-left : 2rem;
     margin-top: 2rem;

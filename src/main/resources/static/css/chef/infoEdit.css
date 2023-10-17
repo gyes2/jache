@@ -7,32 +7,56 @@
 }
 
 #container .infoEdit {
-    margin-left: 10rem;
-    width: 650px;
+    margin-left: 5rem;
+    width: 700px;
+    margin-left: 3rem;
 }
-
 
 .info {
     display: flex;
     align-items: flex-end;
-    flex-wrap: wrap;
     align-content: space-around;
 }
 
 .info img {
     width: 90px;
     height: 90px;
+    /*border-radius: 70%;*/
+    /*overflow: hidden;*/
+}
+
+input#file-upload-button {
+    background: #79AC78;
 }
 
 .chefImg { 
     margin-left: 2rem;
     margin-right: 1rem;
     margin-bottom : 5rem;
+    display: grid;
+    justify-items: center;
 }
 
+#chefImg {
+    display: none;
+}
+
+.chefImg button {
+    width: 3rem;
+    height: 2rem;
+    border: 0;
+    margin-left: 2.5rem;
+}
+
+img {
+    width: 90px;
+    height: 90px;
+    margin-left: 3rem;
+}
 .info .box {
     display: grid;
     justify-items: stretch;
+    width: 700px;
 }
 
 .chefInfo {
@@ -44,8 +68,11 @@
     margin-left: 1rem;
     margin-right: 4rem;
 }
+.textByte {
+    margin-left: -1rem;
+}
 
-input {
+#chefId {
     width: 350px;
     margin-bottom: 1rem;
     margin-left: 1rem;
@@ -62,6 +89,7 @@ textarea {
     text-align: right;
     margin-right: 1rem;
     margin-top: 1rem;
+    border : 0;
 }
 
 .editBtn button {
