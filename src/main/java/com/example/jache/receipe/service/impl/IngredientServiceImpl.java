@@ -11,6 +11,8 @@ import com.example.jache.receipe.service.IngredientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Service
 @RequiredArgsConstructor
 public class IngredientServiceImpl implements IngredientService {
@@ -52,5 +54,22 @@ public class IngredientServiceImpl implements IngredientService {
                 ()-> new CustomException(CustomResponseStatus.INGREDIENT_NOT_FOUND)
         );
         ingredientRepository.delete(ingredient);
+    }
+
+    @Override
+    public Long updateIngredient(IngredientDto.UpdateIngredientReqDto update, Long ingredientId) {
+        Ingredient ingredient = ingredientRepository.findByIngredientId(ingredientId).orElseThrow(
+                ()-> new CustomException(CustomResponseStatus.INGREDIENT_NOT_FOUND)
+        );
+        if(!Objects.equals(update.getReceipeId(), ingredient.getReceipe().getReceipeId())){
+            throw new CustomException(CustomResponseStatus.WRONG_INGREDIENT_ID);
+        }
+        if(!ingredient.getIngredientName().equals(update.getIngredientName())){
+            ingredient.modifyIngredientName(update.getIngredientName());
+        }
+        if(!ingredient.getWeight().equals(update.getWeight())){
+            ingredient.modifyWeight(update.getWeight());
+        }
+        return ingredient.getIngredientId();
     }
 }

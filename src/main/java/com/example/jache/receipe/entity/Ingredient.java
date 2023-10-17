@@ -28,5 +28,13 @@ public class Ingredient extends BaseEntity {
     @JoinColumn(name = "receipeId")
     private Receipe receipe;
 
+    public void modifyIngredientName(String ingredientName){
+        this.ingredientName = ingredientName;
+    }
+
+    public void modifyWeight(String weight){
+        this.weight = weight;
+    }
+
 
 }

@@ -1,5 +1,6 @@
 package com.example.jache.user.dto;
 
+import com.example.jache.user.entity.Chef;
 import lombok.*;
 
 
@@ -48,6 +49,12 @@ public class ChefDto {
         private String chefName;
         private String chefDetial;
         private String chefImgUrl;
+
+        public GetChefInfoResDto(Chef chef) {
+            this.chefName = chef.getChefName();
+            this.chefDetial = chef.getChefDetail();
+            this.chefImgUrl = chef.getChefImgUrl();
+        }
     }
 
     @Builder

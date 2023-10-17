@@ -176,4 +176,26 @@ public class ChefServiceImpl implements ChefService{
     }
 
 
+    /**
+     * 상대방 페이지 관련
+     */
+    @Override
+    public boolean isOtherProfile(String otherName, String chefName) {
+        if(otherName.equals(chefName)){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+
+    @Override
+    public ChefDto.GetChefInfoResDto getOtherProfile(String otherName) {
+        Chef chef = chefRepository.findByChefName(otherName).orElseThrow(
+                () -> new CustomException(CustomResponseStatus.USER_NOT_FOUND)
+        );
+        return new ChefDto.GetChefInfoResDto(chef);
+    }
+
+
 }

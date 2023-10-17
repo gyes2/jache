@@ -57,4 +57,42 @@ public class OrdersServiceImpl implements OrdersService {
 
 
     }
+
+    @Override
+    public Long updateOrders(ImgUploadDto updateImg, OrdersDto.OrdersUpdateReqDto updateOrder,Long orderId,String chefName) {
+        Orders order = ordersRepository.findOrderByOrdersId(orderId).orElseThrow(
+                () -> new CustomException(CustomResponseStatus.ORDERS_NOT_FOUND)
+        );
+
+        if(!order.getReceipe().getChef().getChefName().equals(chefName)){
+            throw new CustomException(CustomResponseStatus.UNAUTHORIZED_TOKEN);
+        }
+
+        String updateImgUrl = "";
+        if(updateImg.getMultipartFile() == null){
+            updateImgUrl = "https://3rdprojectbucket.s3.ap-northeast-2.amazonaws.com/initial/ordersInitial.jpg";
+        }
+        else{
+            s3Service.deleteFile(order.getContentUrl());
+            updateImgUrl = s3Service.uploadFile(updateImg.getMultipartFile(),"orders");
+        }
+        order.modifyContentUrl(updateImgUrl);
+
+        if(!order.getContent().equals(updateOrder.getContent())){
+            order.modifyContent(updateOrder.getContent());
+        }
+
+        return order.getOrdersId();
+    }
+
+    @Override
+    public void deleteOrders(Long ordersId, String chefName) {
+        Orders order = ordersRepository.findOrderByOrdersId(ordersId).orElseThrow(
+                () -> new CustomException(CustomResponseStatus.ORDERS_NOT_FOUND)
+        );
+        if(!order.getReceipe().getChef().getChefName().equals(chefName)){
+            throw new CustomException(CustomResponseStatus.UNAUTHORIZED_TOKEN);
+        }
+        ordersRepository.delete(order);
+    }
 }

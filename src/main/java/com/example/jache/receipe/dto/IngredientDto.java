@@ -32,4 +32,14 @@ public class IngredientDto {
             this.weight = ingredient.getWeight();
         }
     }
+
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Getter
+    public static class UpdateIngredientReqDto{
+        private String ingredientName;
+        private String weight;
+        private Long receipeId;
+    }
 }

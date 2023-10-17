@@ -164,4 +164,26 @@ public class ChefController {
         return ResponseEntity.ok().body(ApiResponse.createSuccess(detail, CustomResponseStatus.SUCCESS));
     }
 
+    //여기서 부터 포스트맨 작성
+    /**
+     * 상대방 페이지 접속 여부 api
+     */
+    @GetMapping("/user/get/other_user/{otherchefName}")
+    public ResponseEntity<ApiResponse<Boolean>> getOther(
+            @PathVariable String otherchefName, Authentication authentication
+    ){
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        boolean other = chefService.isOtherProfile(otherchefName, userDetails.getUsername());
+        return ResponseEntity.ok().body(ApiResponse.createSuccess(other,CustomResponseStatus.SUCCESS));
+    }
+
+    /**
+     * 상대방 페이지 프로필 얻기
+     */
+    @GetMapping("/user/get/other_user_info/{otherchefName}")
+    public ResponseEntity<ApiResponse<ChefDto.GetChefInfoResDto>> getOtherChefInfo(@PathVariable String otherchefName){
+        ChefDto.GetChefInfoResDto otherProfile = chefService.getOtherProfile(otherchefName);
+        return ResponseEntity.ok().body(ApiResponse.createSuccess(otherProfile,CustomResponseStatus.SUCCESS));
+    }
+
 }

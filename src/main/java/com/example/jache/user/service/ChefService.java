@@ -24,4 +24,9 @@ public interface ChefService {
     ChefDto.DeleteImgResDto deleteMyImage(ChefDto.DeleteImgReqDto deleteImgReqDto, String chefName);
 
     ChefDto.UpdateChefDetailResDto updateMyDetail(ChefDto.UpdateChefDetailReqDto req, String chefName);
+
+    //상대방 페이지
+    boolean isOtherProfile(String otherName, String chefName);
+
+    ChefDto.GetChefInfoResDto getOtherProfile(String otherName);
 }

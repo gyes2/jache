@@ -9,4 +9,6 @@ public interface IngredientService {
     IngredientDto.IngredientResDto addIngredient(IngredientDto.IngredientReqDto ingredientReqDto);
 
     void deleteIngredient(Long ingredientId);
+
+    Long updateIngredient(IngredientDto.UpdateIngredientReqDto update, Long ingredientId);
 }

@@ -48,6 +48,17 @@ public class IngredientController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN)
                     .body(ApiResponse.createError(CustomResponseStatus.AUTHENTICATED_FAILED));
         }
+    }
 
+    /**
+     * Ingredient 수정
+     */
+    @PutMapping("/ingredient/update/{ingredientId}")
+    public ResponseEntity<ApiResponse<String>> updateIngredient(
+            @RequestBody IngredientDto.UpdateIngredientReqDto update,
+            @PathVariable(value = "ingredientId") Long ingredientId
+    ){
+        Long updateingredientId = ingredientService.updateIngredient(update,ingredientId);
+        return ResponseEntity.ok().body(ApiResponse.createSuccess(updateingredientId.toString(),CustomResponseStatus.SUCCESS));
     }
 }

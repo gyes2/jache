@@ -31,4 +31,12 @@ public class OrdersDto {
             this.contentUrl = orders.getContentUrl();
         }
     }
+
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Data
+    public static class OrdersUpdateReqDto{
+        private String content;
+    }
 }

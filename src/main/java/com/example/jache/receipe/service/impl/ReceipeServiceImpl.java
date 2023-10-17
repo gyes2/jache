@@ -50,13 +50,9 @@ public class ReceipeServiceImpl implements ReceipeService {
 
     @Override
     public Long createReceipe(ImgUploadDto uploadDto, ReceipeDto.CreateReceipeReqDto createReceipeReqDto, String chefName) {
-        Chef chef = chefRepository.findByChefName(chefName).orElseThrow(
-                ()-> new CustomException(CustomResponseStatus.USER_NOT_FOUND)
-        );
+        Chef chef = getChef(chefName);
 
-        Receipe receipe = receipeRepository.findReceipeByChef(chef).orElseThrow(
-                ()-> new CustomException(CustomResponseStatus.RECEIPE_NOT_FOUND)
-        );
+        Receipe receipe = getReceipe(createReceipeReqDto.getReceipeId());
 
         if(!chefName.equals(receipe.getChef().getChefName())){
             throw new CustomException(CustomResponseStatus.UNAUTHORIZED_TOKEN);
@@ -91,7 +87,7 @@ public class ReceipeServiceImpl implements ReceipeService {
     }
 
     @Override
-    public List<ReceipeDto.ReadReceipeResDto> readReceipesByTheme(String theme) {
+    public List<ReceipeDto.ReadReceipeResDto> readAllReceipesByTheme(String theme) {
         Sort sort = Sort.by(Sort.Direction.DESC,"createDate");
         List<Receipe> receipes = receipeRepository.findAllByTheme(sort, theme);
         return receipes.stream()
@@ -109,8 +105,28 @@ public class ReceipeServiceImpl implements ReceipeService {
     }
 
     @Override
-    public ReceipeDto.ReadReceipeDetailResDto updateReceipe(ReceipeDto.CreateReceipeReqDto createReceipeReqDto) {
-        return null;
+    public Long updateReceipe(ImgUploadDto updateImgDto, ReceipeDto.CreateReceipeReqDto updateReceipeReqDto, long receipeId, String chefName) {
+        Receipe receipe = getReceipe(receipeId);
+        if(!chefName.equals(receipe.getChef().getChefName())){
+            throw new CustomException(CustomResponseStatus.UNAUTHORIZED_TOKEN);
+        }
+        String updateImgUrl = "";
+        if(updateImgDto.getMultipartFile() == null){
+            updateImgUrl = "https://3rdprojectbucket.s3.ap-northeast-2.amazonaws.com/initial/receipeInitial.jpg";
+        }
+        else{
+            s3Service.deleteFile(receipe.getReceipeImgUrl());
+            updateImgUrl = s3Service.uploadFile(updateImgDto.getMultipartFile(),"receipe");
+            receipe.modifyReceipeImgUrl(updateImgUrl);
+        }
+        if(!receipe.getTitle().equals(updateReceipeReqDto.getTitle())){
+            receipe.modifyTitle(updateReceipeReqDto.getTitle());
+        }
+        if(!receipe.getIntroduce().equals(updateReceipeReqDto.getIntroduce())){
+            receipe.modifyIntroduce(updateReceipeReqDto.getIntroduce());
+        }
+
+        return receipe.getReceipeId();
     }
 
     @Override
@@ -127,16 +143,30 @@ public class ReceipeServiceImpl implements ReceipeService {
     }
 
     @Override
-    public List<ReceipeDto.ReadReceipeResDto> readMyReceipesByTheme(String theme, String chefName) {
-        Chef chef = chefRepository.findByChefName(chefName).orElseThrow(
-                () -> new CustomException(CustomResponseStatus.USER_NOT_FOUND)
-        );
-
+    public List<ReceipeDto.ReadReceipeResDto> readReceipesByThemeAndChef(String theme, String chefName) {
+        Chef chef = getChef(chefName);
         Sort sort = Sort.by(Sort.Direction.DESC,"createDate");
         List<Receipe> my = receipeRepository.findAllByThemeAndChef(sort,theme,chef);
         return my.stream()
                 .map(ReceipeDto.ReadReceipeResDto::new)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public boolean getIsMyReceipe(String receipeWriter, String chefName) {
+        return false;
+    }
+
+    public Chef getChef(String chefName){
+        return chefRepository.findByChefName(chefName).orElseThrow(
+                () -> new CustomException(CustomResponseStatus.USER_NOT_FOUND)
+        );
+    }
+
+    public Receipe getReceipe(long receipeId){
+        return receipeRepository.findByReceipeId(receipeId).orElseThrow(
+                () -> new CustomException(CustomResponseStatus.RECEIPE_NOT_FOUND)
+        );
     }
 
 }

@@ -15,16 +15,25 @@ import org.hibernate.annotations.OnDeleteAction;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Orders extends BaseEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ordersId;
+
     private String content;
 
-    @Column(nullable = false)
     private String contentUrl;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "receipeId")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Receipe receipe;
+
+    public void modifyContent(String content){
+        this.content = content;
+    }
+
+    public void modifyContentUrl(String contentUrl){
+        this.contentUrl = contentUrl;
+    }
 }

@@ -57,7 +57,7 @@ public class ReceipeController {
      */
     @GetMapping("/receipe/read/{theme}/all")
     public ResponseEntity<ApiResponse<List<ReceipeDto.ReadReceipeResDto>>> readReceipesByTheme(@PathVariable String theme){
-        List<ReceipeDto.ReadReceipeResDto> receipes = receipeService.readReceipesByTheme(theme);
+        List<ReceipeDto.ReadReceipeResDto> receipes = receipeService.readAllReceipesByTheme(theme);
         return ResponseEntity.ok().body(ApiResponse.createSuccess(receipes,CustomResponseStatus.SUCCESS));
     }
 
@@ -90,6 +90,22 @@ public class ReceipeController {
     }
 
     /**
+     * 레시피 수정
+     */
+    @PutMapping("/receipe/update/{receipeId}")
+    public ResponseEntity<ApiResponse<String>> updateReceipe(
+            @PathVariable Long receipeId,
+            @RequestPart(value = "update") ReceipeDto.CreateReceipeReqDto update,
+            @RequestPart(value = "updateImg") MultipartFile multipartFile,
+            Authentication authentication){
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        ImgUploadDto updateImgDto = new ImgUploadDto();
+        updateImgDto.setFile(multipartFile);
+        Long updatereceipeId =  receipeService.updateReceipe(updateImgDto, update, receipeId, userDetails.getUsername());
+        return ResponseEntity.ok().body(ApiResponse.createSuccess(updatereceipeId.toString(),CustomResponseStatus.SUCCESS));
+    }
+
+    /**
      * 내가 쓴 레시피 조회
      */
     @GetMapping("/myreceipe/{theme}")
@@ -97,7 +113,28 @@ public class ReceipeController {
             @PathVariable String theme, Authentication authentication
     ){
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        List<ReceipeDto.ReadReceipeResDto> mys = receipeService.readMyReceipesByTheme(theme, userDetails.getUsername());
+        List<ReceipeDto.ReadReceipeResDto> mys = receipeService.readReceipesByThemeAndChef(theme, userDetails.getUsername());
         return ResponseEntity.ok().body(ApiResponse.createSuccess(mys,CustomResponseStatus.SUCCESS));
+    }
+
+    /**
+     * 상대방이 쓴 레시피 조회
+     */
+    @GetMapping("/oher_receipe/{otherName}/{theme}")
+    public ResponseEntity<ApiResponse<List<ReceipeDto.ReadReceipeResDto>>> readOtherReceipe(
+            @PathVariable(value = "theme") String theme, @PathVariable(value = "otherName") String otherName
+    ){
+        List<ReceipeDto.ReadReceipeResDto> mys = receipeService.readReceipesByThemeAndChef(theme, otherName);
+        return ResponseEntity.ok().body(ApiResponse.createSuccess(mys,CustomResponseStatus.SUCCESS));
+    }
+
+    /**
+     * 내가 쓴 레시피 여부 확인
+     */
+    @GetMapping("/get/isMyReceipe/{receipeWriter}")
+    public ResponseEntity<ApiResponse<Boolean>> getIsMyReceipe(@PathVariable String receipeWriter, Authentication authentication){
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        boolean isMyRecipe = receipeService.getIsMyReceipe(receipeWriter, userDetails.getUsername());
+        return ResponseEntity.ok().body(ApiResponse.createSuccess(isMyRecipe,CustomResponseStatus.SUCCESS));
     }
 }

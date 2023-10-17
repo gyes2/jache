@@ -11,14 +11,17 @@ public interface ReceipeService {
     Long createReceipe(ImgUploadDto uploadDto, ReceipeDto.CreateReceipeReqDto createReceipeReqDto, String chefName);
     ReceipeDto.ReadReceipeDetailResDto readOneReceipe(Long receipeId);
 
-    List<ReceipeDto.ReadReceipeResDto> readReceipesByTheme(String theme);
+    List<ReceipeDto.ReadReceipeResDto> readAllReceipesByTheme(String theme);
 
     List<ReceipeDto.ReadReceipeResDto> readReceipesByThemeOrderByScrap(String theme);
 
-    ReceipeDto.ReadReceipeDetailResDto updateReceipe(ReceipeDto.CreateReceipeReqDto createReceipeReqDto);
+    Long updateReceipe(ImgUploadDto updateImgDto, ReceipeDto.CreateReceipeReqDto createReceipeReqDto, long receipeId, String chefName);
 
     void deleteReceipe(Long receipeId,String chefName);
 
-    List<ReceipeDto.ReadReceipeResDto> readMyReceipesByTheme(String theme, String chefName);
+    List<ReceipeDto.ReadReceipeResDto> readReceipesByThemeAndChef(String theme, String chefName);
+
+
+    boolean getIsMyReceipe(String receipeWriter, String chefName);
 
 }

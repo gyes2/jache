@@ -38,4 +38,26 @@ public class OrdersController {
         }
         return null;
     }
+
+    @PutMapping("/orders/update/{orderId}")
+    public ResponseEntity<ApiResponse<String>> updateOrder(
+            @RequestPart(value = "ordersReqDto") OrdersDto.OrdersUpdateReqDto ordersReqDto,
+            @RequestPart(value = "ordersImg") MultipartFile multipartFile,
+            @PathVariable Long orderId, Authentication authentication
+    ){
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        ImgUploadDto updateOrderImg = new ImgUploadDto();
+        updateOrderImg.setFile(multipartFile);
+        Long order = ordersService.updateOrders(updateOrderImg,ordersReqDto, orderId, userDetails.getUsername());
+        return ResponseEntity.ok().body(ApiResponse.createSuccess(order.toString(),CustomResponseStatus.SUCCESS));
+    }
+
+    @DeleteMapping("/orders/delete/{ordersId}")
+    public ResponseEntity<ApiResponse<String>> deleteOrders(
+            @PathVariable Long ordersId, Authentication authentication
+    ){
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        ordersService.deleteOrders(ordersId, userDetails.getUsername());
+        return ResponseEntity.ok().body(ApiResponse.createSuccessWithNoContent(CustomResponseStatus.SUCCESS));
+    }
 }
