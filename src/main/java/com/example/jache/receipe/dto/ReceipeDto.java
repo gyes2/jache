@@ -70,5 +70,15 @@ public class ReceipeDto {
         private String introduce;
         private int loveCount;
         private LocalDate createDate;
+        private String imgUrl;
+
+        public ReadReceipeResDto(Receipe receipe) {
+            this.title = receipe.getTitle();
+            this.chefName = receipe.getChef().getChefName();
+            this.introduce = receipe.getIntroduce();
+            this.loveCount = receipe.getLoveCount();
+            this.createDate = receipe.getCreateDate();
+            this.imgUrl = receipe.getReceipeImgUrl();
+        }
     }
 }

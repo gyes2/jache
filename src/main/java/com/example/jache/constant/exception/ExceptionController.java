@@ -15,7 +15,7 @@ public class ExceptionController {
     @GetMapping("/entrypoint/nullToken")
     public void nullToken(){
         log.info("token is null");
-        throw new CustomException(CustomResponseStatus.AUTHENTICATED_FAILED);
+        throw new CustomException(CustomResponseStatus.TOKEN_IS_NULL);
     }
 
     @GetMapping("/entrypoint/expiredToken")

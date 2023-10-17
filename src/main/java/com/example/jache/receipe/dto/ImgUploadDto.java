@@ -4,13 +4,13 @@ import lombok.Getter;
 import org.springframework.web.multipart.MultipartFile;
 
 @Getter
-public class OrderImgUploadDto {
+public class ImgUploadDto {
 
-    private MultipartFile orderImg;
+    private MultipartFile multipartFile;
 
     public void setFile(MultipartFile multipartFile){
         if(multipartFile != null){
-            this.orderImg = multipartFile;
+            this.multipartFile = multipartFile;
         }
     }
 }

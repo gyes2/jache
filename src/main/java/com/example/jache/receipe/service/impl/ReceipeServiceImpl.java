@@ -2,8 +2,8 @@ package com.example.jache.receipe.service.impl;
 
 import com.example.jache.constant.enums.CustomResponseStatus;
 import com.example.jache.constant.exception.CustomException;
+import com.example.jache.receipe.dto.ImgUploadDto;
 import com.example.jache.receipe.dto.ReceipeDto;
-import com.example.jache.receipe.dto.ReceipeImgUploadDto;
 import com.example.jache.receipe.entity.Ingredient;
 import com.example.jache.receipe.entity.Orders;
 import com.example.jache.receipe.entity.Receipe;
@@ -15,9 +15,11 @@ import com.example.jache.s3.service.S3Service;
 import com.example.jache.user.entity.Chef;
 import com.example.jache.user.repository.ChefRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -47,7 +49,7 @@ public class ReceipeServiceImpl implements ReceipeService {
     }
 
     @Override
-    public Long createReceipe(ReceipeImgUploadDto uploadDto,ReceipeDto.CreateReceipeReqDto createReceipeReqDto, String chefName) {
+    public Long createReceipe(ImgUploadDto uploadDto, ReceipeDto.CreateReceipeReqDto createReceipeReqDto, String chefName) {
         Chef chef = chefRepository.findByChefName(chefName).orElseThrow(
                 ()-> new CustomException(CustomResponseStatus.USER_NOT_FOUND)
         );
@@ -67,8 +69,9 @@ public class ReceipeServiceImpl implements ReceipeService {
             receipeUrl = s3Service.uploadFile(uploadDto.getMultipartFile(),"receipe");
         }
 
-        List<Ingredient> ingredients = ingredientRepository.findIngredientsByReceipe(receipe);
-        List<Orders> orders = ordersRepository.findOrdersByReceipe(receipe);
+        Sort sort = Sort.by(Sort.Direction.ASC,"createDate");
+        List<Ingredient> ingredients = ingredientRepository.findIngredientsByReceipe(sort,receipe);
+        List<Orders> orders = ordersRepository.findOrdersByReceipe(sort,receipe);
 
         receipe.createReceipe(ingredients,orders);
         receipe.modifyTitle(createReceipeReqDto.getTitle());
@@ -80,12 +83,29 @@ public class ReceipeServiceImpl implements ReceipeService {
 
     @Override
     public ReceipeDto.ReadReceipeDetailResDto readOneReceipe(Long receipeId) {
-        return null;
+        Receipe receipe = receipeRepository.findByReceipeId(receipeId).orElseThrow(
+                () -> new CustomException(CustomResponseStatus.RECEIPE_NOT_FOUND)
+        );
+        ReceipeDto.ReadReceipeDetailResDto details = new ReceipeDto.ReadReceipeDetailResDto(receipe);
+        return details;
     }
 
     @Override
-    public List<ReceipeDto.ReadReceipeResDto> readReceipesTheme(String theme) {
-        return null;
+    public List<ReceipeDto.ReadReceipeResDto> readReceipesByTheme(String theme) {
+        Sort sort = Sort.by(Sort.Direction.DESC,"createDate");
+        List<Receipe> receipes = receipeRepository.findAllByTheme(sort, theme);
+        return receipes.stream()
+                .map(ReceipeDto.ReadReceipeResDto::new)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ReceipeDto.ReadReceipeResDto> readReceipesByThemeOrderByScrap(String theme) {
+        Sort sort = Sort.by(Sort.Direction.DESC,"loveCount");
+        List<Receipe> receipes = receipeRepository.findAllByTheme(sort, theme);
+        return receipes.stream()
+                .map(ReceipeDto.ReadReceipeResDto::new)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -94,7 +114,29 @@ public class ReceipeServiceImpl implements ReceipeService {
     }
 
     @Override
-    public void deleteReceipe(Long receipeId) {
-
+    public void deleteReceipe(Long receipeId, String chefName) {
+        Receipe receipe = receipeRepository.findByReceipeId(receipeId).orElseThrow(
+                () -> new CustomException(CustomResponseStatus.RECEIPE_NOT_FOUND)
+        );
+        if(receipe.getChef().getChefName().equals(chefName)){
+            receipeRepository.delete(receipe);
+        }
+        else{
+            throw new CustomException(CustomResponseStatus.UNAUTHORIZED_TOKEN);
+        }
     }
+
+    @Override
+    public List<ReceipeDto.ReadReceipeResDto> readMyReceipesByTheme(String theme, String chefName) {
+        Chef chef = chefRepository.findByChefName(chefName).orElseThrow(
+                () -> new CustomException(CustomResponseStatus.USER_NOT_FOUND)
+        );
+
+        Sort sort = Sort.by(Sort.Direction.DESC,"createDate");
+        List<Receipe> my = receipeRepository.findAllByThemeAndChef(sort,theme,chef);
+        return my.stream()
+                .map(ReceipeDto.ReadReceipeResDto::new)
+                .collect(Collectors.toList());
+    }
+
 }

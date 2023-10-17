@@ -2,12 +2,10 @@ package com.example.jache.receipe.controller;
 
 import com.example.jache.constant.dto.ApiResponse;
 import com.example.jache.constant.enums.CustomResponseStatus;
-import com.example.jache.receipe.dto.OrderImgUploadDto;
+import com.example.jache.receipe.dto.ImgUploadDto;
 import com.example.jache.receipe.dto.OrdersDto;
 import com.example.jache.receipe.service.OrdersService;
-import com.querydsl.core.types.Order;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -28,7 +26,7 @@ public class OrdersController {
             @RequestPart(value = "ordersImg") MultipartFile multipartFile, Authentication authentication){
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         if(ordersService.orderIsAuthorized(userDetails.getUsername(), ordersReqDto.getReceipeId())){
-            OrderImgUploadDto orderImgUploadDto = new OrderImgUploadDto();
+            ImgUploadDto orderImgUploadDto = new ImgUploadDto();
             orderImgUploadDto.setFile(multipartFile);
             OrdersDto.OrdersResDto order = null;
             try {

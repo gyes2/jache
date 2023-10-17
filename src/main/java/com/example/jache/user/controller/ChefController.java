@@ -4,20 +4,18 @@ import com.example.jache.constant.dto.ApiResponse;
 import com.example.jache.constant.enums.CustomResponseStatus;
 import com.example.jache.constant.exception.CustomException;
 import com.example.jache.email.service.EmailService;
+import com.example.jache.receipe.dto.ImgUploadDto;
 import com.example.jache.security.jwtTokens.JwtTokenUtil;
 import com.example.jache.user.dto.ChefDto;
-import com.example.jache.user.entity.Chef;
 import com.example.jache.user.service.ChefService;
-import com.example.jache.user.service.ChefServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequiredArgsConstructor
@@ -93,6 +91,15 @@ public class ChefController {
     }
 
     /**
+     * 로그아웃
+     */
+    @PostMapping("/user/logout")
+    public ResponseEntity<ApiResponse<String>> logout(Authentication authentication){
+        chefService.logout();
+        return ResponseEntity.ok().body(ApiResponse.createSuccessWithNoContent(CustomResponseStatus.SUCCESS));
+    }
+
+    /**
      * 리프레시 토큰 재발급
      */
     @PostMapping("/member/refresh")
@@ -108,6 +115,7 @@ public class ChefController {
 
     /**
      * user Info (로그인 후 사이드 바)
+     * 마이페이지 상단 유저 정보
      */
     @GetMapping("/user/getUserInfo")
     public ResponseEntity<ApiResponse<ChefDto.GetChefInfoResDto>> getChefInfo(Authentication authentication){
@@ -119,6 +127,41 @@ public class ChefController {
         return ResponseEntity.ok().body(ApiResponse.createSuccess(getChefInfoResDto,CustomResponseStatus.SUCCESS));
     }
 
+    /**
+     * 프로필 사진 수정
+     */
+    @PutMapping("/user/my/update/img")
+    public ResponseEntity<ApiResponse<ChefDto.UpdateImgResDto>> updateMyImg(
+            @RequestPart(value = "myImg")MultipartFile multipartFile, Authentication authentication
+            ){
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        ImgUploadDto receipeImgUploadDto = new ImgUploadDto();
+        receipeImgUploadDto.setFile(multipartFile);
+        ChefDto.UpdateImgResDto update = chefService.updateMyImage(receipeImgUploadDto, userDetails.getUsername());
+        return ResponseEntity.ok().body(ApiResponse.createSuccess(update,CustomResponseStatus.SUCCESS));
+    }
 
+    /**
+     * 프로필 사진 삭제
+     */
+    @DeleteMapping("/user/my/delete/img")
+    public ResponseEntity<ApiResponse<ChefDto.DeleteImgResDto>> deleteMyImg(
+            @RequestBody ChefDto.DeleteImgReqDto deleteImgReqDto, Authentication authentication){
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        ChefDto.DeleteImgResDto basic = chefService.deleteMyImage(deleteImgReqDto, userDetails.getUsername());
+        return ResponseEntity.ok().body(ApiResponse.createSuccess(basic,CustomResponseStatus.SUCCESS));
+    }
+
+    /**
+     * 내 소개 수정
+     */
+    @PutMapping("/user/my/update/details")
+    public ResponseEntity<ApiResponse<ChefDto.UpdateChefDetailResDto>> updateMyDetails(
+            @RequestBody ChefDto.UpdateChefDetailReqDto updateDetail, Authentication authentication
+    ){
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        ChefDto.UpdateChefDetailResDto detail = chefService.updateMyDetail(updateDetail, userDetails.getUsername());
+        return ResponseEntity.ok().body(ApiResponse.createSuccess(detail, CustomResponseStatus.SUCCESS));
+    }
 
 }

@@ -3,9 +3,17 @@ package com.example.jache.receipe.entity;
 import com.example.jache.constant.entity.BaseEntity;
 import com.example.jache.user.entity.Chef;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
-public class love extends BaseEntity {
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+public class Love extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,3 +29,4 @@ public class love extends BaseEntity {
 
     private String status;
 }
+

@@ -46,6 +46,7 @@ public class ChefDto {
     @NoArgsConstructor
     public static class GetChefInfoResDto{
         private String chefName;
+        private String chefDetial;
         private String chefImgUrl;
     }
 
@@ -53,5 +54,33 @@ public class ChefDto {
     public static class RefreshResDto{
         private String newAccessToken;
         private String newRefreshToken;
+    }
+
+    @Builder
+    @Getter
+    public static class DeleteImgReqDto{
+        private String chefImgUrl;
+    }
+
+    @Builder
+    @Getter
+    public static class DeleteImgResDto{
+        private String chefImgUrl;
+    }
+
+    @Builder
+    public static class UpdateImgResDto{
+        private String updateImgUrl;
+    }
+
+    @Builder
+    @Getter
+    public static class UpdateChefDetailReqDto{
+        private String chefDetails;
+    }
+
+    @Builder
+    public static class UpdateChefDetailResDto{
+        private String chefDetails;
     }
 }

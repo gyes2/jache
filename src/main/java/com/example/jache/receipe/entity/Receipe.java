@@ -31,7 +31,6 @@ public class Receipe extends BaseEntity{
 
     private String introduce;
 
-    @Column(nullable = false)
     private String receipeImgUrl;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -42,10 +41,10 @@ public class Receipe extends BaseEntity{
     @Column(nullable = false)
     private int loveCount;
 
-    @OneToMany(mappedBy = "receipe")
+    @OneToMany(mappedBy = "receipe", cascade = CascadeType.REMOVE)
     private List<Ingredient> ingredients= new ArrayList<>();
 
-    @OneToMany(mappedBy = "receipe")
+    @OneToMany(mappedBy = "receipe", cascade = CascadeType.REMOVE)
     private List<Orders> orders = new ArrayList<>();
 
 
@@ -64,5 +63,15 @@ public class Receipe extends BaseEntity{
 
     public void modifyReceipeImgUrl(String receipeImgUrl){
         this.receipeImgUrl = receipeImgUrl;
+    }
+
+    public void addCount(){
+        this.loveCount += 1;
+    }
+
+    public void subCount(){
+        if(this.loveCount > 0){
+            this.loveCount -= 1;
+        }
     }
 }

@@ -29,6 +29,10 @@ public class IngredientController {
     }
 
     /**
+     * 레시피 별 Ingredient 조회
+     */
+
+    /**
      * Ingredient 삭제
      */
     @DeleteMapping("/ingredient/delete/{ingredientId}")

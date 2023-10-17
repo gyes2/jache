@@ -18,6 +18,8 @@ public enum CustomResponseStatus {
     BAD_JWT(false,206,"잘못된 토큰입니다."),
     AUTHENTICATED_FAILED(false,207,"인증에 실패했습니다"),
     WRONG_INPUT_IMAGE(false,208,"이미지 형식이 잘못되었습니다."),
+    ALREADY_LOVE(false,209,"이미 좋아요를 누른 레시피 입니다."),
+    TOKEN_IS_NULL(false,210,"토큰이 존재하지 않습니다."),
 
 
 
@@ -38,7 +40,8 @@ public enum CustomResponseStatus {
     ORDERS_NOT_FOUND(false,404,"해당 요리순서를 찾을 수 없습니다."),
 
     //500 기타 에러
-    IMAGE_UPLOAD_ERROR(false,500,"이미지 업로드에 실패했습니다.");
+    IMAGE_UPLOAD_ERROR(false,500,"이미지 업로드에 실패했습니다."),
+    S3_IMG_DELETE_ERROR(false,501,"s3 이미지 삭제에 실패했습니다.");
 
     private final boolean isSuccess;
     private final int code;

@@ -3,7 +3,7 @@ package com.example.jache.receipe.service.impl;
 import com.amazonaws.services.s3.AmazonS3;
 import com.example.jache.constant.enums.CustomResponseStatus;
 import com.example.jache.constant.exception.CustomException;
-import com.example.jache.receipe.dto.OrderImgUploadDto;
+import com.example.jache.receipe.dto.ImgUploadDto;
 import com.example.jache.receipe.dto.OrdersDto;
 import com.example.jache.receipe.entity.Orders;
 import com.example.jache.receipe.entity.Receipe;
@@ -14,9 +14,6 @@ import com.example.jache.s3.service.S3Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
 
 @Service
 @RequiredArgsConstructor
@@ -44,13 +41,13 @@ public class OrdersServiceImpl implements OrdersService {
     }
 
     @Override
-    public OrdersDto.OrdersResDto createOrders(OrderImgUploadDto orderImgUploadDto, OrdersDto.OrdersReqDto ordersReqDto) {
-        if(orderImgUploadDto.getOrderImg() == null){
+    public OrdersDto.OrdersResDto createOrders(ImgUploadDto orderImgUploadDto, OrdersDto.OrdersReqDto ordersReqDto) {
+        if(orderImgUploadDto.getMultipartFile() == null){
             String orderUrl = "https://3rdprojectbucket.s3.ap-northeast-2.amazonaws.com/initial/ordersInitial.jpg";
         }
         Orders orders = Orders.builder()
                 .content(ordersReqDto.getContent())
-                .contentUrl(s3Service.uploadFile(orderImgUploadDto.getOrderImg(), "orders"))
+                .contentUrl(s3Service.uploadFile(orderImgUploadDto.getMultipartFile(), "orders"))
                 .build();
         ordersRepository.save(orders);
         return OrdersDto.OrdersResDto.builder()
