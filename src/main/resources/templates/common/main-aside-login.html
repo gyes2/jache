@@ -1,0 +1,27 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="sidebarLoginFragment">
+    <div id="main-aside-login-html" class="hidden">
+<div class="main-aside-login">
+    <div class="main-aside-bg">
+        <div class="main-aside-content">
+            <div class="main-aside-login-content">
+                <div class="main-aside-login-img">
+                    <img th:src="@{/static/img/login.jpg}" alt="">
+                </div>
+                <div class="main-aside-login-content-p">
+                    <p id="main-aside-login-username">아이디</p>
+                    <p id="main-aside-login-overview">한줄소개</p>
+                </div>
+            </div>
+            <div class="main-aside-text-bar">
+                <p><a th:href="@{/common/index.html}">내 글</a></p>
+                <p> | </p>
+                <p><a th:href="@{/common/index.html}">마이페이지</a></p>
+                <p> | </p>
+                <p><a th:href="@{/common/index.html}">로그아웃</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+    </div>
+</th:block>

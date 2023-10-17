@@ -15,18 +15,22 @@
 
 <html xmlns:th="http://www.thymeleaf.org">
 <th:block th:fragment="sidebarFragment">
-<div id="main-aside-login">
-    <div id="main-aside-bg">
-        <div id="main-aside-content">
-            <button>로그인</button>
-            <div id="main-aside-text-bar">
-                <p><a href="#">아이디 찾기</a></p>
+    <div id="main-aside-html">
+<div class="main-aside-login">
+    <div class="main-aside-bg">
+        <div class="main-aside-content">
+            <button type="button" id="login-button">로그인</button>
+
+            <div class="main-aside-text-bar">
+                <p><a th:href="@{/common/register.html}">아이디 찾기</a></p>
                 <p> | </p>
-                <p><a href="#">비밀번호 찾기</a></p>
+                <p><a th:href="@{/common/register.html}">비밀번호 찾기</a></p>
                 <p> | </p>
-                <p><a href="#">회원가입</a></p>
+                <p><a th:href="@{/chef/register.html}">회원가입</a></p>
             </div>
         </div>
     </div>
 </div>
+</div>
+
 </th:block>

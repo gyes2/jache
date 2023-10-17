@@ -1,0 +1,81 @@
+#main-container{
+    padding: 2rem;
+    width: auto;
+    height: auto;
+    flex-wrap: wrap;
+}
+
+#main-items-container{
+    width: 80%;
+    height: 80%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+#main-sort-container {
+    width: auto;
+    height: 3rem;
+    padding: 0;
+}
+#main-sort{
+    width: auto;
+    height: 2rem;
+    float: right;
+    font-size: 1rem;
+
+}
+
+.main-item-container {
+    width: 30rem;
+    height: 20rem;
+    display: flex;
+    border-radius: 10px;
+    border: solid #e3e5e8;
+    box-shadow: 0.5px 0.5px 1px 0px black;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.heart{
+    text-align: end;
+    margin-right: 1rem;
+    color: red;
+}
+
+.main-item-container:hover{
+    border: solid #bababa;
+}
+
+.main-item-img {
+    width: 60%;
+    height: 100%;
+    margin: 0;
+    text-align: center;
+    overflow: hidden;
+}
+
+.main-item-img img {
+    margin: 1rem;
+    width: 90%; /* 이미지의 너비를 100%로 조정 */
+    height: 90%; /* 이미지의 높이를 100%로 조정 */
+    object-fit: cover;
+}
+
+.main-item-text {
+    display: flex;
+    flex-flow: column;
+    justify-content: space-around;
+    text-align: center;
+    width: 40%; /* 텍스트 부분을 40%로 조정 */
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+.main-item-text .main-item-chef{
+    text-align: end;
+}
+
+

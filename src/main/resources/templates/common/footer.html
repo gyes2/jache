@@ -16,8 +16,10 @@
       </p>
     </div>
   </div>-->
+
 <html xmlns:th="http://www.thymeleaf.org">
 <th:block th:fragment="footerFragment">
+    <div id="footer-bg">
 <div id="footer_wrapper">
     <div class="footer_section1">
         <p>법인명: 주식회사 Alcohol(대표이사: 소주세짝)</p>
@@ -35,8 +37,5 @@
         </p>
     </div>
 </div>
-
-<div id="main">
-    <img th:src="@{/img/login.jpg}" alt="">
-</div>
+    </div>
 </th:block>
