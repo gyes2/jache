@@ -19,9 +19,10 @@ public enum CustomResponseStatus {
     AUTHENTICATED_FAILED(false,207,"인증에 실패했습니다"),
     WRONG_INPUT_IMAGE(false,208,"이미지 형식이 잘못되었습니다."),
     ALREADY_LOVE(false,209,"이미 좋아요를 누른 레시피 입니다."),
-    TOKEN_IS_NULL(false,210,"토큰이 존재하지 않습니다."),
-    WRONG_INGREDIENT_ID(false,211,"레시피에 해당하지 않는 재료 아이디입니다."),
-    WRONG_ORDERS_ID(false,212,"레시피에 해당하지 않는 주문순서 입니다."),
+    ALREADY_UNLOVE(false,211,"이미 좋아요를 취소한 레시피입니다."),
+    TOKEN_IS_NULL(false,212,"토큰이 존재하지 않습니다."),
+    WRONG_INGREDIENT_ID(false,213,"레시피에 해당하지 않는 재료 아이디입니다."),
+    WRONG_ORDERS_ID(false,214,"레시피에 해당하지 않는 주문순서 입니다."),
 
 
 
@@ -40,6 +41,7 @@ public enum CustomResponseStatus {
     RECEIPE_NOT_FOUND(false,402,"해당 레시피를 찾을 수 없습니다."),
     INGREDIENT_NOT_FOUND(false,403,"해당 재료를 찾을 수 없습니다."),
     ORDERS_NOT_FOUND(false,404,"해당 요리순서를 찾을 수 없습니다."),
+    CHATROOM_NOT_FOUND(false,405,"해당 채팅방을 찾을 수 없습니다."),
 
     //500 기타 에러
     IMAGE_UPLOAD_ERROR(false,500,"이미지 업로드에 실패했습니다."),

@@ -58,6 +58,7 @@ public class ReceipeController {
     @GetMapping("/receipe/read/{theme}/all")
     public ResponseEntity<ApiResponse<List<ReceipeDto.ReadReceipeResDto>>> readReceipesByTheme(@PathVariable String theme){
         List<ReceipeDto.ReadReceipeResDto> receipes = receipeService.readAllReceipesByTheme(theme);
+
         return ResponseEntity.ok().body(ApiResponse.createSuccess(receipes,CustomResponseStatus.SUCCESS));
     }
 
@@ -120,7 +121,7 @@ public class ReceipeController {
     /**
      * 상대방이 쓴 레시피 조회
      */
-    @GetMapping("/oher_receipe/{otherName}/{theme}")
+    @GetMapping("/other_receipe/{otherName}/{theme}")
     public ResponseEntity<ApiResponse<List<ReceipeDto.ReadReceipeResDto>>> readOtherReceipe(
             @PathVariable(value = "theme") String theme, @PathVariable(value = "otherName") String otherName
     ){

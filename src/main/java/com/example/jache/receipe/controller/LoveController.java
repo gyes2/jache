@@ -33,7 +33,7 @@ public class LoveController {
         return ResponseEntity.ok().body(ApiResponse.createSuccessWithNoContent(CustomResponseStatus.SUCCESS));
     }
 
-    @GetMapping("/check/status/{receipeId}")
+    @GetMapping("/love/check/status/{receipeId}")
     public ResponseEntity<ApiResponse<ReceipeLoveDto.LoveStatusResDto>> getStatus(@PathVariable Long receipeId, Authentication authentication){
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         ReceipeLoveDto.LoveStatusResDto status = loveService.getStatus(receipeId, userDetails.getUsername());
@@ -43,6 +43,7 @@ public class LoveController {
     /**
      * 스크랩한 레시피 조회
      */
+    @GetMapping("/love/list")
     public ResponseEntity<ApiResponse<List<ReceipeDto.ReadReceipeResDto>>> getScraps(Authentication authentication){
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         List<ReceipeDto.ReadReceipeResDto> scraps = loveService.getScrapReceipe(userDetails.getUsername());

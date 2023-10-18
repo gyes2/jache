@@ -105,12 +105,11 @@ public class ChefController {
     @PostMapping("/member/refresh")
     public ResponseEntity<ApiResponse<ChefDto.RefreshResDto>> refresh(@RequestHeader("Authorization") String refreshToken){
         String result = jwtTokenUtil.validRefreshToken(refreshToken);
-        if(!result.equals("만료된 토큰입니다.")){
+        if(!result.equals("리프레시 토큰이 만료되었습니다.")){
             ChefDto.RefreshResDto refreshResDto = chefService.getRefresh(result);
             return ResponseEntity.ok().body(ApiResponse.createSuccess(refreshResDto,CustomResponseStatus.SUCCESS));
         }
         throw new CustomException(CustomResponseStatus.EXPIRED_TOKEN);
-
     }
 
     /**
