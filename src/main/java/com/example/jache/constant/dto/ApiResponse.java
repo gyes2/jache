@@ -35,7 +35,7 @@ public class ApiResponse<T> {
         return new ApiResponse<>(true, status.getCode(),status.getMessage(), data);
     }
 
-    public static ApiResponse<?> createSuccessWithNoContent(CustomResponseStatus status) {
+    public static ApiResponse<String> createSuccessWithNoContent(CustomResponseStatus status) {
         return new ApiResponse<>(true, status.getCode(),status.getMessage(), null);
     }
 
@@ -55,9 +55,7 @@ public class ApiResponse<T> {
     }
 
     // 예외 발생으로 API 호출 실패시 반환
-    public static ApiResponse<?> createError(CustomResponseStatus status) {
-        return new ApiResponse<>(status.isSuccess(),status.getCode(),status.getMessage(), null);
-    }
+
 
     private ApiResponse(CustomResponseStatus status) {
         this.isSuccess = status.isSuccess();
@@ -69,5 +67,9 @@ public class ApiResponse<T> {
         this.code = SUCCESS.getCode();
         this.message = SUCCESS.getMessage();
         this.data = data;
+    }
+
+    public static ApiResponse<String> createError(CustomResponseStatus status) {
+        return new ApiResponse<>(status.isSuccess(), status.getCode(),status.getMessage(), null);
     }
 }
