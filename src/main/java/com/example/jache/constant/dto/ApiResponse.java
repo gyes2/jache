@@ -62,12 +62,7 @@ public class ApiResponse<T> {
         this.code = status.getCode();
         this.message = status.getMessage();
     }
-    private ApiResponse(T data){
-        this.isSuccess = SUCCESS.isSuccess();
-        this.code = SUCCESS.getCode();
-        this.message = SUCCESS.getMessage();
-        this.data = data;
-    }
+
 
     public static ApiResponse<String> createError(CustomResponseStatus status) {
         return new ApiResponse<>(status.isSuccess(), status.getCode(),status.getMessage(), null);

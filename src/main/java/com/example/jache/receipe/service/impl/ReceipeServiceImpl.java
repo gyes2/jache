@@ -50,7 +50,6 @@ public class ReceipeServiceImpl implements ReceipeService {
 
     @Override
     public Long createReceipe(ImgUploadDto uploadDto, ReceipeDto.CreateReceipeReqDto createReceipeReqDto, String chefName) {
-        Chef chef = getChef(chefName);
 
         Receipe receipe = getReceipe(createReceipeReqDto.getReceipeId());
 
@@ -58,7 +57,8 @@ public class ReceipeServiceImpl implements ReceipeService {
             throw new CustomException(CustomResponseStatus.UNAUTHORIZED_TOKEN);
         }
         String receipeUrl = "";
-        if(uploadDto.getMultipartFile() == null){
+
+        if(uploadDto.getMultipartFile().isEmpty()){
             receipeUrl = "https://3rdprojectbucket.s3.ap-northeast-2.amazonaws.com/initial/receipeInitial.jpg";
         }
         else{
@@ -73,6 +73,8 @@ public class ReceipeServiceImpl implements ReceipeService {
         receipe.modifyTitle(createReceipeReqDto.getTitle());
         receipe.modifyIntroduce(createReceipeReqDto.getIntroduce());
         receipe.modifyReceipeImgUrl(receipeUrl);
+
+        receipeRepository.save(receipe);
 
         return receipe.getReceipeId();
     }
@@ -111,7 +113,7 @@ public class ReceipeServiceImpl implements ReceipeService {
             throw new CustomException(CustomResponseStatus.UNAUTHORIZED_TOKEN);
         }
         String updateImgUrl = "";
-        if(updateImgDto.getMultipartFile() == null){
+        if(updateImgDto.getMultipartFile().isEmpty()){
             updateImgUrl = "https://3rdprojectbucket.s3.ap-northeast-2.amazonaws.com/initial/receipeInitial.jpg";
         }
         else{
@@ -125,6 +127,7 @@ public class ReceipeServiceImpl implements ReceipeService {
         if(!receipe.getIntroduce().equals(updateReceipeReqDto.getIntroduce())){
             receipe.modifyIntroduce(updateReceipeReqDto.getIntroduce());
         }
+        receipeRepository.save(receipe);
 
         return receipe.getReceipeId();
     }
@@ -154,6 +157,9 @@ public class ReceipeServiceImpl implements ReceipeService {
 
     @Override
     public boolean getIsMyReceipe(String receipeWriter, String chefName) {
+        if(receipeWriter.equals(chefName)){
+            return true;
+        }
         return false;
     }
 

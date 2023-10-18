@@ -42,15 +42,24 @@ public class OrdersServiceImpl implements OrdersService {
 
     @Override
     public OrdersDto.OrdersResDto createOrders(ImgUploadDto orderImgUploadDto, OrdersDto.OrdersReqDto ordersReqDto) {
-        if(orderImgUploadDto.getMultipartFile() == null){
-            String orderUrl = "https://3rdprojectbucket.s3.ap-northeast-2.amazonaws.com/initial/ordersInitial.jpg";
+        Receipe receipe = receipeRepository.findByReceipeId(ordersReqDto.getReceipeId()).orElseThrow(
+                () -> new CustomException(CustomResponseStatus.RECEIPE_NOT_FOUND)
+        );
+        String orderUrl = "";
+        if(orderImgUploadDto.getMultipartFile().isEmpty()){
+            orderUrl = "https://3rdprojectbucket.s3.ap-northeast-2.amazonaws.com/initial/ordersInitial.jpg";
+        }
+        else{
+            orderUrl = s3Service.uploadFile(orderImgUploadDto.getMultipartFile(), "orders");
         }
         Orders orders = Orders.builder()
+                .receipe(receipe)
                 .content(ordersReqDto.getContent())
-                .contentUrl(s3Service.uploadFile(orderImgUploadDto.getMultipartFile(), "orders"))
+                .contentUrl(orderUrl)
                 .build();
         ordersRepository.save(orders);
         return OrdersDto.OrdersResDto.builder()
+                .orderId(orders.getOrdersId())
                 .content(orders.getContent())
                 .contentUrl(orders.getContentUrl())
                 .build();
@@ -69,7 +78,7 @@ public class OrdersServiceImpl implements OrdersService {
         }
 
         String updateImgUrl = "";
-        if(updateImg.getMultipartFile() == null){
+        if(updateImg.getMultipartFile().isEmpty()){
             updateImgUrl = "https://3rdprojectbucket.s3.ap-northeast-2.amazonaws.com/initial/ordersInitial.jpg";
         }
         else{
@@ -81,6 +90,7 @@ public class OrdersServiceImpl implements OrdersService {
         if(!order.getContent().equals(updateOrder.getContent())){
             order.modifyContent(updateOrder.getContent());
         }
+        ordersRepository.save(order);
 
         return order.getOrdersId();
     }
