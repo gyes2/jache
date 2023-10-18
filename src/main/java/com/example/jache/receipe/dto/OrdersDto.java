@@ -23,10 +23,12 @@ public class OrdersDto {
     @NoArgsConstructor
     @Data
     public static class OrdersResDto{
+        private Long orderId;
         private String content;
         private String contentUrl;
 
         public OrdersResDto(Orders orders) {
+            this.orderId = orders.getOrdersId();
             this.content = orders.getContent();
             this.contentUrl = orders.getContentUrl();
         }

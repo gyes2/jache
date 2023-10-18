@@ -9,6 +9,4 @@ import java.util.Optional;
 
 public interface LoveRepository extends JpaRepository<Love,Long>, LoveRepositoryCustom {
 
-    Optional<Love> findLoveByChefAndReceipe(Chef chef, Receipe receipe);
-
 }

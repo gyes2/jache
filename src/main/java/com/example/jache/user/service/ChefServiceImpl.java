@@ -48,23 +48,18 @@ public class ChefServiceImpl implements ChefService{
 
     @Override
     public boolean checkDuplicateCheckName(String chefname) {
-        if(chefRepository.findByChefName(chefname) == null){
-            //중복이면 false
-            return false;
+        if(chefRepository.findByChefName(chefname).isPresent()){
+            throw new CustomException(CustomResponseStatus.DUPLICATE_CHEFNAME);
         }
-        else {
-            return true;
-        }
+        return true;
     }
 
     @Override
     public boolean checkDuplicateEmail(String email) {
-        if(chefRepository.findChefByEmail(email).isEmpty()){
-            return true;
+        if(chefRepository.findChefByEmail(email).isPresent()){
+            throw new CustomException(CustomResponseStatus.DUPLICATE_EMAIL);
         }
-        else{
-            return false;
-        }
+        return true;
     }
 
     @Override
@@ -76,10 +71,10 @@ public class ChefServiceImpl implements ChefService{
     @Override
     public ChefDto.SigninResponseDto login(ChefDto.SigninRequestDto signinRequestDto) {
         log.info(signinRequestDto.toString());
-        Chef chef = chefRepository.findByChefName(signinRequestDto.getChefName()).orElseThrow();
-        if(chef == null){
-            throw new CustomException(CustomResponseStatus.USER_NOT_FOUND);
-        }
+        Chef chef = chefRepository.findByChefName(signinRequestDto.getChefName()).orElseThrow(
+                () -> new CustomException(CustomResponseStatus.USER_NOT_FOUND)
+        );
+
         if(!passwordEncoder.matches(signinRequestDto.getPassword(), chef.getPassword())){
             throw new CustomException(CustomResponseStatus.BAD_PASSWORD);
         }
@@ -140,15 +135,25 @@ public class ChefServiceImpl implements ChefService{
     }
 
     @Override
-    public ChefDto.UpdateImgResDto updateMyImage(ImgUploadDto receipeImgUploadDto, String chefName) {
+    public ChefDto.UpdateImgResDto updateMyImage(ImgUploadDto myImgUploadDto, String chefName) {
         Chef chef = chefRepository.findByChefName(chefName).orElseThrow(
                 () -> new CustomException(CustomResponseStatus.USER_NOT_FOUND)
         );
         s3Service.deleteFile(chef.getChefImgUrl());
-        String updateImgUrl = s3Service.uploadFile(receipeImgUploadDto.getMultipartFile(), "chef");
+        String updateImgUrl = "";
+        if(myImgUploadDto.getMultipartFile().isEmpty()){
+            updateImgUrl = "https://3rdprojectbucket.s3.ap-northeast-2.amazonaws.com/initial/userInitial.jpg";
+        }
+        else{
+            updateImgUrl = s3Service.uploadFile(myImgUploadDto.getMultipartFile(), "chef");
+        }
+
         chef.modifyChefImgUrl(updateImgUrl);
+
+        chefRepository.save(chef);
+
         return ChefDto.UpdateImgResDto.builder()
-                .updateImgUrl(updateImgUrl)
+                .updateImgUrl(chef.getChefImgUrl())
                 .build();
     }
 
@@ -159,6 +164,8 @@ public class ChefServiceImpl implements ChefService{
                 () -> new CustomException(CustomResponseStatus.USER_NOT_FOUND)
         );
         chef.modifyChefImgUrl("https://3rdprojectbucket.s3.ap-northeast-2.amazonaws.com/initial/userInitial.jpg");
+        chefRepository.save(chef);
+
         return ChefDto.DeleteImgResDto.builder()
                 .chefImgUrl(chef.getChefImgUrl())
                 .build();
@@ -170,6 +177,8 @@ public class ChefServiceImpl implements ChefService{
                 () -> new CustomException(CustomResponseStatus.USER_NOT_FOUND)
         );
         chef.modifyChefDetail(req.getChefDetails());
+        chefRepository.save(chef);
+
         return ChefDto.UpdateChefDetailResDto.builder()
                 .chefDetails(chef.getChefDetail())
                 .build();

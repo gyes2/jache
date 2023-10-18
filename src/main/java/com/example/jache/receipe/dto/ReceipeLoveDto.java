@@ -1,7 +1,6 @@
 package com.example.jache.receipe.dto;
 
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
 public class ReceipeLoveDto {
     @Getter
@@ -10,6 +9,9 @@ public class ReceipeLoveDto {
     }
 
     @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Data
     public static class LoveStatusResDto{
         private String status;
     }
