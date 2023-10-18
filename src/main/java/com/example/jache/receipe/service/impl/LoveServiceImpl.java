@@ -25,49 +25,44 @@ public class LoveServiceImpl implements LoveService {
     private final ChefRepository chefRepository;
     private final ReceipeRepository receipeRepository;
 
-    @Override
-    public Love getLove(Long receipeId, String chefName) {
 
+    @Override
+    public void love(Long receipeId, String chefName) {
+        if(loveRepository.findLoveByReceipeIdAndChefName(receipeId,chefName) != null){
+            throw new CustomException(CustomResponseStatus.ALREADY_LOVE);
+        }
         Receipe receipe = receipeRepository.findByReceipeId(receipeId).orElseThrow(
                 ()-> new CustomException(CustomResponseStatus.RECEIPE_NOT_FOUND)
         );
         Chef chef = chefRepository.findByChefName(chefName).orElseThrow(
                 () -> new CustomException(CustomResponseStatus.USER_NOT_FOUND)
         );
-        if(loveRepository.findLoveByChefAndReceipe(chef,receipe).isEmpty()){
-            Love newLove = Love.builder()
+        Love newLove = Love.builder()
                     .receipe(receipe)
                     .chef(chef)
                     .status("y")
                     .build();
-            loveRepository.save(newLove);
-            receipe.addCount();
-            return newLove;
-        }
-        else{
-            return null;
-        }
-    }
-
-    @Override
-    public void love(Long receipeId, String chefName) {
-        if(getLove(receipeId,chefName) == null){
-            throw new CustomException(CustomResponseStatus.ALREADY_LOVE);
-        }
+        loveRepository.save(newLove);
+        receipe.addCount();
     }
 
     @Override
     public void unLove(Long receipeId, String chefName) {
-        Love delLove = getLove(receipeId,chefName);
-        loveRepository.delete(delLove);
-        Receipe receipe = receipeRepository.findByReceipeId(receipeId).orElseThrow();
-        receipe.subCount();
+        if(loveRepository.findLoveByReceipeIdAndChefName(receipeId,chefName) != null){
+            Love delLove = loveRepository.findLoveByReceipeIdAndChefName(receipeId,chefName);
+            loveRepository.delete(delLove);
+            Receipe receipe = receipeRepository.findByReceipeId(receipeId).orElseThrow();
+            receipe.subCount();
+        }
+        else{
+            throw new CustomException(CustomResponseStatus.ALREADY_UNLOVE);
+        }
     }
 
     @Override
     public ReceipeLoveDto.LoveStatusResDto getStatus(Long receipeId, String chefName) {
         String status = "";
-        Love love = getLove(receipeId,chefName);
+        Love love = loveRepository.findLoveByReceipeIdAndChefName(receipeId,chefName);
         if(love == null){
             status = "N";
         }
@@ -82,7 +77,7 @@ public class LoveServiceImpl implements LoveService {
     @Override
     public List<ReceipeDto.ReadReceipeResDto> getScrapReceipe(String chefName) {
 
-        List<Receipe> receipes = loveRepository.findReceipesByScrap(chefName);
+        List<Receipe> receipes = receipeRepository.findReceipesByScrap(chefName);
         return receipes.stream()
                 .map(ReceipeDto.ReadReceipeResDto::new)
                 .collect(Collectors.toList());

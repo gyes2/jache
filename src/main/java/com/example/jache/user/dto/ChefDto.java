@@ -65,28 +65,39 @@ public class ChefDto {
 
     @Builder
     @Getter
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class DeleteImgReqDto{
         private String chefImgUrl;
     }
 
     @Builder
     @Getter
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class DeleteImgResDto{
         private String chefImgUrl;
     }
 
     @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class UpdateImgResDto{
         private String updateImgUrl;
     }
 
     @Builder
     @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class UpdateChefDetailReqDto{
         private String chefDetails;
     }
 
     @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Data
     public static class UpdateChefDetailResDto{
         private String chefDetails;
     }

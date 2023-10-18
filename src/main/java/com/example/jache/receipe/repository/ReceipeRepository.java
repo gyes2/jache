@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface ReceipeRepository extends JpaRepository<Receipe,Long> {
+public interface ReceipeRepository extends JpaRepository<Receipe,Long>,ReceipeRepositoryCustom {
 
     Optional<Receipe> findByReceipeId(Long receipeId);
 
@@ -18,4 +18,5 @@ public interface ReceipeRepository extends JpaRepository<Receipe,Long> {
 
     List<Receipe> findAllByTheme(Sort sort, String theme);
     List<Receipe> findAllByThemeAndChef(Sort sort, String theme, Chef chef);
+
 }

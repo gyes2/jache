@@ -1,10 +1,7 @@
 package com.example.jache.receipe.dto;
 
 import com.example.jache.receipe.entity.Ingredient;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 public class IngredientDto {
 
@@ -21,6 +18,7 @@ public class IngredientDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
+    @Data
     public static class IngredientResDto{
         private Long ingredientId;
         private String ingredientName;
@@ -37,9 +35,9 @@ public class IngredientDto {
     @NoArgsConstructor
     @AllArgsConstructor
     @Getter
+    @Data
     public static class UpdateIngredientReqDto{
         private String ingredientName;
         private String weight;
-        private Long receipeId;
     }
 }

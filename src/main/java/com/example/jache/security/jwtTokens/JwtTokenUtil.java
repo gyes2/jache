@@ -4,16 +4,14 @@ import com.example.jache.constant.enums.CustomResponseStatus;
 import com.example.jache.constant.exception.CustomException;
 import com.example.jache.user.entity.Chef;
 import com.example.jache.user.repository.ChefRepository;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.http.parser.Authorization;
+import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -51,7 +49,7 @@ public final class JwtTokenUtil {
         return Jwts.builder()
                 .setClaims(claims)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000L * 60 * 24))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000L * 60 * 60))
                 .signWith(getSigninKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
@@ -63,7 +61,7 @@ public final class JwtTokenUtil {
         return Jwts.builder()
                 .setClaims(reClaims)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 60*60*24*7))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000L * 60 * 60 * 24))
                 .signWith(getSigninKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
@@ -107,9 +105,7 @@ public final class JwtTokenUtil {
      */
     public String getRefreshByChefName(String token){
         String email = getEmail(token);
-        String refresh = chefRepository.findChefByEmail(email).orElseThrow(
-                () -> new CustomException(CustomResponseStatus.EXPIRED_REFRESH_TOKEN)
-        ).getRefreshToken();
+        String refresh = chefRepository.findChefByEmail(email).orElseThrow().getRefreshToken();
         return refresh;
     }
 
@@ -170,5 +166,24 @@ public final class JwtTokenUtil {
             return true;
         }
         return false;
+    }
+
+    public String extractJwt(final StompHeaderAccessor accessor) {
+        return accessor.getFirstNativeHeader("Authorization");
+    }
+
+    // jwt 인증
+    public void validateToken(String token) {
+        try {
+            Jwts.parserBuilder().setSigningKey(SECRET_KEY).build().parseClaimsJws(token);
+        } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
+            throw new CustomException(CustomResponseStatus.MALFORMED_TOKEN);
+        } catch (ExpiredJwtException e) {
+            throw new CustomException(CustomResponseStatus.EXPIRED_TOKEN);
+        } catch (UnsupportedJwtException e) {
+            throw new CustomException(CustomResponseStatus.UNSUPPORTED_TOKEN);
+        } catch (IllegalArgumentException e) {
+            throw new CustomException(CustomResponseStatus.BAD_JWT);
+        }
     }
 }
