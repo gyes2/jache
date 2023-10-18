@@ -3,17 +3,19 @@ package com.example.jache.user.entity;
 import com.example.jache.chat.entity.Chat;
 import com.example.jache.chat.entity.ChatRoom;
 import com.example.jache.constant.entity.BaseEntity;
+import com.example.jache.receipe.entity.Love;
 import com.example.jache.receipe.entity.Receipe;
-import com.example.jache.receipe.entity.love;
+import com.example.jache.user.entity.enums.Role;
 import com.fasterxml.jackson.databind.ser.Serializers;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -21,7 +23,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Getter
-public class Chef extends BaseEntity {
+public class Chef extends BaseEntity implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long chefId;
@@ -29,7 +31,7 @@ public class Chef extends BaseEntity {
     @Column(nullable = false, length = 45)
     private String chefName;
 
-    @Column(nullable = false, length = 45)
+    @Column(nullable = false)
     private String password;
 
     @Column(nullable = false, length = 13)
@@ -38,7 +40,7 @@ public class Chef extends BaseEntity {
     @Column(nullable = false)
     private String email;
 
-    @Column(nullable = false, length = 25)
+    @Column(length = 10)
     private String chefDetail;
 
     private String chefImgUrl;
@@ -46,13 +48,66 @@ public class Chef extends BaseEntity {
     @OneToMany(mappedBy = "chef")
     private List<ChatRoom> chatRooms = new ArrayList<>();
 
-    @OneToMany(mappedBy = "chef")
-    private List<love> loves = new ArrayList<>();
+    @OneToMany(mappedBy = "chef", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<Love> loves = new ArrayList<>();
 
-    @OneToMany(mappedBy = "chef")
+    @OneToMany(mappedBy = "chef",cascade = {CascadeType.REMOVE,CascadeType.PERSIST},fetch = FetchType.LAZY)
     private List<Receipe> receipes = new ArrayList<>();
 
     @OneToMany(mappedBy = "chef")
     private List<Chat> chats = new ArrayList<>();
+
+    @Enumerated(value = EnumType.STRING)
+    private Role role;
+
+    private String refreshToken;
+    /*
+    UserDetail 부분
+     */
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        Collection<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority(this.role.getRole()));
+
+        return authorities;
+    }
+
+    @Override
+    public String getUsername() {
+
+        return this.chefName;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+    public void modifyRefreshToken(String refreshToken){
+        this.refreshToken = refreshToken;
+    }
+
+    public void modifyChefImgUrl(String chefImgUrl){
+        this.chefImgUrl = chefImgUrl;
+    }
+
+    public void modifyChefDetail(String chefDetail){
+        this.chefDetail = chefDetail;
+    }
 
 }
