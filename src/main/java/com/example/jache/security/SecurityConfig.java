@@ -1,26 +1,76 @@
 package com.example.jache.security;
 
-import org.springframework.boot.web.servlet.DispatcherType;
+import com.example.jache.constant.handler.CustomAccessDeniedHandler;
+import com.example.jache.constant.handler.CustomAuthenticationEntryPoint;
+import com.example.jache.constant.handler.CustomExceptionHandler;
+import com.example.jache.security.jwtTokens.JwtAuthenticationFilter;
+import com.example.jache.security.jwtTokens.JwtTokenUtil;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 
-import static org.springframework.transaction.TransactionDefinition.withDefaults;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
-public class SecurityConfig {
+@RequiredArgsConstructor
+@EnableWebSecurity //spring security 활성화
+@EnableMethodSecurity(prePostEnabled = true, securedEnabled = true)
+public class SecurityConfig{
 
-//    @Bean
-//    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//        http.csrf().disable().cors().disable()
-//                .authorizeHttpRequests(request -> request
-//                        .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
-//                        .anyRequest().authenticated()	// 어떠한 요청이라도 인증필요
-//                )
-//                .formLogin(login -> login	// form 방식 로그인 사용
-//                        .defaultSuccessUrl("/view/dashboard", true)	// 성공 시 dashboard로
-//                        .permitAll()	// 대시보드 이동이 막히면 안되므로 얘는 허용
-//                )
-//                .logout(withDefaults());	// 로그아웃은 기본설정으로 (/logout으로 인증해제)
-//
-//        return http.build();
+    private final JwtTokenUtil jwtTokenUtil;
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+        return httpSecurity
+                .csrf(AbstractHttpConfigurer::disable)
+                .cors(AbstractHttpConfigurer::disable)
+                .sessionManagement(
+                        session->session
+                                .sessionCreationPolicy(
+                                        SessionCreationPolicy.STATELESS)
+                )//jwt토큰이라 세션 설정 false
+                //권한 설정
+                .authorizeHttpRequests((authorizeHttprequests) -> authorizeHttprequests
+                        .requestMatchers("/auth/**").hasRole("USER")
+                        .requestMatchers("/api/user/**").hasRole("USER")
+                        .requestMatchers("/api/member/**").hasRole("USER")
+                        .anyRequest().permitAll()
+                )
+                .httpBasic(Customizer.withDefaults())
+                .exceptionHandling((httpSecutiryExceptionHandler)
+                        -> httpSecutiryExceptionHandler
+                        .accessDeniedHandler(new CustomAccessDeniedHandler())
+                        .authenticationEntryPoint(new CustomAuthenticationEntryPoint()))
+                .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
+                .build();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+        return config.getAuthenticationManager();
+    }
+
+    JwtAuthenticationFilter jwtAuthenticationFilter(){
+        return new JwtAuthenticationFilter(jwtTokenUtil);
+    }
+
+
 }

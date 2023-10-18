@@ -1,16 +1,15 @@
 package com.example.jache.user.dto;
 
+import com.example.jache.user.entity.Chef;
 import lombok.*;
 
 
 public class ChefDto {
-    public class ChefRequestDto{
 
-    }
     @Data
     @AllArgsConstructor
     @NoArgsConstructor
-    public class SignUpRequestDto{
+    public static class SignUpRequestDto{
         private String chefName;
         private String password;
         private String phone;
@@ -20,31 +19,75 @@ public class ChefDto {
     @Data
     @AllArgsConstructor
     @NoArgsConstructor
-    public class SigninRequestDto{
+    @Builder
+    public static class SignUpResponseDto{
+        private String chefName;
+    }
+
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class SigninRequestDto{
         private String chefName;
         private String password;
     }
     @Data
     @AllArgsConstructor
     @NoArgsConstructor
-    public class SigninResponseDto{
-        private String chefName;
-        private String chefImgUrl;
-        private String chefDetail;
+    @Builder
+    public static class SigninResponseDto{
+        private String token;
+        private String refresh;
     }
 
-    @Getter
-    @AllArgsConstructor
-    @NoArgsConstructor
+
     @Builder
-    public static class SignUpResponseDto{
-        private String chefName;
-    }
-    @Getter
     @AllArgsConstructor
     @Data
     @NoArgsConstructor
-    public static class SendEmailRequestDto{
-        private String email;
+    public static class GetChefInfoResDto{
+        private String chefName;
+        private String chefDetial;
+        private String chefImgUrl;
+
+        public GetChefInfoResDto(Chef chef) {
+            this.chefName = chef.getChefName();
+            this.chefDetial = chef.getChefDetail();
+            this.chefImgUrl = chef.getChefImgUrl();
+        }
+    }
+
+    @Builder
+    public static class RefreshResDto{
+        private String newAccessToken;
+        private String newRefreshToken;
+    }
+
+    @Builder
+    @Getter
+    public static class DeleteImgReqDto{
+        private String chefImgUrl;
+    }
+
+    @Builder
+    @Getter
+    public static class DeleteImgResDto{
+        private String chefImgUrl;
+    }
+
+    @Builder
+    public static class UpdateImgResDto{
+        private String updateImgUrl;
+    }
+
+    @Builder
+    @Getter
+    public static class UpdateChefDetailReqDto{
+        private String chefDetails;
+    }
+
+    @Builder
+    public static class UpdateChefDetailResDto{
+        private String chefDetails;
     }
 }
