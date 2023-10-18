@@ -61,15 +61,14 @@ public class IngredientServiceImpl implements IngredientService {
         Ingredient ingredient = ingredientRepository.findByIngredientId(ingredientId).orElseThrow(
                 ()-> new CustomException(CustomResponseStatus.INGREDIENT_NOT_FOUND)
         );
-        if(!Objects.equals(update.getReceipeId(), ingredient.getReceipe().getReceipeId())){
-            throw new CustomException(CustomResponseStatus.WRONG_INGREDIENT_ID);
-        }
+
         if(!ingredient.getIngredientName().equals(update.getIngredientName())){
             ingredient.modifyIngredientName(update.getIngredientName());
         }
         if(!ingredient.getWeight().equals(update.getWeight())){
             ingredient.modifyWeight(update.getWeight());
         }
+        ingredientRepository.save(ingredient);
         return ingredient.getIngredientId();
     }
 }

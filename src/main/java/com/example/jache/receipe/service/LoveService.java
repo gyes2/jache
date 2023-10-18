@@ -8,7 +8,6 @@ import java.util.List;
 
 public interface LoveService {
 
-    Love getLove(Long receipeId, String chefName);
 
     void love(Long receipeId, String chefName);
 
