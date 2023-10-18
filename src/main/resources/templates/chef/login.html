@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,7 +19,7 @@
 <main class="login-container">
     <div class="form-text">
         <h2>로그인</h2>
-        <form action="#" th:action="@{/login}" method="post">
+<!--        <form th:action="@{/api/all/signin}" method="post">
             <div id="login-form">
                 <div id="login-form-text">
                     <label></label>
@@ -28,17 +30,62 @@
                 <button type="submit">로그인</button>
             </div>
 
-    </form>
+    </form>-->
+        <div id="login-form">
+            <div id="login-form-text">
+                <label></label>
+                <input type="text" name="userName" id="login-userName" placeholder="아이디를 입력하세요.." required>
+                <label></label>
+                <input type="password" name="password" id="login-Password" placeholder="비밀번호를 입력하세요.." required>
+            </div>
+            <button id="login-button">로그인</button>
+        </div>
+
     </div>
     <div class="reg">
         <p><a th:href="@{/findId}">아이디 찾기</a></p>
         <p> | </p>
         <p><a th:href="@{/findPassword}">비밀번호 찾기</a></p>
         <p> | </p>
-        <p><a th:href="@{/register}">회원가입</a></p>
+        <p><a th:href="@{/common/register}">회원가입</a></p>
     </div>
     </div>
 </main>
 <div th:replace="~{/common/footer :: footerFragment}"></div>
 </body>
+<script>
+    // "로그인" 버튼 클릭 이벤트를 처리
+    document.getElementById('login-button').addEventListener('click', function() {
+        // 사용자 입력 데이터 수집
+        var userName = document.getElementById('login-userName').value;
+        var password = document.getElementById('login-Password').value;
+
+        // 서버로 데이터를 전송하기 위한 AJAX 요청
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/api/all/signin', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+
+        // 요청 본문 데이터를 JSON 형식으로 생성
+        var requestData = JSON.stringify({
+            userName: userName,
+            password: password
+        });
+
+        // AJAX 요청 전송
+        xhr.send(requestData);
+
+        // 서버 응답 처리
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                // 성공적인 응답 처리
+                var response = JSON.parse(xhr.responseText);
+                console.log('로그인 성공:', response);
+                // 추가 작업을 수행하거나 페이지를 리디렉션할 수 있습니다.
+            } else {
+                // 에러 응답 처리
+                console.error('로그인 실패:', xhr.status, xhr.statusText);
+            }
+        };
+    });
+</script>
 </html>

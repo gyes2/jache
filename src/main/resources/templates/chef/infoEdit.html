@@ -20,7 +20,7 @@
             <h2>나의 정보</h2>
             <hr>
 <!--            <form th:action = "@{}" method="post" class="info" enctype="multipart/form-data">-->
-            <form class="info">
+            <form th:action="@{/api/user/my/update/details}" class="info">
                 <div class = "chefImg">
                     <input type="file" id="chefImg" name="chefImg" accept="image/*"><br><img id="profileImg">
 <!--                    <img th:if="${loginMember.profileImage == null}" src="/img/user.png" id="profileImage">-->

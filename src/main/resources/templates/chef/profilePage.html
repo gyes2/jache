@@ -14,7 +14,7 @@
     <div th:replace="~{/common/header :: headerFragment}"></div>
     <hr>
     <div id = "container">
-        <form class = "chefInfo">
+        <form class = "chefInfo" th:action="@{/api/user/getUserInfo}" method="get">
             <div>
                 <p><img th:src="@{/static/img/login.jpg}" alt="chef-img"></p>
             </div>
