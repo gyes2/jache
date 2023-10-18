@@ -44,3 +44,35 @@ h2 {
     display: flex;
     justify-content: flex-end;
 }
+
+#my_modal {
+    display: none;
+    width: 300px;
+    padding: 20px 60px;
+    background-color: #fefefe;
+    border: 1px solid #888;
+    border-radius: 3px;
+}
+
+.chatName input{
+    margin-left: 3rem;
+}
+.anotherId input {
+    margin-left: 1.8rem;
+}
+
+#my_modal .modal_close_btn {
+    position: absolute;
+    right: 10px;
+}
+
+.formTitle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#popup_open_btn {
+    height: 2.5rem;
+    border: 0;
+}

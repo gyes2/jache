@@ -18,12 +18,12 @@
 }
 
 .chatMessage::-webkit-scrollbar {
-    display: none !important;
+    display: none !important; /* 해당 속성이 변경되지 않도록 하는 역할*/
 }
 
 .chat .inputMessage {
     margin-left : 2rem;
-    margin-top: 2rem;
+    margin-top: 1.5rem;
 }
 
 .chat .inputMessage input {
