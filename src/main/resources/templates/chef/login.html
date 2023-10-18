@@ -17,17 +17,16 @@
 <main class="login-container">
     <div class="form-text">
         <h2>로그인</h2>
-        <form action="#" th:action="@{/login}" method="post">
+        <form id="login-form-id" th:action="@{/login}" method="post">
             <div id="login-form">
                 <div id="login-form-text">
                     <label></label>
-                    <input type="text" name="userName" id="login-userName" placeholder="아이디를 입력하세요.." required>
+                    <input type="text" name="chefName" id="login-userName" placeholder="아이디를 입력하세요.." required>
                     <label></label>
                     <input type="password" name="password" id="login-Password" placeholder="비밀번호를 입력하세요.." required>
                 </div>
                 <button type="submit">로그인</button>
             </div>
-
     </form>
     </div>
     <div class="reg">
@@ -37,7 +36,7 @@
         <p> | </p>
         <p><a th:href="@{/register}">회원가입</a></p>
     </div>
-    </div>
+    <link rel="stylesheet" th:href="@{/static/js/chef/loginfun.js}">
 </main>
 <div th:replace="~{/common/footer :: footerFragment}"></div>
 </body>
