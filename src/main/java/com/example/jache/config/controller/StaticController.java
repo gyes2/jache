@@ -11,7 +11,7 @@ public class StaticController {
 
     @RequestMapping("/main")
     public String indexPage(){
-        return "common/index";
+        return "receipe/receipe-form";
     }
 
 }
