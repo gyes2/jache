@@ -3,8 +3,8 @@
     height: 10rem;
     display: flex;
     justify-content: space-around;
-    color: #79AC78
-    
+    color: #79AC78;
+    cursor: pointer;
 }
 
 #main-header img{
@@ -18,7 +18,6 @@
     font-size: 5rem;
     margin: 0;
     margin-top: 2rem;
-    
 }
 
 #header-dummy{

@@ -1,4 +1,9 @@
-#main-aside-bg{
+.main-aside-login{
+    padding-top: 2rem;
+    padding-right: 2rem;
+}
+
+.main-aside-bg{
     width: 20rem;
     height: 15rem;
     border-radius: 10px;
@@ -7,11 +12,7 @@
     
 }
 
-#main-aside-content{
-    text-align: center;
-}
-
-#main-aside-content button{
+.main-aside-content button{
     margin-top: 3.5rem;
     margin-bottom: 1rem;
     width: 15rem;
@@ -23,10 +24,49 @@
     font-size: 2.5rem;
 }
 
-#main-aside-text-bar{
+.main-aside-content button:hover{
+
+    background-color: #5e735e;
+
+}
+
+.main-aside-text-bar{
     display: flex;
     gap: 0.5rem;
     justify-content: center;
 }
+/* 로그인 전  */
+.main-aside-content{
+    text-align: center;
+}
 
+/* 로그인 후  */
+.main-aside-login-content{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+}
 
+.main-aside-login-content p{
+    margin: 0 auto;
+}
+
+.main-aside-login-img{
+    margin-left: 0.5rem;
+    width: 8rem;
+    height: 8rem;
+    object-fit: cover;
+    margin-bottom: 1rem;
+}
+
+.main-aside-login-img img{
+    width: 80%;
+    height: 80%;
+}
+
+.main-aside-login-content-p{
+    margin-right: 4rem;
+    display: flex;
+    flex-flow: column;
+    gap: 2rem;
+}

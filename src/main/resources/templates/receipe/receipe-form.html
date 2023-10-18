@@ -9,27 +9,30 @@
     <link rel="stylesheet" th:href="@{/static/css/common/nav.css}" type="text/css">
     <link rel="stylesheet" th:href="@{/static/css/common/footer.css}" type="text/css">
     <link rel="stylesheet" th:href="@{/static/css/common/aside.css}" type="text/css">
-    <link rel="stylesheet" th:href="@{/static/css/common/main.css}" type="text/css">
-<style>
-    .main-div{
-        display: flex;
-    }
-    .main-aside-login{
-        position: fixed;
-    }
-</style>
-    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/static/css/receipe/receipeform.css}" type="text/css">
+    <script th:src="@{/static/js/receipe/receipeform.js}" type="text/javascript" defer></script>
+    <style>
+        .main-div{
+            display: flex;
+
+        }
+        .main-aside-login{
+            position: fixed;
+        }
+    </style>
+
+    <title>Title</title>
 </head>
 <body>
 <div th:replace="~{/common/header :: headerFragment}"></div>
 <div th:replace="~{/common/nav :: navFragment}"></div>
 <div class="main-div">
-    <div th:replace="~{/common/main :: mainFragment}"></div>
+    <div th:replace="~{/receipe/main-receipe-form :: mainReceipeForm}"></div>
     <div th:replace="~{/common/main-aside :: sidebarFragment}"></div>
     <div th:replace="~{/common/main-aside-login :: sidebarLoginFragment}"></div>
 </div>
 <div th:replace="~{/common/footer :: footerFragment}"></div>
-<script th:src="@{/static/js/common/itemshow.js}" type="text/javascript"></script>
+
 
 </body>
 </html>
