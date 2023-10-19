@@ -6,7 +6,7 @@
         <div class="main-aside-content">
             <div class="main-aside-login-content">
                 <div class="main-aside-login-img">
-                    <img th:src="@{/static/img/login.jpg}" alt="">
+                    <img id="main-aside-login-img-id" alt="">
                 </div>
                 <div class="main-aside-login-content-p">
                     <p id="main-aside-login-username">아이디</p>
@@ -18,7 +18,7 @@
                 <p> | </p>
                 <p><a th:href="@{/common/index.html}">마이페이지</a></p>
                 <p> | </p>
-                <p><a th:href="@{/common/index.html}">로그아웃</a></p>
+                <p><a id="logout-a" onclick="logout()" >로그아웃</a></p>
             </div>
         </div>
     </div>
