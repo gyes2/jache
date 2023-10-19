@@ -30,13 +30,13 @@
     
   }
   
-  form label {
+ #register-form-id label {
     display: block;
     font-weight: bold;
     margin-top: 0.625rem;
   }
   
-  form input {
+  #register-form-id input {
     width: 70%;
     padding: 0.625rem;
     margin-top: 0.3125rem;
