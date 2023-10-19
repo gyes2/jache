@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function validateAuth() {
-        const authRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        const authRegex= /^\d{4}$/;
         if (!authInput.value) {
             showErrorMessage(authError, "인증번호를 입력해주세요.");
         } else if (!authRegex.test(authInput.value)) {

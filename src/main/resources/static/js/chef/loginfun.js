@@ -1,27 +1,31 @@
-document.getElementById('login-form-id').addEventListener('submit', function(event) {
-    // 폼 제출 동작 중단
-    event.preventDefault();
+function dataSend(){
+    const chefName = document.getElementById("login-userName").value;
+    const password = document.getElementById("login-Password").value;
 
-    // 폼 데이터를 가져옵니다.
-    let formData = new FormData(this);
+    const data = {
+        chefName: chefName,
+        password: password
+    };
 
-    // fetch API를 사용하여 비동기 요청을 보냅니다.
-    fetch('/api/login', {
+    const requestOptions = {
         method: 'POST',
-        body: formData
-    })
-        .then(response => response.json()) // 예상되는 응답 형식이 JSON이라고 가정합니다.
-        .then(data => {
-            if (data.success) {
-                // 로그인이 성공한 경우, 여기에 코드를 추가하세요.
-                alert('로그인 성공!');
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data),
+        redirect: 'follow'
+    };
+
+    fetch("http://localhost:8080/api/all/signin", requestOptions)
+        .then(response => response.json())  // 응답을 JSON 형태로 받아옵니다.
+        .then(result => {
+            console.log(result);
+            if(result.isSuccess === true) {  // 서버 응답을 기반으로 조건을 확인
+                localStorage.setItem('token', result.data.token);
+                window.location.href = '/main';  // 성공시 /main 로 리디렉션
             } else {
-                // 로그인이 실패한 경우, 여기에 코드를 추가하세요.
-                alert('로그인 실패: ' + data.message);
+                // 실패시 다른 액션을 취하거나 사용자에게 메시지를 표시
             }
         })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('오류가 발생했습니다. 다시 시도해주세요.');
-        });
-});
+        .catch(error => console.log('error', error));
+}

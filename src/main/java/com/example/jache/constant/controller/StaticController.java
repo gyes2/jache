@@ -13,7 +13,6 @@ public class StaticController {
 
     @RequestMapping("/main")
     public String indexPage(){
-
         return "common/index";
     }
 
@@ -58,6 +57,17 @@ public class StaticController {
     public String chat(){
         return "chat/chat";
     }
+    @RequestMapping("/login")
+    public String loginPage(){
+        return "chef/login";
+    }
+
+    @RequestMapping("/receipe/register")
+    public String receipeRegister(){
+        return "receipe/receipe-form";
+    }
+
+}
 
     @RequestMapping("/chat/chatPage")
     public String chatPage(){

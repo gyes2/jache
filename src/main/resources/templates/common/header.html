@@ -1,7 +1,16 @@
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<th:block th:fragment="headerFragment">-->
+<!-- <div id="main-header">-->
+<!--     <img th:src="@{/static/img/login.jpg}" alt="logo-img">-->
+<!--     <p>자취생을 부탁해</p>-->
+<!--     <div id="header-dummy"></div>-->
+<!-- </div>-->
+<!--</th:block>-->
+
 <html xmlns:th="http://www.thymeleaf.org">
 <th:block th:fragment="headerFragment">
 
-    <div id="main-header" th:onclick="|location.href='@{common/index}'|">
+    <div id="main-header" onclick="location.href='/main'">
         <img th:src="@{/static/img/login.jpg}" alt="logo-img">
         <p>자취생을 부탁해</p>
         <div id="header-dummy"></div>
