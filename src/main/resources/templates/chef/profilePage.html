@@ -14,20 +14,19 @@
     <div th:replace="~{/common/header :: headerFragment}"></div>
     <hr>
     <div id = "container">
-        <form class = "chefInfo" th:action="@{/api/user/getUserInfo}" method="get">
+        <form class="info" th:action="@{/api/user/getUserInfo}" method="get" data-chef-name="${chefName}">
             <div>
                 <p><img th:src="@{/static/img/login.jpg}" alt="chef-img"></p>
             </div>
-            <div class = "chefId">
-                <label for = "chefId"> 사용자 아이디 </label>
-                <input type="text" id="chefId" name="chefId" th:value="${chefName}" readonly>
-            </div>
-            <div class = "chefInfo">
-                <div>
+            <div class="idInfo">
+                <div class = "chefId">
+                    <label for = "chefId"> 사용자 아이디 </label>
+                    <input type="text" id="chefId" name="chefId" placeholder="사용자 ID" th:value="${chefName}" readonly>
+                </div><br>
+                <div class = "chefInfo">
                     <label for = "chefId" > 내 소개<br> </label>
-                </div>
-                <span th:text="${chef.chefDetail}"></span><br/>
-                <!--th:value="${chefDetail}" th:text="${chef.chefDetail}"-->
+                    <textarea th:text="${chefDetail}" data-chef-detail="${chefDetail}" placeholder="소개" readonly></textarea>
+                </div><br>
             </div>
         </form>
        <div class = "infoSide">

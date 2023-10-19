@@ -5,11 +5,14 @@
             <div class="main-aside-content">
                 <br>
                 <p><img th:src="@{/static/img/login.jpg}" alt="chef-img"></p>
-                <p> 사용자 아이디 </p>
+                <div class = "chefId">
+                    <label for = "chefId"> 사용자 아이디 </label>
+                    <input type="text" id="chefId" name="chefId" placeholder="사용자 아이디" th:value="${chefName}" readonly>
+                </div><br>
                 <div class="main-aside-text-bar">
-                    <p><a th:href="@{chef/myList}"> 내 글 </a></p>
+                    <p><a th:href="@{/chef/myList}"> 내 글 </a></p>
                     <p> | </p> 
-                    <p><a th:href="|@{chef/profilePage}|">마이페이지</a></p>
+                    <p><a th:href="|@{/chef/profilePage}|">마이페이지</a></p>
                     <p> | </p>
                     <p><a th:href="@{#}">로그아웃</a></p>
                 </div>

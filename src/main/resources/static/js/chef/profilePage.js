@@ -1,6 +1,11 @@
 function getUserInfo() {
+    var form = document.querySelector('.chefInfo');
+    var chefName = form.getAttribute('data-chef-name');
+    var chefDetailElement = document.querySelector('[data-chef-detail]');
+    var chefDetail = chefDetailElement.getAttribute('data-chef-detail');
+
     fetch('/api/user/getUserInfo', {
-        method: 'GET',
+        method: 'get',
         headers: {
             'Content-Type': 'application/json'
         }
@@ -15,12 +20,15 @@ function getUserInfo() {
             // API 응답 데이터 처리
             if (data.success) {
                 // 응답이 성공인 경우
-                var chefInfo = data.data; // 예시로 받은 데이터
+                var chefInfo = data.data;
                 console.log('서버에서 받은 사용자 정보:', chefInfo);
 
-                // 원하는 동작을 여기에 추가
+                // chefName과 chefDetail을 필요한 대로 사용할 수 있습니다.
+                console.log('Chef Name:', chefName);
+                console.log('Chef Detail:', chefDetail);
+
+                // 필요한 대로 chefName과 chefDetail을 사용할 수 있습니다.
             } else {
-                // 응답이 실패인 경우
                 console.error('API 요청 실패:', data.message);
             }
         })

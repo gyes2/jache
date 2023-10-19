@@ -29,12 +29,12 @@ input#file-upload-button {
     background: #79AC78;
 }
 
-.chefImg { 
+.chefImg {
     margin-left: 2rem;
     margin-right: 1rem;
-    margin-bottom : 5rem;
+    margin-bottom: 5rem;
     display: grid;
-    justify-items: center;
+    justify-items: end;
 }
 
 #chefImg {
@@ -42,10 +42,9 @@ input#file-upload-button {
 }
 
 .chefImg button {
-    width: 3rem;
+    width: 2.5rem;
     height: 2rem;
     border: 0;
-    margin-left: 2.5rem;
 }
 
 img {
@@ -64,6 +63,9 @@ img {
     justify-content: flex-start;
 }
 
+.chefInfo .infoLayout {
+    margin-left: 0.5rem;
+}
 .chefInfo label {
     margin-left: 1rem;
     margin-right: 4rem;
@@ -81,7 +83,6 @@ img {
 textarea {
     width: 350px;
     height: 150px;
-    margin-right: 1rem;
     resize: none;
 }
 

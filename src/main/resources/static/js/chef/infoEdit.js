@@ -32,12 +32,66 @@ function fn_checkByte(obj) {
     }
 }
 
-var settings = {
-    "url": "http://localhost:8080/api/user/getUserInfo",
-    "method": "POST",
-    "timeout": 0,
-};
+// 프로필 이미지 삭제
+document.querySelector('button[th:onclick="|location.href=\'@{/api/user/my/delete/img}\'"]').addEventListener('click', function () {
+    // 이미지 삭제 API 호출
 
-$.ajax(settings).done(function (response) {
-    console.log(response);
+    var raw = "{\r\n    \"chefImgUrl\":\"https://3rdprojectbucket.s3.ap-northeast-2.amazonaws.com/initial/userInitial.jpg\"\r\n}";
+
+    var requestOptions = {
+        method: 'DELETE',
+        body: raw,
+        redirect: 'follow'
+    };
+
+    fetch("http://localhost:8080/api/user/my/delete/img", requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
 });
+
+    /*fetch('/api/user/my/delete/img', {
+        method: 'DELETE',
+        body: JSON.stringify({ /!* 삭제에 필요한 데이터 *!/ }),
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('이미지 삭제 실패');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                // 삭제 성공한 경우
+                // 원하는 동작을 수행
+                console.log("삭제 성공");
+            } else {
+                console.error('이미지 삭제 실패:', data.message);
+            }
+        })
+        .catch(error => {
+            console.error('이미지 삭제 중 오류 발생:', error);
+        });
+});*/
+
+// 사용자 정보 수정
+document.querySelector('form.th:action="@{/api/user/my/update/details}"').addEventListener('submit', function (event) {
+    event.preventDefault();
+    var formdata = new FormData();
+    formdata.append("myImg", fileInput.files[0], "file");
+
+    var requestOptions = {
+        method: 'PUT',
+        body: formdata,
+        redirect: 'follow'
+    };
+
+    fetch("http://localhost:8080/api/user/my/update/img", requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
+});
+

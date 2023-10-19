@@ -46,7 +46,7 @@
         <div class = "rightMain">
             <div th:replace="~{/common/infoSide :: sidebarFragment}"></div>
             <div class = "btn">
-                <button onclick=""> 글쓰기 </button>
+                <button th:onclick="|location.href='@{/receipe/main-receipe-form}'|"> 글쓰기 </button>
                 <button th:onclick="|location.href='@{/chat/chat}'|"> 채팅 목록 </button>
             </div>
         </div>
