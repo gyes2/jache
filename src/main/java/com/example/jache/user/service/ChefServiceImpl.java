@@ -85,6 +85,7 @@ public class ChefServiceImpl implements ChefService{
             chef.modifyRefreshToken(refresh);
             chefRepository.save(chef);
         }
+        chefRepository.save(chef);
 
 
         return ChefDto.SigninResponseDto.builder()
