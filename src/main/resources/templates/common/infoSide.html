@@ -7,11 +7,11 @@
                 <p><img th:src="@{/static/img/login.jpg}" alt="chef-img"></p>
                 <p> 사용자 아이디 </p>
                 <div class="main-aside-text-bar">
-                    <p><a th:href="@{/chef/myList}"> 내 글 </a></p>
+                    <p><a th:href="@{chef/myList}"> 내 글 </a></p>
                     <p> | </p> 
-                    <p><a th:href="@{/chef/profilePage}">마이페이지</a></p>
+                    <p><a th:href="|@{chef/profilePage}|">마이페이지</a></p>
                     <p> | </p>
-                    <p><a th:href="@{/api/user/logout}">로그아웃</a></p>
+                    <p><a th:href="@{#}">로그아웃</a></p>
                 </div>
             </div>
         </div>

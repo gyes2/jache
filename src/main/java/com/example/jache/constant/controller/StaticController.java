@@ -29,26 +29,26 @@ public class StaticController {
 
     @RequestMapping("/chef/profilePage")
     public String myPage(){
-        return "/chef/profilePage";
+        return "chef/profilePage";
     }
 
     @RequestMapping("/receipe/detailReceipe")
     public String detailReceipe(){
-        return "/receipe/detailReceipe";
+        return "receipe/detailReceipe";
     }
 
     @RequestMapping("/chat/chat")
     public String chat(){
-        return "/chat/chat";
+        return "chat/chat";
     }
 
     @RequestMapping("/chat/chatPage")
     public String chatPage(){
-        return "/chat/chatPage";
+        return "chat/chatPage";
     }
 
     @RequestMapping("/receipe/receipe-form")
     public String receipeForm(){
-        return "/receipe/receipe-form";
+        return "receipe/receipe-form";
     }
 }
