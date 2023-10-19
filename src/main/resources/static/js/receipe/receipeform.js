@@ -1,3 +1,5 @@
+const token = localStorage.getItem('token');
+const receipeCheckNum = "1";
 document.addEventListener("DOMContentLoaded", function() {
     let includes = document.querySelectorAll("[data-include]");
     let includeCount = includes.length;
@@ -205,4 +207,104 @@ function initializeReceipeForm() {
             let sequenceModal = document.getElementById("sequence-modal");
             sequenceModal.style.display = "none";
         });
+
+    // 대표 이미지 보여주기
+    document.getElementById("receipe-form-media-id").addEventListener("change", function() {
+        if (this.files && this.files[0]) {
+            let reader = new FileReader();
+
+            reader.onload = function(e) {
+                document.querySelector(".receipe-form-media-img").src = e.target.result;
+            }
+
+            reader.readAsDataURL(this.files[0]);
+        }
+    });
+
+
+
+    // 전송 버튼 클릭 이벤트 (Put 전송 이벤트)
+    //     document.getElementById("submit-button").addEventListener("click", function(e) {
+    //         e.preventDefault();
+    //
+    //         let jsonData = {
+    //             receipeId: receipeCheckNum,
+    //             category: document.getElementById("receipe-form-option-select").value,
+    //             title: document.getElementById("receipe-form-title-id").value,
+    //             introduce: document.getElementById("receipe-form-overview-id").value,
+    //             receipeImg: document.getElementById("receipe-form-media-id").value
+    //         };
+    //
+    //         // 재료와 단위 가져오기
+    //         let materials = document.querySelectorAll(".receipe-form-material");
+    //         let materialUnits = document.querySelectorAll(".receipe-form-material-unit");
+    //         for (let i = 0; i < materials.length; i++) {
+    //             jsonData.materials.push({
+    //                 material: materials[i].value,
+    //                 unit: materialUnits[i].value
+    //             });
+    //         }
+    //
+    //         // 요리 순서와 이미지 가져오기
+    //         let sequences = document.querySelectorAll(".receipe-form-sequence");
+    //         let sequenceImgs = document.querySelectorAll(".receipe-form-sequence-img");
+    //         for (let i = 0; i < sequences.length; i++) {
+    //             jsonData.sequences.push({
+    //                 step: sequences[i].value,
+    //                 image: sequenceImgs[i].value
+    //             });
+    //         }
+    //
+    //         // Ajax를 통해 JSON 데이터 전송
+    //         sendData(jsonData);
+    //     });
+
+
+    document.getElementById("submit-button").addEventListener("click", function(e) {
+        e.preventDefault();
+
+        let formdata = new FormData();
+
+        // JSON 데이터 첨부
+        let jsonData = {
+            receipeId: receipeCheckNum,
+            theme: document.getElementById("receipe-form-option-select").value,
+            title: document.getElementById("receipe-form-title-id").value,
+            introduce: document.getElementById("receipe-form-overview-id").value
+        };
+        formdata.append("receipe", JSON.stringify(jsonData));
+
+        // 이미지 첨부
+        let imageFile = document.getElementById("receipe-form-media-id").files[0];
+        formdata.append("receipeImg", imageFile);
+
+        // Ajax를 통해 데이터 전송
+        sendData(formdata);
+    });
+
+    async function sendData(data) {
+        try {
+            const response = await fetch("http://localhost:8080/api/user/receipe/create", {
+                method: "PUT",
+                headers: {
+                    'Authorization': 'Bearer ' + token // 토큰 설정
+                },
+                body: data
+            });
+
+            if (response.ok) {
+                alert("데이터 전송 완료!");
+            } else {
+                const errorData = await response.json();
+                alert("데이터 전송 실패: " + JSON.stringify(errorData));
+            }
+        } catch (error) {
+            alert("오류 발생: " + error.toString());
+        }
+    }
+
+
+
+
 }
+
