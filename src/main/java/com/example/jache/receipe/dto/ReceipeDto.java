@@ -5,6 +5,7 @@ import com.example.jache.receipe.entity.Receipe;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,6 +14,7 @@ public class ReceipeDto {
     @NoArgsConstructor
     @AllArgsConstructor
     @Getter
+    @Data
     public static class CreateReceipeReqDto{
         private Long receipeId;
         private String title;
@@ -39,17 +41,21 @@ public class ReceipeDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
+    @Data
+    @Getter
     public static class ReadReceipeDetailResDto{
         private String title;
         private String chefName;
+        private String receipeImgUrl;
         private int loveCount;
-        private List<IngredientDto.IngredientResDto> ingredients;
-        private List<OrdersDto.OrdersResDto> orders;
+        private List<IngredientDto.IngredientResDto> ingredients = new ArrayList<>();
+        private List<OrdersDto.OrdersResDto> orders = new ArrayList<>();
         private LocalDate createDate;
 
         public ReadReceipeDetailResDto(Receipe receipe){
             this.title = receipe.getTitle();
             this.chefName = receipe.getChef().getChefName();
+            this.receipeImgUrl = receipe.getReceipeImgUrl();
             this.loveCount = receipe.getLoveCount();
             this.ingredients = receipe.getIngredients().stream()
                     .map(IngredientDto.IngredientResDto::new)
@@ -64,6 +70,7 @@ public class ReceipeDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
+    @Data
     public static class ReadReceipeResDto{
         private String title;
         private String chefName;
@@ -80,5 +87,15 @@ public class ReceipeDto {
             this.createDate = receipe.getCreateDate();
             this.imgUrl = receipe.getReceipeImgUrl();
         }
+    }
+
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Getter
+    @Data
+    public static class UpdateReceipeReqDto{
+        private String title;
+        private String introduce;
     }
 }

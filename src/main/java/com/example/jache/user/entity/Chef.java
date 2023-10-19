@@ -48,14 +48,12 @@ public class Chef extends BaseEntity implements UserDetails {
     @OneToMany(mappedBy = "chef")
     private List<ChatRoom> chatRooms = new ArrayList<>();
 
-    @OneToMany(mappedBy = "chef", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "chef", cascade = {CascadeType.REMOVE,CascadeType.PERSIST}, fetch = FetchType.LAZY)
     private List<Love> loves = new ArrayList<>();
 
     @OneToMany(mappedBy = "chef",cascade = {CascadeType.REMOVE,CascadeType.PERSIST},fetch = FetchType.LAZY)
     private List<Receipe> receipes = new ArrayList<>();
 
-    @OneToMany(mappedBy = "chef")
-    private List<Chat> chats = new ArrayList<>();
 
     @Enumerated(value = EnumType.STRING)
     private Role role;
