@@ -47,6 +47,7 @@ public class SecurityConfig{
                         .requestMatchers("/auth/**").hasRole("USER")
                         .requestMatchers("/api/user/**").hasRole("USER")
                         .requestMatchers("/api/member/**").hasRole("USER")
+                        .requestMatchers("/ws-jache").permitAll()
                         .anyRequest().permitAll()
                 )
                 .httpBasic(Customizer.withDefaults())
