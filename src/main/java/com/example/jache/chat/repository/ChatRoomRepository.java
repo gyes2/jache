@@ -12,7 +12,7 @@ import java.util.Optional;
 @Repository
 public interface ChatRoomRepository extends JpaRepository<ChatRoom,Long> {
 
-    List<ChatRoom> findAllByChef(Chef chef);
+    //List<ChatRoom> findAllByChef(Chef chef);
 
     @Override
     Optional<ChatRoom> findById(Long aLong);

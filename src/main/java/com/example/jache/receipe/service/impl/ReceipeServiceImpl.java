@@ -31,15 +31,16 @@ public class ReceipeServiceImpl implements ReceipeService {
     private final ChefRepository chefRepository;
     private final S3Service s3Service;
     @Override
-    public ReceipeDto.InitialReceipeResDto initialReceipe(ReceipeDto.InitialReceipeReqDto initial, String chefName) {
+    public ReceipeDto.InitialReceipeResDto initialReceipe(String chefName) {
         Chef chef = chefRepository.findByChefName(chefName).orElseThrow(
                 () -> new CustomException(CustomResponseStatus.USER_NOT_FOUND)
         );
         Receipe receipe = Receipe.builder()
-                .theme(initial.getTheme())
+                .theme("S")
                 .title("initial")
                 .loveCount(0)
                 .chef(chef)
+                .receipeImgUrl("https://3rdprojectbucket.s3.ap-northeast-2.amazonaws.com/initial/receipeInitial.jpg")
                 .build();
         receipeRepository.save(receipe);
         return ReceipeDto.InitialReceipeResDto.builder()
@@ -58,11 +59,9 @@ public class ReceipeServiceImpl implements ReceipeService {
         }
         String receipeUrl = "";
 
-        if(uploadDto.getMultipartFile().isEmpty()){
-            receipeUrl = "https://3rdprojectbucket.s3.ap-northeast-2.amazonaws.com/initial/receipeInitial.jpg";
-        }
-        else{
+        if(!uploadDto.getMultipartFile().isEmpty()){
             receipeUrl = s3Service.uploadFile(uploadDto.getMultipartFile(),"receipe");
+            receipe.modifyReceipeImgUrl(receipeUrl);
         }
 
         Sort sort = Sort.by(Sort.Direction.ASC,"createDate");
@@ -71,8 +70,11 @@ public class ReceipeServiceImpl implements ReceipeService {
 
         receipe.createReceipe(ingredients,orders);
         receipe.modifyTitle(createReceipeReqDto.getTitle());
+        if(!receipe.getTheme().equals(createReceipeReqDto.getTheme())){
+            receipe.modifyTheme(createReceipeReqDto.getTheme());
+        }
         receipe.modifyIntroduce(createReceipeReqDto.getIntroduce());
-        receipe.modifyReceipeImgUrl(receipeUrl);
+
 
         receipeRepository.save(receipe);
 
@@ -126,6 +128,9 @@ public class ReceipeServiceImpl implements ReceipeService {
         }
         if(!receipe.getIntroduce().equals(updateReceipeReqDto.getIntroduce())){
             receipe.modifyIntroduce(updateReceipeReqDto.getIntroduce());
+        }
+        if(!receipe.getTheme().equals(updateReceipeReqDto.getTheme())){
+            receipe.modifyTheme(updateReceipeReqDto.getTheme());
         }
         receipeRepository.save(receipe);
 

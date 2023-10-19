@@ -21,10 +21,10 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         //엔드포인트 추가 등록
         registry
-                .setErrorHandler(stompExceptionHandler)		//exception handler를 위한 것
-                .addEndpoint("/ws")
-                .addInterceptors()
-                .setAllowedOriginPatterns("*")
+                //.setErrorHandler(stompExceptionHandler)		//exception handler를 위한 것
+                .addEndpoint("/ws-jache")
+                //.addInterceptors()
+                //.setAllowedOriginPatterns("*")
                 .withSockJS();
     }
 
