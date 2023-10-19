@@ -1,0 +1,99 @@
+#container {
+    margin-left: 11rem;
+    display: flex;
+    text-align: center;
+    padding: 20px;
+    align-items: center;
+}
+
+#container .infoEdit {
+    margin-left: 5rem;
+    width: 700px;
+    margin-left: 3rem;
+}
+
+.info {
+    display: flex;
+    align-items: flex-end;
+    align-content: space-around;
+}
+
+.info img {
+    width: 90px;
+    height: 90px;
+    /*border-radius: 70%;*/
+    /*overflow: hidden;*/
+}
+
+input#file-upload-button {
+    background: #79AC78;
+}
+
+.chefImg { 
+    margin-left: 2rem;
+    margin-right: 1rem;
+    margin-bottom : 5rem;
+    display: grid;
+    justify-items: center;
+}
+
+#chefImg {
+    display: none;
+}
+
+.chefImg button {
+    width: 3rem;
+    height: 2rem;
+    border: 0;
+    margin-left: 2.5rem;
+}
+
+img {
+    width: 90px;
+    height: 90px;
+    margin-left: 3rem;
+}
+.info .box {
+    display: grid;
+    justify-items: stretch;
+    width: 700px;
+}
+
+.chefInfo {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.chefInfo label {
+    margin-left: 1rem;
+    margin-right: 4rem;
+}
+.textByte {
+    margin-left: -1rem;
+}
+
+#chefId {
+    width: 350px;
+    margin-bottom: 1rem;
+    margin-left: 1rem;
+}
+
+textarea {
+    width: 350px;
+    height: 150px;
+    margin-right: 1rem;
+    resize: none;
+}
+
+.editBtn {
+    text-align: right;
+    margin-right: 1rem;
+    margin-top: 1rem;
+    border : 0;
+}
+
+.editBtn button {
+    width: 5rem;
+    height: 2rem;
+    border: 0;
+}

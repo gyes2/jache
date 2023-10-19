@@ -13,6 +13,7 @@ public class ChatDto {
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
+    @Data
     public static class ChatRoomReqDto{
         private String chatRoomName;
     }
@@ -21,6 +22,7 @@ public class ChatDto {
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
+    @Data
     public static class ChatRoomResDto{
         private Long chatRoomId;
         private String chatRoomName;

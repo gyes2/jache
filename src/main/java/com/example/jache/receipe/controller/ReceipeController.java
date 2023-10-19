@@ -29,10 +29,10 @@ public class ReceipeController {
      */
     @PostMapping("/receipe/initial")
     public ResponseEntity<ApiResponse<ReceipeDto.InitialReceipeResDto>> receipeInitial(
-            @RequestBody ReceipeDto.InitialReceipeReqDto initial, Authentication authentication
+            Authentication authentication
     ){
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        ReceipeDto.InitialReceipeResDto initialResult = receipeService.initialReceipe(initial, userDetails.getUsername());
+        ReceipeDto.InitialReceipeResDto initialResult = receipeService.initialReceipe(userDetails.getUsername());
         return ResponseEntity.ok().body(ApiResponse.createSuccess(initialResult, CustomResponseStatus.SUCCESS));
     }
 

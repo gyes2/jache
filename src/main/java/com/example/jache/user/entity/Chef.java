@@ -45,11 +45,11 @@ public class Chef extends BaseEntity implements UserDetails {
 
     private String chefImgUrl;
 
-    @OneToMany(mappedBy = "chef")
-    private List<ChatRoom> chatRooms = new ArrayList<>();
+//    @OneToMany(mappedBy = "chef")
+//    private List<ChatRoom> chatRooms = new ArrayList<>();
 
-    @OneToMany(mappedBy = "chef", cascade = {CascadeType.REMOVE,CascadeType.PERSIST}, fetch = FetchType.LAZY)
-    private List<Love> loves = new ArrayList<>();
+//    @OneToMany(mappedBy = "chef", cascade = {CascadeType.REMOVE,CascadeType.PERSIST}, fetch = FetchType.LAZY)
+//    private List<Love> loves = new ArrayList<>();
 
     @OneToMany(mappedBy = "chef",cascade = {CascadeType.REMOVE,CascadeType.PERSIST},fetch = FetchType.LAZY)
     private List<Receipe> receipes = new ArrayList<>();

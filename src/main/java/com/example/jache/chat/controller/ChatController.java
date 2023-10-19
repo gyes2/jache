@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RestController
+@Controller
 @RequiredArgsConstructor
 @Slf4j
 public class ChatController {
@@ -32,7 +32,7 @@ public class ChatController {
      */
     @MessageMapping("/{chatRoomId}")
     @SendTo("/room/{chatRoomId}")
-    public ResponseEntity<ApiResponse<ChatDto.ChatMessage>> send(@DestinationVariable Long chatRoomId, ChatDto.ChatMessage message){
+    public ChatDto.ChatMessage send(@DestinationVariable Long chatRoomId, ChatDto.ChatMessage message){
         Chat chat = chatService.createChat(chatRoomId,message.getSender(), message.getMessage());
         ChatDto.ChatMessage sendMessage = ChatDto.ChatMessage.builder()
                 .roomId(chat.getChatRoom().getChatRoomId())
@@ -40,7 +40,7 @@ public class ChatController {
                 .message(chat.getMessage())
                 .sendDate(chat.getCreateDate())
                 .build();
-        return ResponseEntity.ok().body(ApiResponse.createSuccess(sendMessage, CustomResponseStatus.SUCCESS));
+        return sendMessage;
     }
 
 
