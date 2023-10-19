@@ -1,0 +1,19 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="sidebarFragment">
+<form class="menu">
+    <br>
+    <div>
+        <button id="menuButton" type="button" th:onclick="|location.href='@{/chef/myList}'|"> 내가 쓴 글 </button> 
+    </div><br>
+    <div> 
+        <button id="menuButton" type="button" th:onclick="|location.href='@{/chef/likeReceipe}'|"> 찜한 레시피 </button>
+    </div><br>
+    <div>
+        <button id="menuButton" type="button" th:onclick="|location.href='@{/chat/chat}'|"> 나의 정보 공유 </button> 
+    </div><br>
+   <div>
+        <button id="menuButton" type="button" th:onclick="|location.href='@{/chef/infoEdit}'|"> 내 정보 수정 </button>
+    </div><br>
+</form>
+</th:block>
+</html>

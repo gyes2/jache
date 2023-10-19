@@ -38,8 +38,8 @@ public class RoomController {
      * 채팅방 목록 불러오기
      */
     @GetMapping("/chat/roomlist")
-    public ResponseEntity<ApiResponse<List<ChatRoom>>> roomList(Authentication authentication){
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+    public ResponseEntity<ApiResponse<List<ChatRoom>>> roomList(){
+        //UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         List<ChatRoom> list = chatService.findAllRoom();
 
         return ResponseEntity.ok().body(ApiResponse.createSuccess(list, CustomResponseStatus.SUCCESS));

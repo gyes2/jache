@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/static/css/common/header.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/static/css/common/footer.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/static/css/common/style.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/static/css/common/aside.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/static/css/chef/profilePage.css}" type="text/css">
+    <title>마이페이지</title>
+</head>
+<body>
+    <div th:replace="~{/common/header :: headerFragment}"></div>
+    <hr>
+    <div id = "container">
+        <form class = "chefInfo">
+            <div>
+                <p><img th:src="@{/static/img/login.jpg}" alt="chef-img"></p>
+            </div>
+            <div class = "chefId">
+                <label for = "chefId"> 사용자 아이디 </label>
+                <input type="text" id="chefId" name="chefId" th:value="${chefName}" readonly>
+            </div>
+            <div class = "chefInfo">
+                <div>
+                    <label for = "chefId" > 내 소개<br> </label>
+                </div>
+                <span th:text="${chef.chefDetail}"></span><br/>
+                <!--th:value="${chefDetail}" th:text="${chef.chefDetail}"-->
+            </div>
+        </form>
+       <div class = "infoSide">
+        <div th:replace="~{/common/infoSide :: sidebarFragment}"></div>
+       </div>
+    </div>
+    <form class="menu">
+        <div>
+<!--        <div class = "myMenu"  th:if="${chef.getChef().getChefName()}==${chef}">-->
+            <div>
+                <button id="menuButton" type="button" th:onclick="|location.href='@{/chef/myList}'|"> 내가 쓴 글 </button>
+            </div><br>
+            <div>
+                <button id="menuButton" type="button" th:onclick="|location.href='@{/chef/likeReceipe}'|"> 찜한 레시피 </button>
+            </div><br>
+            <div>
+                <button id="menuButton" type="button" th:onclick="|location.href='@{/chat/chat}'|"> 나의 정보 공유 </button>
+            </div><br>
+            <div>
+                <button id="menuButton" type="button" th:onclick="|location.href='@{/chef/infoEdit}'|"> 내 정보 수정 </button>
+            </div><br>
+        </div>
+
+<!--        <div class="otherMenu" th:if="${chef.getChef().getChefName()}!=${chef}">-->
+<!--            <div>-->
+<!--                <button id="menuButton" type="button" th:onclick="|location.href='@{/chef/myList}'|"> 내가 쓴 글 </button>-->
+<!--            </div><br>-->
+<!--            <div>-->
+<!--                <button id="menuButton" type="button" th:onclick="|location.href='@{/chat/chat}'|"> 나의 정보 공유 </button>-->
+<!--            </div><br>-->
+<!--        </div>-->
+    </form>
+    <div th:replace="~{/common/footer :: footerFragment}"></div>
+</body>
+<script th:src="@{/static/js/adapter.js}"></script>
+<!-- <script th:src="@{/static/js/chef/profilePage.js}"></script> -->
+</html>

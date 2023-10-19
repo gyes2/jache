@@ -1,0 +1,19 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="sidebarFragment">
+    <div id="main-aside-login">
+        <div id="main-aside-bg">
+            <div id="main-aside-content">
+                <br>
+                <p><img th:src="@{/static/img/login.jpg}" alt="chef-img"></p>
+                <p> 사용자 아이디 </p>
+                <div id="main-aside-text-bar">
+                    <p><a th:href="@{/chef/myList}"> 내 글 </a></p>
+                    <p> | </p> 
+                    <p><a th:href="@{/chef/myPage}">마이페이지</a></p>
+                    <p> | </p>
+                    <p><a href="#">로그아웃</a></p>
+                </div>
+            </div>
+        </div>
+    </div> 
+</th:block>
