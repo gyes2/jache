@@ -1,5 +1,6 @@
 const token = localStorage.getItem('token');
-const receipeCheckNum = "1";
+console.log(token);
+const receipeCheckNum = 1;
 document.addEventListener("DOMContentLoaded", function() {
     let includes = document.querySelectorAll("[data-include]");
     let includeCount = includes.length;
@@ -260,7 +261,7 @@ function initializeReceipeForm() {
     //     });
 
 
-    document.getElementById("submit-button").addEventListener("click", async function(e) {
+    document.getElementById("submit-button").addEventListener("click", function(e) {
         e.preventDefault();
 
         let formdata = new FormData();
@@ -272,39 +273,32 @@ function initializeReceipeForm() {
             title: document.getElementById("receipe-form-title-id").value,
             introduce: document.getElementById("receipe-form-overview-id").value
         };
-        formdata.append("receipe", JSON.stringify(jsonData));
+        formdata.append("receipe", new Blob([JSON.stringify(jsonData)],{type: "application/json"}));
 
         // 이미지 첨부
         let imageFile = document.getElementById("receipe-form-media-id").files[0];
+        console.log(imageFile);
+        if(imageFile){
+            formdata.append("receipeImg", imageFile,imageFile.name);
+        }
 
-        // 이미지를 Blob으로 변환
-        const blob = await fileToBlob(imageFile);
-        formdata.append("receipeImg", blob, imageFile.name);
 
         // Ajax를 통해 데이터 전송
         sendData(formdata);
     });
 
-    async function fileToBlob(file) {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.onload = event => resolve(new Blob([event.target.result]));
-            reader.onerror = error => reject(error);
-            reader.readAsArrayBuffer(file);
-        });
-    }
-
     async function sendData(data) {
         try {
-            const response = await fetch("http://localhost:8080/api/user/receipe/create", {
-                method: "PUT",
-                headers: {
-                    // 'content-type' : 'application/json',
-                    'content-type' : 'multipart/form-data',
-                    'Authorization': 'Bearer ' + token // 토큰 설정
-                },
-                body: data
-            });
+            var myHeaders = new Headers();
+            myHeaders.append("Authorization", "Bearer "+ token);
+            var requestOptions = {
+                method: 'PUT',
+                headers: myHeaders,
+                body: data,
+
+            };
+
+            const response = await fetch("http://localhost:8080/api/user/receipe/create", requestOptions);
 
             if (response.ok) {
                 alert("데이터 전송 완료!");
@@ -316,7 +310,6 @@ function initializeReceipeForm() {
             alert("오류 발생: " + error.toString());
         }
     }
-
 
 
 
