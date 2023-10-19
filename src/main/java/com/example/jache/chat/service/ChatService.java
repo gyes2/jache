@@ -32,11 +32,9 @@ public class ChatService {
     /**
      * 모든 채팅방 찾기
      */
-    public List<ChatRoom> findAllRoom(String chefName) {
-        Chef chef = chefRepository.findByChefName(chefName).orElseThrow(
-                () -> new CustomException(CustomResponseStatus.USER_NOT_FOUND)
-        );
-        return roomRepository.findAllByChef(chef);
+    public List<ChatRoom> findAllRoom() {
+
+        return roomRepository.findAll();
     }
 
     /**
@@ -50,25 +48,27 @@ public class ChatService {
 
     /**
      * 채팅방 만들기
-     * @param name 방 이름
+
      */
-    public ChatRoom createRoom(String name, String chefName) {
-        Chef chef = chefRepository.findByChefName(chefName).orElseThrow(
-                () -> new CustomException(CustomResponseStatus.USER_NOT_FOUND)
-        );
-        return roomRepository.save(ChatRoom.builder()
-                .chatRoomName(name)
-                        .chef(chef)
-                .build());
+    public ChatDto.ChatRoomResDto createRoom(String roomName) {
+
+        ChatRoom room = ChatRoom.builder()
+                        .chatRoomName(roomName)
+                                .build();
+        log.info(room.toString());
+        roomRepository.save(room);
+
+
+        return ChatDto.ChatRoomResDto.builder()
+                .chatRoomName(room.getChatRoomName())
+                .chatRoomId(room.getChatRoomId())
+                .build();
     }
 
     /////////////////
 
     /**
      * 채팅 생성
-     * @param roomId 채팅방 id
-     * @param sender 보낸이
-     * @param message 내용
      */
     public Chat createChat(Long roomId, String sender, String message) {
         ChatRoom room = roomRepository.findByChatRoomId(roomId).orElseThrow(
@@ -79,7 +79,6 @@ public class ChatService {
 
     /**
      * 채팅방 채팅내용 불러오기
-     * @param roomId 채팅방 id
      */
     public List<Chat> findAllChatByRoomId(Long roomId) {
         ChatRoom room = roomRepository.findByChatRoomId(roomId).orElseThrow(

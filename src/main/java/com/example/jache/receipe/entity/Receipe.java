@@ -60,6 +60,10 @@ public class Receipe extends BaseEntity{
         this.title = title;
     }
 
+    public void modifyTheme(String theme){
+        this.theme = theme;
+    }
+
     public void modifyIntroduce(String introduce){
         this.introduce = introduce;
     }
