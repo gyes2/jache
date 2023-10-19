@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ReceipeService {
 
-    ReceipeDto.InitialReceipeResDto initialReceipe(ReceipeDto.InitialReceipeReqDto initial,String chefName);
+    ReceipeDto.InitialReceipeResDto initialReceipe(String chefName);
     Long createReceipe(ImgUploadDto uploadDto, ReceipeDto.CreateReceipeReqDto createReceipeReqDto, String chefName);
     ReceipeDto.ReadReceipeDetailResDto readOneReceipe(Long receipeId);
 

@@ -20,18 +20,19 @@ import java.util.Set;
 @Builder
 @ToString
 public class ChatRoom extends BaseEntity{
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long chatRoomId;
 
     private String chatRoomName;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "chefId")
-    private Chef chef;
-
-    @OneToMany(mappedBy = "chatRoom",fetch = FetchType.LAZY, cascade = {CascadeType.REMOVE, CascadeType.PERSIST})
-    private List<Chat> chats = new ArrayList<>();
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "chefId")
+//    private Chef chef;
+//
+//    @OneToMany(mappedBy = "chatRoom",fetch = FetchType.LAZY, cascade = {CascadeType.REMOVE, CascadeType.PERSIST})
+//    private List<Chat> chats = new ArrayList<>();
 
 
     public ChatRoom(String chatRoomName){

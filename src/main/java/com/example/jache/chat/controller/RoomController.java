@@ -13,10 +13,7 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,14 +27,10 @@ public class RoomController {
      */
     @PostMapping("/chatroom/add")
     public ResponseEntity<ApiResponse<ChatDto.ChatRoomResDto>> createRoom(
-            ChatDto.ChatRoomReqDto request, Authentication authentication
+            @RequestBody ChatDto.ChatRoomReqDto request
     ){
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        ChatRoom chat = chatService.createRoom(request.getChatRoomName(),userDetails.getUsername());
-        ChatDto.ChatRoomResDto newRoom = ChatDto.ChatRoomResDto.builder()
-                .chatRoomId(chat.getChatRoomId())
-                .chatRoomName(chat.getChatRoomName())
-                .build();
+        ChatDto.ChatRoomResDto newRoom = chatService.createRoom(request.getChatRoomName());
+
         return ResponseEntity.ok().body(ApiResponse.createSuccess(newRoom, CustomResponseStatus.SUCCESS));
     }
 
@@ -47,7 +40,7 @@ public class RoomController {
     @GetMapping("/chat/roomlist")
     public ResponseEntity<ApiResponse<List<ChatRoom>>> roomList(Authentication authentication){
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        List<ChatRoom> list = chatService.findAllRoom(userDetails.getUsername());
+        List<ChatRoom> list = chatService.findAllRoom();
 
         return ResponseEntity.ok().body(ApiResponse.createSuccess(list, CustomResponseStatus.SUCCESS));
     }
