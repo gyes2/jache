@@ -9,6 +9,7 @@
     <link rel="stylesheet" th:href="@{/static/css/chef/register.css}" type="text/css">>
     <link rel="stylesheet" th:href="@{/static/css/common/footer.css}" type="text/css">
     <script th:src="@{/static/js/chef/register.js}" defer></script>
+    <script th:src="@{/static/js/chef/registerfun.js}" defer></script>
 </head>
 <body>
 <div th:replace="~{/common/header :: headerFragment}"></div>
@@ -17,45 +18,45 @@
         
         <div class="signup-container">
             <h2>회원가입</h2>
-            <form th:action="@{/api/all/join}" method="post">
+            <form id="register-form-id" action="#" method="post">
                 <div class="form-group">
-                    <label for="userName">아이디</label>
+                    <label for="reg-userName">아이디</label>
                 <div class="form-text-button"> 
-                    <input type="text" id="reg-userName" name="userName" placeholder="아이디 입력 (6-20)" required>
+                    <input type="text" id="reg-userName" name="chefName" placeholder="아이디 입력 (6-20)" required>
                     <button><p>아이디 확인</p></button>
                 </div>
                     <p id="userName-error" class="error-message"></p>
                 </div>
     
                 <div class="form-group">
-                    <label for="password">비밀번호</label>
+                    <label for="reg-password">비밀번호</label>
                     <input type="text" id="reg-password" name="password" placeholder="비밀번호 입력 (문자,숫자,특수문자 포함 6-20자리)" required>
                     <p id="password-error" class="error-message"></p>
                 </div>
     
                 <div class="form-group">
-                    <label for="confirm-password">비밀번호 확인</label>
+                    <label for="reg-confirmPassword">비밀번호 확인</label>
                     <input type="text" id="reg-confirmPassword" name="confirmPassword" placeholder="비밀번호 재입력" required>
                     <p id="confirm-password-error" class="error-message"></p>
                 </div>
 
                 <div class="form-group">
-                    <label for="phone">휴대폰 번호</label>
+                    <label for="reg-phone">휴대폰 번호</label>
                     <input type="tel" id="reg-phone" name="phone" placeholder="휴대폰 번호 입력 (010-1111-1111)" required>
                     <p id="phone-error" class="error-message"></p>
                 </div>
     
                 <div class="form-group">
-                    <label for="email">이메일</label>
+                    <label for="reg-email">이메일</label>
                 <div class="form-text-button"> 
                     <input type="email" id="reg-email" name="email" placeholder="이메일 주소" required>
-                    <button><p>인증</p></button>
+                    <button>인증</button>
                 </div>
                 <p id="email-error" class="error-message"></p>
                 </div>
 
                 <div class="form-group">
-                    <label for="authNumber">인증번호</label>
+                    <label for="reg-authNumber">인증번호</label>
                     <div class="form-text-button"> 
                     <input type="text" id="reg-authNumber" name="authNumber" placeholder="인증번호를 입력해주세요" required>
                         <button><p>확인</p></button>
