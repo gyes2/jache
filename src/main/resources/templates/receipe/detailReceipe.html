@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/static/css/common/header.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/static/css/common/footer.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/static/css/common/style.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/static/css/common/nav.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/static/css/receipe/detailReceipe.css}" type="text/css">
+    <title> 레시피 상세 페이지 </title>
+</head>
+<body>
+    <div th:replace="~{/common/header :: headerFragment}"></div>
+    <div th:replace="~{/common/nav :: navFragment}"></div>
+   <div id = "container">
+       <div class = "returnBtn">
+           <label> 이전 목록으로 돌아가기</label>
+           <button th:onclick="back()"> ◀ </button>
+       </div><br>
+        <form class = "receipe">
+            <div class = "mainTop">
+                <div class = "thumbnail">
+                    <label> 대표사진 </label>
+                    <div class = "thumImg">
+                        <!--사진 경로 수정 -->
+                        <img th:src="@{/static/img/login.jpg}" alt="chef-img">
+                    </div>
+                </div>
+                <div class = "title-cate">
+                    <div class = "title">
+                        <label> 제목 </label><br>
+                        <!-- -->
+                        <input type="text" name="제목" disabled>
+                    </div><br>
+                    
+                    <div class = "writer">
+                        <label> 작성자 </label><br>
+                        <input type="text" name="작성자" disabled>
+                    </div><br>
+
+                    <div class = "cate">
+                        <label> 카테고리 </label>
+                        <input type="text" name="카테고리" disabled>
+                    </div>
+                    <p class = "like" >
+                        <img class="heart" th:src="@{/static/img/like_empty.png}" alt="heart">
+                        <img class="heart-liked" th:src="@{/static/img/like_click.png}" alt="heart-liked" hidden>
+                    </p>
+              </div>
+           </div>
+            <div class = "ingredient">
+                <label> 재료선택 </label><br>
+                <textarea disabled></textarea>
+            </div><br>
+            <div class="order">
+                <label> 순서 </label><br>
+                <textarea disabled></textarea>
+            </div><br>
+            <div class = "file">
+                <label> 사진 & 동영상 </label><br>
+                <img th:src="@{/static/img/login.jpg}" alt="chef-img"> <br>
+            </div>
+        </form>
+   </div>
+   <div th:replace="~{/common/footer :: footerFragment}"></div>
+</body>
+<script th:src="@{/static/js/adapter.js}"></script>
+<script th:src="@{/static/js/receipe/detailReceipe.js}"></script>
+</html>

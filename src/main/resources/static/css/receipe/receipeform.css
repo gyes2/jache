@@ -29,6 +29,9 @@
 .receipe-form-sequence-img{
     width: 5rem;
 }
+.receipe-form-media-img{
+    width: 5rem;
+}
 
 #receipe-form label {
     width: 10rem;

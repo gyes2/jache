@@ -59,7 +59,7 @@ public class ReceipeServiceImpl implements ReceipeService {
         }
         String receipeUrl = "";
 
-        if(!uploadDto.getMultipartFile().isEmpty()){
+        if(uploadDto != null){
             receipeUrl = s3Service.uploadFile(uploadDto.getMultipartFile(),"receipe");
             receipe.modifyReceipeImgUrl(receipeUrl);
         }

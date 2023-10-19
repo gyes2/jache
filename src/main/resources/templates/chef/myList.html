@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+    <html lang="ko" xmlns:th="http://www.thymeleaf.org">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" th:href="@{/static/css/common/header.css}" type="text/css">
+            <link rel="stylesheet" th:href="@{/static/css/common/footer.css}" type="text/css">
+            <link rel="stylesheet" th:href="@{/static/css/common/style.css}" type="text/css">
+            <link rel="stylesheet" th:href="@{/static/css/common/aside.css}" type="text/css">
+            <link rel="stylesheet" th:href="@{/static/css/common/sideMenu.css}" type="text/css">
+            <link rel="stylesheet" th:href="@{/static/css/chef/myList.css}" type="text/css">
+    <title> 내가 작성한 레시피 </title>
+</head>
+<body>
+    <div th:replace="~{/common/header :: headerFragment}"></div>
+    <hr>
+   <div id = "container">
+        <div class = "leftMain">
+            <div id = "title">
+                <h2> 내가 작성한 레시피 </h2>
+            </div> 
+            <div class="myReceipe">
+                <span class="receipeBox">
+                    <div>
+                        <p><img th:src="@{/static/img/login.jpg}" alt="chef-img"></p>
+                    </div>
+                    <div>
+                        <p> 글제목 </p>
+                        <p> 간략한 글 내용 </p>
+                        <p class = "writer"> 작성자 </p>
+                    </div>
+                </span>
+            
+                <span class="receipeBox">
+                    <div>
+                        <p><img th:src="@{/static/img/login.jpg}" alt="chef-img"></p>
+                    </div>
+                    <div>
+                        <p> 글제목 </p>
+                        <p> 간략한 글 내용 </p>
+                        <p class = "writer"> 작성자 </p>
+                    </div>
+                </span>
+            </div>
+        </div>
+        <div class = "rightMain">
+            <div th:replace="~{/common/infoSide :: sidebarFragment}"></div>
+            <div class = "btn">
+                <button onclick=""> 글쓰기 </button>
+                <button th:onclick="|location.href='@{/chat/chat}'|"> 채팅 목록 </button>
+            </div>
+        </div>
+   </div>
+   <div th:replace="~{/common/footer :: footerFragment}"></div>
+</body>
+<script th:src="@{/static/js/adapter.js}"></script>
+</html>

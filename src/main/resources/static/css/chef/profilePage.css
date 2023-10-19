@@ -1,0 +1,65 @@
+#container {
+    margin-left: 4rem;
+    margin-top: 5.5rem;
+    display: flex;
+    justify-content: space-between; 
+    text-align:center;
+    align-items: flex-start;
+    padding: 10px;
+}
+
+.chefInfo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.chefInfo #chefId {
+    width: 20rem;
+    height: 10rem;
+    display: grid;
+    align-items: center;
+    align-content: center;
+}
+
+img{
+    width: 90px;
+    height: 90px;
+}
+
+.infoSide {
+    margin-right: 5rem;
+}
+
+.chefInfo{
+    margin-left: 20rem;
+}
+
+.menu{
+    display: flex;
+    padding: 0.5rem;
+    width: 650px;
+    background-color: #ddf7df;
+    margin-top:-4rem;
+    margin-left: 15rem;
+    margin-bottom: 2rem;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.menu div {
+    align-items: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+ #menuButton {
+    background-color:#79AC78;
+    color : #FFFFFF;
+    border: 0;
+    width: 600px;
+    height: 70px;
+    cursor: pointer;
+}
