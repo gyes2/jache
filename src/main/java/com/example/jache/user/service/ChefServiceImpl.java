@@ -39,6 +39,7 @@ public class ChefServiceImpl implements ChefService{
                 .role(Role.ROLE_USER)
                 .chefImgUrl("https://3rdprojectbucket.s3.ap-northeast-2.amazonaws.com/initial/userInitial.jpg")
                 .build();
+
         chefRepository.save(chef);
 
         return ChefDto.SignUpResponseDto.builder()
@@ -82,8 +83,9 @@ public class ChefServiceImpl implements ChefService{
         if(chef.getRefreshToken() == null || jwtTokenUtil.isNeedToUpdateRefreshToken(chef.getRefreshToken())){
             String refresh = jwtTokenUtil.createRefreshToken(chef.getEmail());
             chef.modifyRefreshToken(refresh);
+            chefRepository.save(chef);
         }
-        chefRepository.save(chef);
+
 
         return ChefDto.SigninResponseDto.builder()
                 .token(token)
@@ -96,6 +98,7 @@ public class ChefServiceImpl implements ChefService{
         Chef chef = (Chef) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if(chef.getRefreshToken() != null){
             chef.modifyRefreshToken(null);
+            chefRepository.save(chef);
         }
     }
 
