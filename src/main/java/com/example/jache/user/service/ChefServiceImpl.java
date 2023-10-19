@@ -83,6 +83,7 @@ public class ChefServiceImpl implements ChefService{
             String refresh = jwtTokenUtil.createRefreshToken(chef.getEmail());
             chef.modifyRefreshToken(refresh);
         }
+        chefRepository.save(chef);
 
         return ChefDto.SigninResponseDto.builder()
                 .token(token)
@@ -127,6 +128,8 @@ public class ChefServiceImpl implements ChefService{
                     ()-> new CustomException(CustomResponseStatus.USER_NOT_FOUND)
             );
             chef.modifyRefreshToken(newRefreshToken);
+            chefRepository.save(chef);
+
             return ChefDto.RefreshResDto.builder()
                     .newAccessToken(newAccessToken)
                     .newRefreshToken(newRefreshToken)
