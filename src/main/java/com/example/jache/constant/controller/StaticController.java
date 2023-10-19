@@ -17,11 +17,9 @@ public class StaticController {
     }
 
     @RequestMapping("/login")
-    public String login(){
-
-        return "common/login";
+    public String loginPage(){
+        return "chef/login";
     }
-
     @RequestMapping("/register")
     public String register(){
 
@@ -57,9 +55,10 @@ public class StaticController {
     public String chat(){
         return "chat/chat";
     }
-    @RequestMapping("/login")
-    public String loginPage(){
-        return "chef/login";
+
+    @RequestMapping("/chat/chatPage")
+    public String chatPage(){
+        return "chat/chatPage";
     }
 
     @RequestMapping("/receipe/register")
@@ -67,26 +66,18 @@ public class StaticController {
         return "receipe/receipe-form";
     }
 
-}
 
-    @RequestMapping("/chat/chatPage")
-    public String chatPage(){
-        return "chat/chatPage";
-    }
 
-    @RequestMapping("/receipe/receipe-form")
-    public String receipeForm(){
-        return "receipe/receipe-form";
-    }
 
-    @RequestMapping("/receipe/main-receipe-form")
-    public String mainReceipeForm(@PathVariable Long receipeId, Model model){
-        model.addAttribute("receipeId", receipeId);
-        return "receipe/main-receipe-form";
-    }
-/*    @RequestMapping("/receipe/main-receipe-form/{receipeId}")
+
+/*    @RequestMapping("/receipe/main-receipe-form")
     public String mainReceipeForm(@PathVariable Long receipeId, Model model){
         model.addAttribute("receipeId", receipeId);
         return "receipe/main-receipe-form";
     }*/
+    @RequestMapping("/receipe/receipe-form/{receipeId}")
+    public String mainReceipeForm(@PathVariable Long receipeId, Model model){
+        model.addAttribute("receipeId", receipeId);
+        return "receipe/receipe-form";
+    }
 }

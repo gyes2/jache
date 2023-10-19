@@ -296,15 +296,16 @@ function initializeReceipeForm() {
 
     async function sendData(data) {
         try {
-            const response = await fetch("http://localhost:8080/api/user/receipe/create", {
-                method: "PUT",
-                headers: {
-                    // 'content-type' : 'application/json',
-                    'content-type' : 'multipart/form-data',
-                    'Authorization': 'Bearer ' + token // 토큰 설정
-                },
-                body: data
-            });
+            var myHeaders = new Headers();
+            myHeaders.append("Authorization", "Bearer "+ token);
+            var requestOptions = {
+                method: 'PUT',
+                headers: myHeaders,
+                body: data,
+
+            };
+
+            const response = await fetch("http://localhost:8080/api/user/receipe/create", requestOptions);
 
             if (response.ok) {
                 alert("데이터 전송 완료!");

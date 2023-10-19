@@ -46,7 +46,8 @@
         <div class = "rightMain">
             <div th:replace="~{/common/infoSide :: sidebarFragment}"></div>
             <div class = "btn">
-                <button th:onclick="|location.href='@{/receipe/main-receipe-form}'|"> 글쓰기 </button>
+                <button id="writeButton" th:onclick="|location.href='@{|/receipe/receipe-form/${receipeId}|}'|"> 글쓰기 </button>
+                <!--http://localhost:8080/receipe/receipe-form/null 발생-->
                 <button th:onclick="|location.href='@{/chat/chat}'|"> 채팅 목록 </button>
             </div>
         </div>
@@ -54,4 +55,5 @@
    <div th:replace="~{/common/footer :: footerFragment}"></div>
 </body>
 <script th:src="@{/static/js/adapter.js}"></script>
+<script th:src="@{/static/js/chef/myList.js}"></script>
 </html>
