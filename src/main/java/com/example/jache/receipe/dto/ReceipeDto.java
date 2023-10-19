@@ -18,16 +18,10 @@ public class ReceipeDto {
     public static class CreateReceipeReqDto{
         private Long receipeId;
         private String title;
+        private String theme;
         private String introduce;
     }
 
-    @Builder
-    @NoArgsConstructor
-    @AllArgsConstructor
-    @Data
-    public static class InitialReceipeReqDto{
-        private String theme;
-    }
 
     @Builder
     @NoArgsConstructor
