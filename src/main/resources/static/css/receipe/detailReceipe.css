@@ -40,11 +40,17 @@
 .like {
     text-align: end;
     margin-right : 3.5rem;
+    display: flex;
+    align-items: center;
 }
 
 .like img {
     width: 30px;
     height: 30px;
+}
+
+.count {
+    font-size: 15px;
 }
 
 .ingredient, .order, .file {
@@ -55,5 +61,14 @@
     width: 540px;
     height: 80px;
     resize: none;
+}
+
+.form-container-orderitems {
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* 항목들을 중앙에 정렬 */
+    gap: 1rem;
+    width: 100%;
 }
 

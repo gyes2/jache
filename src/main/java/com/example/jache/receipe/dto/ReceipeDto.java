@@ -39,6 +39,7 @@ public class ReceipeDto {
     @Getter
     public static class ReadReceipeDetailResDto{
         private String title;
+        private String theme;
         private String chefName;
         private String receipeImgUrl;
         private int loveCount;
@@ -48,6 +49,7 @@ public class ReceipeDto {
 
         public ReadReceipeDetailResDto(Receipe receipe){
             this.title = receipe.getTitle();
+            this.theme = receipe.getTheme();
             this.chefName = receipe.getChef().getChefName();
             this.receipeImgUrl = receipe.getReceipeImgUrl();
             this.loveCount = receipe.getLoveCount();
