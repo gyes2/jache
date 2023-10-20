@@ -82,6 +82,7 @@ public class ChefDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
+    @Data
     public static class UpdateImgResDto{
         private String updateImgUrl;
     }

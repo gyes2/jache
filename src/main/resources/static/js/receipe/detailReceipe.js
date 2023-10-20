@@ -2,6 +2,10 @@ const token = localStorage.getItem('token');
 console.log(token);
 const receipeCheckNum = 21; //상세조회할 레시피 아이디 불러오기
 
+const urlParams = new URLSearchParams(window.location.search);
+const receipeId = urlParams.get('receipeId');
+console.log(receipeId);
+
 window.addEventListener("DOMContentLoaded", async function () {
     await fetchReceipeDetails();
     let returnedStatus = await heartStatus();
@@ -19,7 +23,7 @@ window.addEventListener("DOMContentLoaded", async function () {
 
 async function fetchReceipeDetails() {
     // API URL을 설정합니다. 실제 API 주소로 수정해주세요.
-    const apiUrl = "http://localhost:8080/api/user/receipe/read/detail/"+receipeCheckNum;
+    const apiUrl = "http://localhost:8080/api/user/receipe/read/detail/"+receipeId;
 
     var myHeaders = new Headers();
     myHeaders.append("Authorization", "Bearer "+token);
@@ -147,7 +151,6 @@ likeButtons.forEach(function (button) {
         let returnedStatus = await heartStatus();
         console.log(returnedStatus);
         if (returnedStatus === "N"){
-
             // 현재 하트가 비어 있는 상태일 때
             await love();
             likeBtn.style.display = "none"; // 빈 하트 숨기기
@@ -191,7 +194,7 @@ async function heartStatus(){
         redirect: 'follow'
     };
 
-    let response = await fetch("http://localhost:8080/api/user/love/check/status/"+receipeCheckNum, requestOptions);
+    let response = await fetch("http://localhost:8080/api/user/love/check/status/"+receipeId, requestOptions);
 
 
     if (!response.ok) {
@@ -212,7 +215,7 @@ async function love(){
     myHeaders.append("Authorization", "Bearer "+token);
 
     const raw = JSON.stringify({
-        "receipeId": receipeCheckNum
+        "receipeId": receipeId
     });
 
     const requestOptions = {
@@ -241,7 +244,7 @@ async function unlove() {
         redirect: 'follow'
     };
 
-    let response = await fetch("http://localhost:8080/api/user/unlove/"+receipeCheckNum, requestOptions)
+    let response = await fetch("http://localhost:8080/api/user/unlove/"+receipeId, requestOptions)
 
 
     if (!response.ok) {
