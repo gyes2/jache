@@ -1,6 +1,8 @@
 const token = localStorage.getItem('token');
 console.log(token);
 const receipeCheckNum = 1;
+let materialreturn = 0;
+let orderreturn = 0;
 document.addEventListener("DOMContentLoaded", function() {
     let includes = document.querySelectorAll("[data-include]");
     let includeCount = includes.length;
@@ -29,13 +31,22 @@ function initializeReceipeForm() {
     let originalUnitInput = document.querySelector(".receipe-form-material-unit");
 
     if (addButton) {
-        addButton.addEventListener("click", function(e) {
+        addButton.addEventListener("click", async function (e) {
             e.preventDefault();
             let currentItems = document.querySelectorAll(".receipe-form-material");
 
             if (currentItems.length < 9) {
                 let inputValue = originalInput.value;
                 let unitValue = originalUnitInput.value;
+
+                let materialJson = {
+                    receipeId: receipeCheckNum,
+                    ingredientName: originalInput.value,
+                    weight: originalUnitInput.value
+                }
+
+                let responseData = await materialSendData(materialJson);
+                console.log(responseData + "5");
 
                 let inputDiv = document.createElement("div");
                 inputDiv.className = "form-container-items";
@@ -49,18 +60,28 @@ function initializeReceipeForm() {
                 input.type = "text";
                 input.className = "receipe-form-material";
                 input.placeholder = "재료명";
+                input.id = "receipe-form-material-" + (currentItems.length + 1);
+                let attrName = "materialDataValue" + (currentItems.length + 1);
+                input.dataset[attrName] = responseData;  // 응답 값을 dataset에 저장
                 input.value = inputValue;
 
                 let inputUnit = document.createElement("input");
                 inputUnit.type = "text";
                 inputUnit.className = "receipe-form-material-unit";
                 inputUnit.placeholder = "단위";
+                inputUnit.id = "receipe-form-material-unit-" + (currentItems.length + 1);
                 inputUnit.value = unitValue;
 
                 let deleteButton = document.createElement("button");
                 deleteButton.textContent = "삭제";
-                deleteButton.addEventListener("click", function(ev) {
+                deleteButton.addEventListener("click", function (ev) {
                     ev.preventDefault();
+
+                    let attrName = "materialDataValue" + (currentItems.length + 1);
+                    let dataValue = input.dataset[attrName];
+                    console.log("Deleting data value:", dataValue);
+                    materialDeleteData(dataValue)
+
                     inputDiv.remove();
                     renumberItems();
                 });
@@ -77,6 +98,9 @@ function initializeReceipeForm() {
                     currentItems.length - 1
                         ].parentElement.insertAdjacentElement("afterend", inputDiv);
                 }
+
+                // 재료 데이터 함수
+
 
                 originalInput.value = "";
                 originalUnitInput.value = "";
@@ -117,18 +141,40 @@ function initializeReceipeForm() {
 
     document
         .getElementById("sequence-modal-add")
-        .addEventListener("click", function(e) {
+        .addEventListener("click", async function(e) {
             e.preventDefault();
 
+            let formdata = new FormData();
+
+            // JSON 데이터 첨부
+            let jsonData = {
+                receipeId: receipeCheckNum,
+                content: document.getElementById("sequence-modal-content").value,
+            };
+
+            formdata.append("ordersReqDto", new Blob([JSON.stringify(jsonData)],{type: "application/json"}));
+
+            // 이미지 첨부
+            let imageFile = document.getElementById("sequence-modal-image").files[0];
+            console.log(imageFile);
+
+            if(imageFile){
+                formdata.append("ordersImg", imageFile,imageFile.name);
+            }
+
+            // Ajax를 통해 데이터 전송
+            let sequenceResponseData = await sequenceSendData(formdata);
+
             // 요리 순서와 이미지 항목 추가
-            addRecipeSequence();
+            addRecipeSequence(sequenceResponseData);
+
 
             // 모달을 닫습니다.
             let receipeModal = document.querySelector(".sequence-modal");
             receipeModal.style.display = "none";
         });
 
-    function addRecipeSequence() {
+    function addRecipeSequence(responsedata) {
         let currentSequences = document.querySelectorAll(".receipe-form-sequence");
 
         let sequenceDiv = document.createElement("div");
@@ -142,6 +188,8 @@ function initializeReceipeForm() {
         textarea.rows = "10";
         textarea.cols = "10";
         textarea.placeholder = "요리 순서를 입력하세요...";
+        let attrName = "textareaDataValue" + (currentSequences.length + 1);
+        textarea.dataset[attrName] = responsedata;
         textarea.value = document.getElementById("sequence-modal-content").value;
 
         let imageInput = document.createElement("input");
@@ -154,8 +202,14 @@ function initializeReceipeForm() {
 
         let deleteButton = document.createElement("button");
         deleteButton.textContent = "삭제";
-        deleteButton.addEventListener("click", function(ev) {
+        deleteButton.addEventListener("click", async function (ev) {
             ev.preventDefault();
+
+            let attrName = "textareaDataValue" + (currentSequences.length + 1);
+            let dataValue = textarea.dataset[attrName];
+            console.log("Deleting data value:", dataValue);
+            await sequenceDeleteSendData(dataValue);
+
             sequenceDiv.remove();
             renumberRecipeSequences();
         });
@@ -222,45 +276,6 @@ function initializeReceipeForm() {
         }
     });
 
-
-
-    // 전송 버튼 클릭 이벤트 (Put 전송 이벤트)
-    //     document.getElementById("submit-button").addEventListener("click", function(e) {
-    //         e.preventDefault();
-    //
-    //         let jsonData = {
-    //             receipeId: receipeCheckNum,
-    //             category: document.getElementById("receipe-form-option-select").value,
-    //             title: document.getElementById("receipe-form-title-id").value,
-    //             introduce: document.getElementById("receipe-form-overview-id").value,
-    //             receipeImg: document.getElementById("receipe-form-media-id").value
-    //         };
-    //
-    //         // 재료와 단위 가져오기
-    //         let materials = document.querySelectorAll(".receipe-form-material");
-    //         let materialUnits = document.querySelectorAll(".receipe-form-material-unit");
-    //         for (let i = 0; i < materials.length; i++) {
-    //             jsonData.materials.push({
-    //                 material: materials[i].value,
-    //                 unit: materialUnits[i].value
-    //             });
-    //         }
-    //
-    //         // 요리 순서와 이미지 가져오기
-    //         let sequences = document.querySelectorAll(".receipe-form-sequence");
-    //         let sequenceImgs = document.querySelectorAll(".receipe-form-sequence-img");
-    //         for (let i = 0; i < sequences.length; i++) {
-    //             jsonData.sequences.push({
-    //                 step: sequences[i].value,
-    //                 image: sequenceImgs[i].value
-    //             });
-    //         }
-    //
-    //         // Ajax를 통해 JSON 데이터 전송
-    //         sendData(jsonData);
-    //     });
-
-
     document.getElementById("submit-button").addEventListener("click", function(e) {
         e.preventDefault();
 
@@ -273,11 +288,13 @@ function initializeReceipeForm() {
             title: document.getElementById("receipe-form-title-id").value,
             introduce: document.getElementById("receipe-form-overview-id").value
         };
+
         formdata.append("receipe", new Blob([JSON.stringify(jsonData)],{type: "application/json"}));
 
         // 이미지 첨부
         let imageFile = document.getElementById("receipe-form-media-id").files[0];
         console.log(imageFile);
+
         if(imageFile){
             formdata.append("receipeImg", imageFile,imageFile.name);
         }
@@ -287,21 +304,80 @@ function initializeReceipeForm() {
         sendData(formdata);
     });
 
-    async function sendData(data) {
+    // 재료 추가 전송
+    async function materialSendData(data) {
+        try {
+            const response = await fetch('http://localhost:8080/api/user/ingredient/add', {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data),
+            });
+
+            const responseData = await response.json();
+
+            if (responseData.success) {
+                alert('재료 추가 완료');
+                return responseData.data.ingredientId;
+            } else {
+                alert('재료 추가 실패: ' + responseData.message);
+                return null;
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('오류가 발생했습니다. 다시 시도해주세요.');
+            return null;
+        }
+    }
+
+    // 재료 삭제 전송
+    async function materialDeleteData(dataValue) {
+        try {
+            const response = await fetch(`http://localhost:8080/api/user/ingredient/delete/${dataValue}`, {
+                method: 'DELETE',  // 여기에서 메서드를 DELETE로 설정
+                headers: {
+                    'Authorization': 'Bearer ' + token,  // 필요하다면 토큰을 포함
+                    'Content-Type': 'application/json'
+                },
+            });
+
+            const data = await response.json();
+            console.log(data);
+
+            if (data.isSuccess) {
+                alert('재료 삭제 완료');
+
+            } else {
+                alert('재료 삭제 실패');
+            }
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
+
+
+    // 요리 순서 전송
+
+    async function sequenceSendData(data) {
         try {
             var myHeaders = new Headers();
             myHeaders.append("Authorization", "Bearer "+ token);
             var requestOptions = {
-                method: 'PUT',
+                method: 'POST',
                 headers: myHeaders,
                 body: data,
-
             };
 
-            const response = await fetch("http://localhost:8080/api/user/receipe/create", requestOptions);
+            const response = await fetch("http://localhost:8080/api/user/orders/add", requestOptions);
 
             if (response.ok) {
+                const responseData = await response.json(); // JSON 변환
                 alert("데이터 전송 완료!");
+
+                console.log(responseData.data.orderId); // orderId 출력
+                return responseData.data.orderId; // orderId 리턴
             } else {
                 const errorData = await response.json();
                 alert("데이터 전송 실패: " + JSON.stringify(errorData));
@@ -312,7 +388,55 @@ function initializeReceipeForm() {
     }
 
 
+    // 요리 순서 삭제
+    async function sequenceDeleteSendData(dataValue) {
+        try {
+            const response = await fetch(`http://localhost:8080/api/user/orders/delete/${dataValue}`, {
+                method: 'DELETE',  // 여기에서 메서드를 DELETE로 설정
+                headers: {
+                    'Authorization': 'Bearer ' + token,  // 필요하다면 토큰을 포함
+                    'Content-Type': 'application/json'
+                },
+            });
 
+            const data = await response.json();
+            console.log(data);
+
+            if (data.isSuccess) {
+                alert('요리 순서 삭제 완료');
+            } else {
+                alert('요리 순서 삭제 실패');
+            }
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
+
+
+    // 최종 전송
+    async function sendData(data) {
+        try {
+            var myHeaders = new Headers();
+            myHeaders.append("Authorization", "Bearer "+ token);
+            var requestOptions = {
+                method: 'PUT',
+                headers: myHeaders,
+                body: data,
+            };
+
+            const response = await fetch("http://localhost:8080/api/user/receipe/create", requestOptions);
+
+            if (response.ok) {
+                alert("데이터 전송 완료!");
+                window.location.href = '/main';
+            } else {
+                const errorData = await response.json();
+                alert("데이터 전송 실패: " + JSON.stringify(errorData));
+            }
+        } catch (error) {
+            alert("오류 발생: " + error.toString());
+        }
+    }
 
 }
 
