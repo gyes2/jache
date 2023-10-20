@@ -73,6 +73,7 @@ public class StaticController {
 
     @RequestMapping("/receipe/detailReceipe")
     public String detailReceipe(){
+
         return "receipe/detailReceipe";
     }
 

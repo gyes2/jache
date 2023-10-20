@@ -23,10 +23,10 @@
             <form class="info">
                 <div class="chefImg">
                     <input type="file" name="chefImg" id="img" accept="image/*" >
-                    <img id="chefImg" th:src="@{/static/img/login.jpg}">
+                    <img src="" id="chefImg">
                     <p>
-                        <button type="button" onclick="updateProfileImage()">수정</button>
-                        <button type="button" onclick="deleteProfileImage()">삭제</button>
+                        <button id="modifyImg">수정</button>
+                        <button id="deleteImg">삭제</button>
                     </p>
                 </div>
 
@@ -38,15 +38,12 @@
                     <div class = "chefInfo">
                         <div class = "infoLayout">
                             <label for = "chefName" > 내 소개<br> </label>
-                            <div class = "textByte">
-                                <sup>(<span id="nowByte">0</span>/20bytes)</sup>
-                            </div>
                         </div>
-                        <textarea id="chefInfo" name="chefInfo" th:onkeyup="fn_checkByte(this)"> </textarea>
+                        <textarea id="chefInfo" name="chefInfo" > </textarea>
                         <!--th:value="${chefDetail}" th:text="${chef.chefDetail}"-->
                     </div>
                     <div class = "editBtn">
-                        <button type="button" id="modify"> 수정 </button>
+                        <button id="modify"> 수정 </button>
                             <!-- 경로 설정시 참고 th:onclick="|location.href='@{|/review/modify/${review.reviewPostId}|}'|">수정</button>-->
                         <button type="button" th:onclick= "|location.href='@{/chef/profilePage}'|"> 취소 </button>
                     </div>
