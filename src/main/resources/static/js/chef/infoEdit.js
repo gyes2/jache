@@ -1,7 +1,7 @@
 // 이곳에 사용자 아이디와 토큰을 설정하세요
 const chefNameInput = document.getElementById("chefName"); // 현재 사용자의 아이디로 설정
 const chefDetailTextArea = document.getElementById("chefInfo");
-const chefImg = document.getElementById('chefImg');
+const chefImg = document.getElementById('chefImgUrl');
 
 const token = localStorage.getItem('token');
 
@@ -78,7 +78,7 @@ document.getElementById("modifyImg").addEventListener("click", async function (e
     //이미지
     let imageFile = chefImg.file[0];
     if (imageFile) {
-        formData.append("cImg", imageFile, imageFile.name);
+        formData.append("myImg", imageFile, imageFile.name);
     }
 
 
@@ -97,6 +97,7 @@ document.getElementById("modifyImg").addEventListener("click", async function (e
         alert("데이터 수정 실패: " + JSON.stringify(errorData));
     }
     let data = await response.json();
+    console.log(data.data.updateImgUrl);
 
     chefImg.src = data.data.updateImgUrl;
 
