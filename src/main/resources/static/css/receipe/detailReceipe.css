@@ -1,0 +1,59 @@
+#container {
+    display: grid;
+    padding: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.receipe {
+    display: grid;
+    width: 650px;
+    border-radius: 10px;
+    border: solid #e3e5e8;
+    box-shadow: 0.5px 0.5px 1px 0px black;
+    padding: 1.25rem;
+    justify-content: start;
+    justify-items: start;
+    align-items: center;
+}
+.mainTop {
+    margin-left: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.thumbnail img, .file img{
+    width: 90px;
+    height: 90px;
+}
+
+.title-cate {
+    margin-left: 3rem;
+}
+
+.title-cate input{
+    width: 400px;
+    height: 30px;
+}
+
+.like {
+    text-align: end;
+    margin-right : 3.5rem;
+}
+
+.like img {
+    width: 30px;
+    height: 30px;
+}
+
+.ingredient, .order, .file {
+    margin-left: 3rem;
+}
+
+.ingredient textarea, .order textarea {
+    width: 540px;
+    height: 80px;
+    resize: none;
+}
+

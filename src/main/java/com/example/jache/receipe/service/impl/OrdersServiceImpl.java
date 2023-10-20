@@ -63,8 +63,6 @@ public class OrdersServiceImpl implements OrdersService {
                 .content(orders.getContent())
                 .contentUrl(orders.getContentUrl())
                 .build();
-
-
     }
 
     @Override

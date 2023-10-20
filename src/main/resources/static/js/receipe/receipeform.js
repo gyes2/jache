@@ -260,7 +260,7 @@ function initializeReceipeForm() {
     //     });
 
 
-    document.getElementById("submit-button").addEventListener("click", function(e) {
+    document.getElementById("submit-button").addEventListener("click", async function(e) {
         e.preventDefault();
 
         let formdata = new FormData();
@@ -276,21 +276,34 @@ function initializeReceipeForm() {
 
         // 이미지 첨부
         let imageFile = document.getElementById("receipe-form-media-id").files[0];
-        formdata.append("receipeImg", imageFile);
+
+        // 이미지를 Blob으로 변환
+        const blob = await fileToBlob(imageFile);
+        formdata.append("receipeImg", blob, imageFile.name);
 
         // Ajax를 통해 데이터 전송
         sendData(formdata);
     });
+
+    async function fileToBlob(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = event => resolve(new Blob([event.target.result]));
+            reader.onerror = error => reject(error);
+            reader.readAsArrayBuffer(file);
+        });
+    }
 
     async function sendData(data) {
         try {
             const response = await fetch("http://localhost:8080/api/user/receipe/create", {
                 method: "PUT",
                 headers: {
-                    'Content-Type' : 'multipart/form-data',
+                    // 'content-type' : 'application/json',
+                    'content-type' : 'multipart/form-data',
                     'Authorization': 'Bearer ' + token // 토큰 설정
                 },
-                body: data,
+                body: data
             });
 
             if (response.ok) {
@@ -303,6 +316,7 @@ function initializeReceipeForm() {
             alert("오류 발생: " + error.toString());
         }
     }
+
 
 
 

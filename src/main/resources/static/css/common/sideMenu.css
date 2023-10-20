@@ -1,0 +1,17 @@
+.menu {
+    text-align:center;
+    margin-top: 1.5rem;
+    padding: 0.5rem;
+    width: 150px;
+    height: 250px;
+    background-color: #ddf7df;
+}
+
+#menuButton {
+    background-color:#79AC78;
+    color : #FFFFFF;
+    border: 0;
+    width: 120px;
+    height: 40px;
+    cursor: pointer;
+}

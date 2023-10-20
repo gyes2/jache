@@ -20,7 +20,6 @@ bin/
 ### IntelliJ IDEA ###
 application-secret.yml
 
-
 .idea
 *.iws
 *.iml
@@ -44,4 +43,3 @@ out/
 # IntelliJ project files
 out
 gen
-/src/main/generated/

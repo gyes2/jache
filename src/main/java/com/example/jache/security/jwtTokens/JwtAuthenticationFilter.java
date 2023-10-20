@@ -38,6 +38,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {  //filter는
             @NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain
     ) throws ServletException, IOException {
 
+        // 웹소켓 핸드쉐이크 요청은 JWT 검증을 건너뛰기
+        if (isWebSocketConnectionRequest(request)) {
+            filterChain.doFilter(request, response);
+            return;
+        }
         //request 헤더에서 토큰전체 추출
         String authorizationHeader = request.getHeader("Authorization");
 
@@ -46,7 +51,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {  //filter는
         //String token = authorizationHeader.split(" ")[1];
         String token = jwtTokenUtil.resolveToken(authorizationHeader);
         log.info("jwtAuthentication 내부 token 값: " + token);
-        if(token != null && !token.isEmpty()){
+        if(!token.isEmpty()){
 
             try{
                 // Jwt Token에서 email 추출
@@ -80,5 +85,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {  //filter는
         }
         filterChain.doFilter(request,response);
 
+    }
+
+    private boolean isWebSocketConnectionRequest(HttpServletRequest request) {
+        return "GET".equals(request.getMethod()) &&
+                request.getRequestURI().equals("/ws-jache") &&
+                "websocket".equals(request.getHeader("Upgrade"));
     }
 }

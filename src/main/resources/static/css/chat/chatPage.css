@@ -1,0 +1,39 @@
+#container {
+    display: grid;
+    width: 100%;
+    padding: 20px;
+    justify-items: stretch;
+    justify-content: center;
+}
+
+.chat { 
+    width: 1000px;  
+    height: 600px;
+    background-color: #ddf7df;
+}
+
+.chatMessage {
+    height: 82%;
+    overflow-y: scroll;
+}
+
+.chatMessage::-webkit-scrollbar {
+    display: none !important; /* 해당 속성이 변경되지 않도록 하는 역할*/
+}
+
+.chat .inputMessage {
+    margin-left : 2rem;
+    margin-top: 1.5rem;
+}
+
+.chat .inputMessage input {
+    width: 800px;
+    height: 30px;
+}
+
+.chat .inputMessage button {
+    width: 100px;
+    height: 30px;
+    border: 0;
+    margin: 1rem;
+}
