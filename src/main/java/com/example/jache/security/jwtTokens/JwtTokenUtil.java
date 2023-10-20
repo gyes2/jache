@@ -49,7 +49,7 @@ public final class JwtTokenUtil {
         return Jwts.builder()
                 .setClaims(claims)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000L * 60 * 60))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000L * 60 * 60 *24))
                 .signWith(getSigninKey(), SignatureAlgorithm.HS256)
                 .compact();
     }

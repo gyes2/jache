@@ -70,5 +70,26 @@
     justify-content: center; /* 항목들을 중앙에 정렬 */
     gap: 1rem;
     width: 100%;
+    resize: none;
+    flex-direction: column;
 }
 
+.form-container-ingredientitems {
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    /* 항목들을 중앙에 정렬 */
+    gap: 1rem;
+    width: 100%;
+    flex-direction: column;
+}
+
+.receipe-detail-sequence-img {
+    /*width: 20px;*/
+    /*//height: auto;*/
+    width: 5rem;
+}
+
+.receipe-detail-material-unit{
+    width: 5rem;
+}
