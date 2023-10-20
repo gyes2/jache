@@ -22,7 +22,7 @@
 <!--            <form th:action = "@{}" method="post" class="info" enctype="multipart/form-data">-->
             <form class="info">
                 <div class="chefImg">
-                    <input type="file" name="chefImg" accept="image/*" >
+                    <input type="file" name="chefImg" id="img" accept="image/*" >
                     <img id="chefImg" th:src="@{/static/img/login.jpg}">
                     <p>
                         <button type="button" onclick="updateProfileImage()">수정</button>

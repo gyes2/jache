@@ -98,7 +98,6 @@ function updateProfileImage() {
         console.log('파일을 선택해주세요.');
     }*/
     document.getElementById("modify").addEventListener("click", function(e) {
-        e.preventDefault();
 
         let formData = new FormData();
         //json
@@ -143,3 +142,14 @@ function updateProfileImage() {
         }
     }
 }
+
+document.getElementById("img").addEventListener("change", function() {
+    if(this.files && this.files[0]) {
+        let reader = new FileReader();
+
+        reader.onload = function(e) {
+            document.querySelector("#chefImg").src = e.target.result;
+        }
+        reader.readAsDataURL(this.files[0]);
+    }
+});
