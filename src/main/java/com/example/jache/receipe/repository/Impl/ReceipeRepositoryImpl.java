@@ -24,7 +24,7 @@ public class ReceipeRepositoryImpl implements ReceipeRepositoryCustom {
         return jpaQueryFactory.selectFrom(receipe)
                 .join(love)
                 .on(love.receipe.receipeId.eq(receipe.receipeId))
-                .where(love.chef.chefName.eq(chefName))
+                .where(receipe.chef.chefName.eq(chefName))
                 .fetch();
     }
 

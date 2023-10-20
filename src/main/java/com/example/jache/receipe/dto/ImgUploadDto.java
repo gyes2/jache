@@ -9,9 +9,7 @@ public class ImgUploadDto {
     private MultipartFile multipartFile;
 
     public void setFile(MultipartFile multipartFile){
-        if(multipartFile != null){
-            this.multipartFile = multipartFile;
-        }
+        this.multipartFile = multipartFile;
 
     }
 }

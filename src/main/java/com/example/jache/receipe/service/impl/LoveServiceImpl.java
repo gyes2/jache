@@ -44,6 +44,7 @@ public class LoveServiceImpl implements LoveService {
                     .build();
         loveRepository.save(newLove);
         receipe.addCount();
+        receipeRepository.save(receipe);
     }
 
     @Override
@@ -53,6 +54,7 @@ public class LoveServiceImpl implements LoveService {
             loveRepository.delete(delLove);
             Receipe receipe = receipeRepository.findByReceipeId(receipeId).orElseThrow();
             receipe.subCount();
+            receipeRepository.save(receipe);
         }
         else{
             throw new CustomException(CustomResponseStatus.ALREADY_UNLOVE);
