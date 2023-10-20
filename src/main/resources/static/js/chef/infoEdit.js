@@ -4,6 +4,7 @@ const chefDetailTextArea = document.getElementById("chefInfo");
 const chefImg = document.getElementById('chefImgUrl');
 
 const token = localStorage.getItem('token');
+console.log(token);
 
 window.addEventListener("DOMContentLoaded", async function () {
     await getInfo();
@@ -70,13 +71,15 @@ async function deleteProfileImage() {
 
 // 프로필 사진 수정
 document.getElementById("modifyImg").addEventListener("click", async function (e) {
+    e.preventDefault();
 
     var myHeaders = new Headers();
     myHeaders.append("Authorization", "Bearer " + token);
 
     var formData = new FormData();
     //이미지
-    let imageFile = chefImg.file[0];
+    let imageFile = document.getElementById('img').files[0];
+
     if (imageFile) {
         formData.append("myImg", imageFile, imageFile.name);
     }
