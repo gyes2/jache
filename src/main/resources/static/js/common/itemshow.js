@@ -57,12 +57,12 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(data => {
                 // 데이터에서 값을 추출합니다.
                 let chefName = data.data.chefName;
-                let chefDetial = data.data.chefDetial;
+                let chefDetail = data.data.chefDetail;
                 let chefImgUrl = data.data.chefImgUrl;
 
                 // 값들을 DOM 요소에 할당합니다.
                 loginChefName.textContent = chefName;
-                loginChefText.textContent = chefDetial;
+                loginChefText.textContent = chefDetail;
                 loginChefImg.src = chefImgUrl;
             })
             .catch(error => {

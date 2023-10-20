@@ -18,41 +18,34 @@
         <div class = "leftMain">
             <div id = "title">
                 <h2> 내가 작성한 레시피 </h2>
-            </div> 
+            </div>
             <div class="myReceipe">
-                <span class="receipeBox">
+                <span class="receipeBox" th:each="receipe : ${myReceipes}">
                     <div>
-                        <p><img th:src="@{/static/img/login.jpg}" alt="chef-img"></p>
+                        <p><img th:src="@{/static/img/login.jpg}" alt="receipe-img"  id = "receipeImg"></p>
                     </div>
                     <div>
-                        <p> 글제목 </p>
-                        <p> 간략한 글 내용 </p>
-                        <p class = "writer"> 작성자 </p>
-                    </div>
-                </span>
-            
-                <span class="receipeBox">
-                    <div>
-                        <p><img th:src="@{/static/img/login.jpg}" alt="chef-img"></p>
-                    </div>
-                    <div>
-                        <p> 글제목 </p>
-                        <p> 간략한 글 내용 </p>
-                        <p class = "writer"> 작성자 </p>
+                        <!-- 레시피 제목을 클릭했을 때 해당 레시피로 이동 -->
+                        <a th:href="@{|/receipe/details/${receipe.id}|}" th:text="${receipe.title}"></a>
+                        <p th:text="${receipe.summary}">간략한 글 내용</p>
+                        <!-- 작성자 이름을 클릭했을 때 작성자 정보 페이지로 이동 -->
+                        <a th:href="@{|/chef/profilePage/${receipe.writer}|}" th:text="${receipe.writer}"></a>
                     </div>
                 </span>
             </div>
-        </div>
-        <div class = "rightMain">
-            <div th:replace="~{/common/infoSide :: sidebarFragment}"></div>
-            <div class = "btn">
-                <button id="writeButton" th:onclick="|location.href='@{|/receipe/receipe-form/${receipeId}|}'|"> 글쓰기 </button>
-                <!--http://localhost:8080/receipe/receipe-form/null 발생-->
-                <button th:onclick="|location.href='@{/chat/chat}'|"> 채팅 목록 </button>
-            </div>
+            <input type="hidden" id="chefName" >
+            <div class = "rightMain">
+              <div th:replace="~{/common/infoSide :: sidebarFragment}"></div>
+                <div class = "btn">
+                    <button id="writeButton" th:onclick="|location.href='@{|/receipe/receipe-form/${receipeId}|}'|"> 글쓰기 </button>
+                    <!--http://localhost:8080/receipe/receipe-form/null 발생-->
+                    <button th:onclick="|location.href='@{/chat/chat}'|"> 채팅 목록 </button>
+                  </div>
+             </div>
         </div>
    </div>
    <div th:replace="~{/common/footer :: footerFragment}"></div>
+   <script th:src="@{/static/js/common/itemshow.js}" type="text/javascript"></script>
 </body>
 <script th:src="@{/static/js/adapter.js}"></script>
 <script th:src="@{/static/js/chef/myList.js}"></script>
