@@ -1,19 +1,49 @@
+<!--
 <html xmlns:th="http://www.thymeleaf.org">
 <th:block th:fragment="sidebarFragment">
-    <div id="main-aside-login">
-        <div id="main-aside-bg">
-            <div id="main-aside-content">
+    <div class="main-aside-login">
+        <div class="main-aside-bg">
+            <div class="main-aside-content">
                 <br>
-                <p><img th:src="@{/static/img/login.jpg}" alt="chef-img"></p>
-                <p> 사용자 아이디 </p>
-                <div id="main-aside-text-bar">
+                <p><img th:src="@{/static/img/login.jpg}" alt="chef-img" id="chefImg"></p>
+                <div class = "chefId">
+                    <label for = "chefName"> </label>
+                    <p type="text" id="chefName"></p>
+                </div><br>
+                <div class="main-aside-text-bar">
                     <p><a th:href="@{/chef/myList}"> 내 글 </a></p>
                     <p> | </p> 
-                    <p><a th:href="@{/chef/myPage}">마이페이지</a></p>
+                    <p><a th:href="|@{/chef/profilePage}|">마이페이지</a></p>
                     <p> | </p>
-                    <p><a href="#">로그아웃</a></p>
+                    <p><a id="logout-a" onclick="logout()" >로그아웃</a></p>
                 </div>
             </div>
         </div>
     </div> 
+</th:block>
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="sidebarFragment">
+        <div class="main-aside-login">
+            <div class="main-aside-bg">
+                <div class="main-aside-content">
+                    <div class="main-aside-login-content">
+                        <div class="main-aside-login-img">
+                            <img src="/static/img/login.jpg" id="main-aside-login-img-id" alt="Side-Img">
+                        </div>
+                        <div class="main-aside-login-content-p">
+                            <p id="main-aside-login-username">아이디</p>
+                            <p id="main-aside-login-overview">한줄소개</p>
+                        </div>
+                    </div>
+                    <div class="main-aside-text-bar">
+                        <p><a th:href="@{/chef/myList}">내 글</a></p>
+                        <p> | </p>
+                        <p><a th:href="@{/chef/profilePage}">마이페이지</a></p>
+                        <p> | </p>
+                        <p><a id="logout-a" onclick="logout()" >로그아웃</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
 </th:block>

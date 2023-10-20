@@ -11,57 +11,71 @@
     <title>마이페이지</title>
 </head>
 <body>
-    <div th:replace="~{/common/header :: headerFragment}"></div>
+<!--    <div th:replace="~{/common/header :: headerFragment}"></div>-->
+    <div th:replace="common/header :: headerFragment"></div>
     <hr>
     <div id = "container">
-        <form class = "chefInfo">
+        <form class="info" th:action="@{/api/user/getUserInfo}" method="get">
             <div>
-                <p><img th:src="@{/static/img/login.jpg}" alt="chef-img"></p>
+                <p><img th:src="@{/static/img/login.jpg}" alt="chef-img" id = "chefImg"></p>
             </div>
-            <div class = "chefId">
-                <label for = "chefId"> 사용자 아이디 </label>
-                <input type="text" id="chefId" name="chefId" th:value="${chefName}" readonly>
-            </div>
-            <div class = "chefInfo">
-                <div>
-                    <label for = "chefId" > 내 소개<br> </label>
-                </div>
-                <span th:text="${chef.chefDetail}"></span><br/>
-                <!--th:value="${chefDetail}" th:text="${chef.chefDetail}"-->
+            <div class="idInfo">
+                <div class = "chefId">
+                    <p type="text" id="chefName"></p>
+                </div><br>
+                <div class = "chefInfo">
+                <p id="chefDetail"></p>
+                </div><br>
             </div>
         </form>
        <div class = "infoSide">
-        <div th:replace="~{/common/infoSide :: sidebarFragment}"></div>
+<!--        <div th:replace="~{/common/infoSide :: sidebarFragment}"></div>-->
+           <div th:replace="common/infoSide :: sidebarFragment"></div>
        </div>
     </div>
-    <form class="menu">
+    <!--<form class="menu">
         <div>
-<!--        <div class = "myMenu"  th:if="${chef.getChef().getChefName()}==${chef}">-->
-            <div>
-                <button id="menuButton" type="button" th:onclick="|location.href='@{/chef/myList}'|"> 내가 쓴 글 </button>
-            </div><br>
-            <div>
-                <button id="menuButton" type="button" th:onclick="|location.href='@{/chef/likeReceipe}'|"> 찜한 레시피 </button>
-            </div><br>
-            <div>
-                <button id="menuButton" type="button" th:onclick="|location.href='@{/chat/chat}'|"> 나의 정보 공유 </button>
-            </div><br>
-            <div>
-                <button id="menuButton" type="button" th:onclick="|location.href='@{/chef/infoEdit}'|"> 내 정보 수정 </button>
-            </div><br>
+            &lt;!&ndash; 로그인한 사용자 프로필인 경우 &ndash;&gt;
+            <div th:if="${userIsOwner}">
+                <div>
+                    <button id="menuButton" type="button" th:onclick="|location.href='@{/chef/myList}'|"> 내가 쓴 글 </button>
+                </div><br>
+                <div>
+                    <button id="menuButton" type="button" th:onclick="|location.href='@{/chef/likeReceipe}'|"> 찜한 레시피 </button>
+                </div><br>
+                <div>
+                    <button id="menuButton" type="button" th:onclick="|location.href='@{/chat/chat}'|"> 나의 정보 공유 </button>
+                </div><br>
+                <div>
+                    <button id="menuButton" type="button" th:onclick="|location.href='@{/chef/infoEdit}'|"> 내 정보 수정 </button>
+                </div><br>
+            </div>
+            &lt;!&ndash; 다른 사용자 프로필인 경우 &ndash;&gt;
+            <div th:unless="${userIsOwner}">
+                <div>
+                    <button id="menuButton" type="button" th:onclick="|location.href='@{/chef/myList}'|"> 내가 쓴 글 </button>
+                </div><br>
+                <div>
+                    <button id="menuButton" type="button" th:onclick="|location.href='@{/chat/chat}'|"> 나의 정보 공유 </button>
+                </div><br>
+            </div>
         </div>
+    </form>-->
 
-<!--        <div class="otherMenu" th:if="${chef.getChef().getChefName()}!=${chef}">-->
-<!--            <div>-->
-<!--                <button id="menuButton" type="button" th:onclick="|location.href='@{/chef/myList}'|"> 내가 쓴 글 </button>-->
-<!--            </div><br>-->
-<!--            <div>-->
-<!--                <button id="menuButton" type="button" th:onclick="|location.href='@{/chat/chat}'|"> 나의 정보 공유 </button>-->
-<!--            </div><br>-->
-<!--        </div>-->
+    <form class="menu">
+        <div id="buttonContainer">
+            <button id="menuButtonMyList" type="button" data-url="@{/chef/myList}" th:onclick="|location.href='@{/chef/myList}'|"> 내가 쓴 글 </button><br>
+            <button id="menuButtonLikeRecipe" type="button" data-url="@{/chef/likeRecipe}" th:onclick="|location.href='@{/chef/likeReceipe}'|"> 찜한 레시피 </button><br>
+            <button id="menuButtonChat" type="button" data-url="@{/chat/chat}" th:onclick="|location.href='@{/chat/chat}'|"> 나의 정보 공유 </button><br>
+            <button id="menuButtonInfoEdit" type="button" data-url="@{/chef/infoEdit}" th:onclick="|location.href='@{/chef/infoEdit}'|"> 내 정보 수정 </button><br>
+        </div>
     </form>
-    <div th:replace="~{/common/footer :: footerFragment}"></div>
+
+
+<!--    <div th:replace="~{/common/footer :: footerFragment}"></div>-->
+    <div th:replace="common/footer :: footerFragment"></div>
+    <script th:src="@{/static/js/common/itemshow.js}" type="text/javascript"></script>
 </body>
 <script th:src="@{/static/js/adapter.js}"></script>
-<!-- <script th:src="@{/static/js/chef/profilePage.js}"></script> -->
+<script th:src="@{/static/js/chef/profilePage.js}"></script>
 </html>

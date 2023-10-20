@@ -68,6 +68,7 @@ public class ReceipeDto {
     @AllArgsConstructor
     @Data
     public static class ReadReceipeResDto{
+        private Long receipeId;
         private String title;
         private String chefName;
         private String introduce;
@@ -76,6 +77,7 @@ public class ReceipeDto {
         private String imgUrl;
 
         public ReadReceipeResDto(Receipe receipe) {
+            this.receipeId = receipe.getReceipeId();
             this.title = receipe.getTitle();
             this.chefName = receipe.getChef().getChefName();
             this.introduce = receipe.getIntroduce();

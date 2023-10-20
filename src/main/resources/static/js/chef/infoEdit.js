@@ -1,43 +1,132 @@
-function fn_checkByte(obj) {
-    const maxByte = 20; // 최대 20바이트
-    const text_val = obj.value; // 입력한 문자
-    let totalByte = 0;
+// 이곳에 사용자 아이디와 토큰을 설정하세요
+const chefNameInput = document.getElementById("chefName"); // 현재 사용자의 아이디로 설정
+const chefDetailTextArea = document.getElementById("chefInfo");
+const chefImg = document.getElementById('chefImg');
 
-    for (let i = 0; i < text_val.length; i++) {
-        const each_char = text_val.charAt(i);
-        const uni_char = escape(each_char); // 유니코드 형식으로 변환
-        if (uni_char.length > 4) {
-            // 한글 : 2Byte
-            totalByte += 2;
-        } else {
-            // 영문, 숫자, 특수문자 : 1Byte
-            totalByte += 1;
+const token = localStorage.getItem('token');
+
+window.addEventListener("DOMContentLoaded", async function () {
+    await getInfo();
+});
+
+async function getInfo(){
+    // 사용자 정보 가져오기
+    if (token) {
+        let response = await fetch('http://localhost:8080/api/user/getUserInfo', {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + token
+            }
+        });
+        if (!response.ok) {
+            const errorData = await response.json();
+            alert("데이터 조회 실패: " + JSON.stringify(errorData));
         }
 
-        // 만약 20바이트를 넘으면 입력 중단
-        if (totalByte > maxByte) {
-            obj.value = obj.value.slice(0, i);
-            alert('최대 20Byte까지만 입력 가능합니다.');
-            break;
-        }
-    }
+        let data = await response.json();
 
-    // 현재 입력된 바이트 수를 업데이트
-    document.getElementById("nowByte").innerText = totalByte;
+        // 데이터에서 값을 추출합니다.
+        const apiChefName = data.data.chefName;
+        const chefDetail = data.data.chefDetial;
+        const chefImgUrl = data.data.chefImgUrl;
 
-    if (totalByte > maxByte) {
-        document.getElementById("nowByte").style.color = "red";
-    } else {
-        document.getElementById("nowByte").style.color = "green";
+        // 값들을 DOM 요소에 할당합니다.
+        chefNameInput.textContent = apiChefName;
+        chefDetailTextArea.textContent = chefDetail;
+        chefImg.src = chefImgUrl;
+
     }
 }
+document.getElementById("deleteImg").addEventListener("click", async function(){
+    await deleteProfileImage();
+});
+async function deleteProfileImage() {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("Authorization", "Bearer "+token);
 
-var settings = {
-    "url": "http://localhost:8080/api/user/getUserInfo",
-    "method": "POST",
-    "timeout": 0,
-};
+    var raw = JSON.stringify({
+        "chefImgUrl": chefImg.src
+    });
 
-$.ajax(settings).done(function (response) {
-    console.log(response);
+    var requestOptions = {
+        method: 'DELETE',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+    };
+    // 프로필 사진 삭제 API 호출
+    let response = await fetch('http://localhost:8080/api/user/my/delete/img', requestOptions);
+
+    if (!response.ok) {
+        const errorData = await response.json();
+        alert("데이터 삭제 실패: " + JSON.stringify(errorData));
+    }
+
+    let data = await response.json();
+
+    chefImg.src = data.data.chefImgUrl;
+}
+
+// 프로필 사진 수정
+document.getElementById("modifyImg").addEventListener("click", async function (e) {
+
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer " + token);
+
+    var formData = new FormData();
+    //이미지
+    let imageFile = chefImg.file[0];
+    if (imageFile) {
+        formData.append("cImg", imageFile, imageFile.name);
+    }
+
+
+    var requestOptions = {
+        method: 'PUT',
+        headers: myHeaders,
+        body: formData,
+        redirect: 'follow'
+    };
+
+    let response = await fetch("http://localhost:8080/api/user/my/update/img", requestOptions);
+
+    if(!response.ok) {
+
+        const errorData = await response.json();
+        alert("데이터 수정 실패: " + JSON.stringify(errorData));
+    }
+    let data = await response.json();
+
+    chefImg.src = data.data.updateImgUrl;
+
+});
+
+document.getElementById('modify').addEventListener('click', async function(){
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("Authorization", "Bearer "+token);
+
+    console.log(chefDetailTextArea.value);
+    var raw = JSON.stringify({
+        "chefDetails": chefDetailTextArea.value
+    });
+
+    var requestOptions = {
+        method: 'PUT',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+    };
+
+    let response = await fetch("http://localhost:8080/api/user/my/update/details", requestOptions);
+
+    if(!response.ok){
+        const errorData = await response.json();
+        alert("데이터 수정 실패: " + JSON.stringify(errorData));
+    }
+    let data = await response.json();
+    console.log(data);
+
+    chefDetailTextArea.value = data.data.chefDetails;
 });

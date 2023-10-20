@@ -21,31 +21,29 @@
             <hr>
 <!--            <form th:action = "@{}" method="post" class="info" enctype="multipart/form-data">-->
             <form class="info">
-                <div class = "chefImg">
-                    <input type="file" id="chefImg" name="chefImg" accept="image/*"><br><img id="profileImg">
-<!--                    <img th:if="${loginMember.profileImage == null}" src="/img/user.png" id="profileImage">-->
-<!--                    <img th:if="${loginMember.profileImage != null}" th:src="${loginMember.profileImage}" id="profileImage">-->
-                        <!--th:src="${chef.chefImgUrl}"-->
-                    <p><button type="submit">수정</button> | <button th:onclick="#">삭제</button></p>
-                    <!--onclick="|location.href='@{}'|"-->
+                <div class="chefImg">
+                    <input type="file" name="chefImg" id="img" accept="image/*" >
+                    <img src="" id="chefImg">
+                    <p>
+                        <button id="modifyImg">수정</button>
+                        <button id="deleteImg">삭제</button>
+                    </p>
                 </div>
+
                 <div class = "box">
                     <div class = "chefId">
-                        <label for = "chefId"> 사용자 아이디 </label>
-                        <input type="text" id="chefId" name="chefId" th:value="${chefName}" readonly>
-                    </div>
+                        <label for = "chefName"> 사용자 아이디 </label>
+                        <p type="text" id="chefName" ></p>
+                    </div><br>
                     <div class = "chefInfo">
-                        <div>
-                            <label for = "chefId" > 내 소개<br> </label>
-                            <div class = "textByte">
-                                <sup>(<span id="nowByte">0</span>/20bytes)</sup>
-                            </div>
+                        <div class = "infoLayout">
+                            <label for = "chefName" > 내 소개<br> </label>
                         </div>
-                        <textarea id="chefInfo" name="chefInfo" th:onkeyup="fn_checkByte(this)"> </textarea>
+                        <textarea id="chefInfo" name="chefInfo" > </textarea>
                         <!--th:value="${chefDetail}" th:text="${chef.chefDetail}"-->
                     </div>
                     <div class = "editBtn">
-                        <button type="button" th:onclick="|location.href='@{|/}'|"> 수정 </button>
+                        <button id="modify"> 수정 </button>
                             <!-- 경로 설정시 참고 th:onclick="|location.href='@{|/review/modify/${review.reviewPostId}|}'|">수정</button>-->
                         <button type="button" th:onclick= "|location.href='@{/chef/profilePage}'|"> 취소 </button>
                     </div>
