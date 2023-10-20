@@ -1,5 +1,5 @@
 const token = localStorage.getItem('token');
-const receipeCheckNum = "1";
+const receipeCheckNum = "2";
 document.addEventListener("DOMContentLoaded", function() {
     let includes = document.querySelectorAll("[data-include]");
     let includeCount = includes.length;
@@ -299,7 +299,6 @@ function initializeReceipeForm() {
             const response = await fetch("http://localhost:8080/api/user/receipe/create", {
                 method: "PUT",
                 headers: {
-                    // 'content-type' : 'application/json',
                     'content-type' : 'multipart/form-data',
                     'Authorization': 'Bearer ' + token // 토큰 설정
                 },
