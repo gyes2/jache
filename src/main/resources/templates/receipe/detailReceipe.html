@@ -24,42 +24,42 @@
                     <label> 대표사진 </label>
                     <div class = "thumImg">
                         <!--사진 경로 수정 -->
-                        <img th:src="@{/static/img/login.jpg}" alt="chef-img">
+                        <img src="https://3rdprojectbucket.s3.ap-northeast-2.amazonaws.com/initial/receipeInitial.jpg" alt="chef-img" id="receipe-img">
                     </div>
                 </div>
                 <div class = "title-cate">
                     <div class = "title">
                         <label> 제목 </label><br>
                         <!-- -->
-                        <input type="text" name="제목" disabled>
+                        <input type="text" name="제목" id="receipe-title" disabled>
                     </div><br>
                     
                     <div class = "writer">
                         <label> 작성자 </label><br>
-                        <input type="text" name="작성자" disabled>
+                        <input type="text" name="작성자" id="receipe-writer" disabled>
                     </div><br>
 
                     <div class = "cate">
                         <label> 카테고리 </label>
-                        <input type="text" name="카테고리" disabled>
+                        <input type="text" name="카테고리" id="receipe-theme" disabled>
                     </div>
                     <p class = "like" >
                         <img class="heart" th:src="@{/static/img/like_empty.png}" alt="heart">
                         <img class="heart-liked" th:src="@{/static/img/like_click.png}" alt="heart-liked" hidden>
+                        <span id="scrap-count" class = "count" ></span>
                     </p>
               </div>
            </div>
-            <div class = "ingredient">
-                <label> 재료선택 </label><br>
-                <textarea disabled></textarea>
-            </div><br>
-            <div class="order">
-                <label> 순서 </label><br>
-                <textarea disabled></textarea>
-            </div><br>
-            <div class = "file">
-                <label> 사진 & 동영상 </label><br>
-                <img th:src="@{/static/img/login.jpg}" alt="chef-img"> <br>
+
+            <div class="form-container-ingredientitems">
+                <label  id="ingredient">재료</label>
+                <input type="text" class="receipe-detail-material"  placeholder="재료명" disabled/>
+                <input type="text" class="receipe-detail-material-unit"  placeholder="단위" disabled/>
+            </div>
+            <div class="form-container-orderitems">
+                <label  id="order">요리순서</label>
+                <textarea name="sequence" class="receipe-detail-sequence"  cols="10" rows="10" disabled></textarea>
+                <img src="" class="receipe-detail-sequence-img" />
             </div>
         </form>
    </div>

@@ -15,7 +15,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 element.innerHTML = data;
                 includeCount--;
 
-                    // `initializeOtherFeatures` 함수가 정의되지 않았으므로 삭제했습니다.
             });
     });
 });
@@ -310,9 +309,5 @@ function initializeReceipeForm() {
             alert("오류 발생: " + error.toString());
         }
     }
-
-
-
-
 }
 

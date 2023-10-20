@@ -24,4 +24,9 @@ public class StaticController {
         return "receipe/receipe-form";
     }
 
+    @GetMapping("/receipe/detail")
+    public String receipeDetail(){
+        return "receipe/detailReceipe";
+    }
+
 }
