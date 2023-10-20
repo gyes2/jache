@@ -56,7 +56,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {  //filter는
 
                 jwtTokenUtil.extractClaims(token);
 
-                if(jwtTokenUtil.getRefreshByChefName(token) == null){
+                if(jwtTokenUtil.getRefreshByChefName(token) != null){
                     log.info("token이 유효한지 검사하는 if 문");
                     //권한 부여
                     Authentication authentication = jwtTokenUtil.getAuthentication(token);

@@ -19,6 +19,10 @@ public class StaticController {
         return "chef/login";
     }
 
+    @RequestMapping("/chef/register")
+    public String chefRegister(){
+        return "chef/register";
+    }
     @RequestMapping("/receipe/register")
     public String receipeRegister(){
         return "receipe/receipe-form";
