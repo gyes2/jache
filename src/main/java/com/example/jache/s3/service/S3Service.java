@@ -9,6 +9,7 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.example.jache.constant.enums.CustomResponseStatus;
 import com.example.jache.constant.exception.CustomException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,6 +22,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class S3Service {
 
     private final AmazonS3 amazonS3;
@@ -43,7 +45,7 @@ public class S3Service {
         }
 
 
-        return amazonS3.getUrl(bucket, uploadFilename).toString();
+        return amazonS3.getUrl(bucket, purpose+"/"+uploadFilename).toString();
     }
 
     // 이미지파일명 중복 방지
@@ -53,7 +55,7 @@ public class S3Service {
 
     // 파일 유효성 검사
     private String getFileExtension(String fileName) {
-        if (fileName.length() == 0) {
+        if (fileName.isEmpty()) {
             throw new CustomException(CustomResponseStatus.WRONG_INPUT_IMAGE);
         }
         ArrayList<String> fileValidate = new ArrayList<>();
