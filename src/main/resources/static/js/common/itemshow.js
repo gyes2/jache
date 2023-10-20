@@ -21,9 +21,18 @@
 
         document.getElementById('main-items-container').addEventListener('click', function(event) {
             if (event.target.classList.contains('heartcheck')) {
-                toggleHeart(event.target);
+                let clickedElement = event.target;
+                while (!clickedElement.hasAttribute('data-receipe-id') && clickedElement !== this) {
+                    clickedElement = clickedElement.parentElement;
+                }
+
+                if (clickedElement.hasAttribute('data-receipe-id')) {
+                    const receipeId = clickedElement.getAttribute('data-receipe-id');
+                    toggleHeart(event.target, receipeId); // heartValue 대신 receipeId를 사용
+                }
             }
         });
+
 
         updateContainersAndHearts();
 
@@ -129,9 +138,8 @@
                 }
                 return response.json();
             })
-            .then(data => {
+            .then(async data => {
                 console.log(data.data);
-
 
 
                 // 받아온 데이터를 사용하여 HTML에 표시하기
@@ -140,10 +148,14 @@
                 // 기존에 있는 레시피 요소들을 초기화합니다.
                 mainItemsContainer.innerHTML = "";
 
-                data.data.forEach(receipe => {
+                for (const receipe of data.data) {
                     // 각 레시피 항목에 대한 HTML 요소 생성하기
                     const receipeDiv = document.createElement("div");
                     receipeDiv.className = "main-item-container";
+                    receipeDiv.setAttribute('data-receipe-id', receipe.receipeId);
+                    receipeDiv.addEventListener("click", function () {
+                        window.location.href = `/receipe/detailReceipe?receipeId=${receipe.receipeId}`;
+                    });
 
                     const imgDiv = document.createElement("div");
                     imgDiv.className = "main-item-img";
@@ -161,7 +173,17 @@
                     heartDiv.className = "heart";
 
                     const iTag = document.createElement("i");
-                    iTag.className = "heartcheck fa fa-heart";
+                    const heartStatus = await checkHeartStatus(receipe.receipeId);
+
+                    iTag.classList.add('fa');
+                    if (heartStatus === 'y') {
+                        iTag.classList.remove('fa-heart-o');
+                        iTag.classList.add('fa-heart');
+                    } else {
+                        iTag.classList.add('fa-heart-o');
+                        iTag.classList.remove('fa-heart');
+                    }
+
                     iTag.setAttribute("aria-hidden", "true");
 
                     heartDiv.appendChild(iTag);
@@ -194,7 +216,7 @@
                     mainItemsContainer.appendChild(receipeDiv);
 
 
-                });
+                }
                 updateContainersAndHearts();
                 toggleItems();
             })
@@ -245,12 +267,26 @@
         hearts = document.querySelectorAll('.heartcheck');
     }
 
-    function toggleHeart(heartElement) {
-        if (heartElement.classList.contains('fa-heart')) {
-            heartElement.classList.remove('fa-heart');
-            heartElement.classList.add('fa-heart-o');
-        } else {
-            heartElement.classList.add('fa-heart');
-            heartElement.classList.remove('fa-heart-o');
+    async function checkHeartStatus(receipeId) {
+        const myHeaders = new Headers();
+        myHeaders.append("Authorization", "Bearer " + token);
+
+        const requestOptions = {
+            method: 'GET',
+            headers: myHeaders,
+            redirect: 'follow'
+        };
+
+        const response = await fetch("http://localhost:8080/api/user/love/check/status/" + receipeId, requestOptions);
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            console.error("데이터 조회 실패: " + JSON.stringify(errorData));
+            console.log(null)
+            return null;
         }
+
+        const data = await response.json();
+        console.log(data.data.status)
+        return data.data.status;
     }
