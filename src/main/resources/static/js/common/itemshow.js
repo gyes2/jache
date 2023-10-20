@@ -39,8 +39,6 @@
             });
         }
 
-
-
         // 버튼 클릭 이벤트 처리는 여기서 바로 설정
         let button = document.getElementById('login-button');
         if (token) {
