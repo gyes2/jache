@@ -5,7 +5,7 @@ let isEmailVerified = false;
 let isNameAvailable = false;
 async function checkChefEmail() {
     try {
-        const response = await fetch(`http://43.202.212.78/api/all/email-verification/${checkEmail.value}`, {
+        const response = await fetch(`http://localhost:8080/api/all/email-verification/${checkEmail.value}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -30,7 +30,7 @@ async function checkChefEmail() {
 
 async function checkChefName() {
     try {
-        const response = await fetch(`http://43.202.212.78/api/all/check/name/${checkName.value}`);
+        const response = await fetch(`http://localhost:8080/api/all/check/name/${checkName.value}`);
 
         const data = await response.json();
         console.log(data);
