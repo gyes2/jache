@@ -57,4 +57,42 @@ document.getElementById('popup_open_btn').addEventListener('click', function() {
     modal('my_modal');
 });
 
+document.addEventListener('DOMContentLoaded', function () {
+    // 이곳에 사용자 아이디와 토큰을 설정하세요
+    const chefNameInput = document.getElementById("chefName"); // 현재 사용자의 아이디로 설정
+    const chefDetailTextArea = document.getElementById("chefDetail");
+    const chefImg = document.getElementById("chefImg");
 
+    const token = localStorage.getItem('token');
+
+    // 사용자 정보 가져오기
+    if (token) {
+        fetch('http://localhost:8080/api/user/getUserInfo', {
+            method: 'get',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            }
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('네트워크 상태가 좋지 않습니다.');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // 데이터에서 값을 추출합니다.
+                const apiChefName = data.data.chefName;
+                const chefDetail = data.data.chefDetail;
+                const chefImgUrl = data.data.chefImgUrl;
+
+                // 값들을 DOM 요소에 할당합니다.
+                chefNameInput.textContent = apiChefName;
+                chefDetailTextArea.textContent = chefDetail;
+                chefImg.src = chefImgUrl;
+            })
+            .catch(error => {
+                console.error('API 호출 중 오류 발생:', error);
+            });
+    }
+});

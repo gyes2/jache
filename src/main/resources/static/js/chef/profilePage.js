@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // 사용자 정보 가져오기
     if (token) {
         fetch('http://localhost:8080/api/user/getUserInfo', {
+            method: 'get',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + token
@@ -41,8 +42,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.error('API 호출 중 오류 발생:', error);
             });
     }
-});
-
 // 버튼 업데이트 함수
 function updateButtons(apiChefName, chefName) {
     const menuButtons = document.getElementById("buttonContainer");
@@ -67,3 +66,4 @@ function updateButtons(apiChefName, chefName) {
         }
     });
 }
+});
