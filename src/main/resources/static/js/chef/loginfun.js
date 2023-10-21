@@ -16,7 +16,7 @@ function dataSend(){
         redirect: 'follow'
     };
 
-    fetch("http://localhost:8080/api/all/signin", requestOptions)
+    fetch("http://43.202.212.78/api/all/signin", requestOptions)
         .then(response => response.json())  // 응답을 JSON 형태로 받아옵니다.
         .then(result => {
             console.log(result);

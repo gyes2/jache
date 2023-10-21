@@ -307,7 +307,7 @@ function initializeReceipeForm() {
     // 재료 추가 전송
     async function materialSendData(data) {
         try {
-            const response = await fetch('http://localhost:8080/api/user/ingredient/add', {
+            const response = await fetch('http://43.202.212.78/api/user/ingredient/add', {
                 method: 'POST',
                 headers: {
                     'Authorization': 'Bearer ' + token,
@@ -335,7 +335,7 @@ function initializeReceipeForm() {
     // 재료 삭제 전송
     async function materialDeleteData(dataValue) {
         try {
-            const response = await fetch(`http://localhost:8080/api/user/ingredient/delete/${dataValue}`, {
+            const response = await fetch(`http://43.202.212.78/api/user/ingredient/delete/${dataValue}`, {
                 method: 'DELETE',  // 여기에서 메서드를 DELETE로 설정
                 headers: {
                     'Authorization': 'Bearer ' + token,  // 필요하다면 토큰을 포함
@@ -370,7 +370,7 @@ function initializeReceipeForm() {
                 body: data,
             };
 
-            const response = await fetch("http://localhost:8080/api/user/orders/add", requestOptions);
+            const response = await fetch("http://43.202.212.78/api/user/orders/add", requestOptions);
 
             if (response.ok) {
                 const responseData = await response.json(); // JSON 변환
@@ -391,7 +391,7 @@ function initializeReceipeForm() {
     // 요리 순서 삭제
     async function sequenceDeleteSendData(dataValue) {
         try {
-            const response = await fetch(`http://localhost:8080/api/user/orders/delete/${dataValue}`, {
+            const response = await fetch(`http://43.202.212.78/api/user/orders/delete/${dataValue}`, {
                 method: 'DELETE',  // 여기에서 메서드를 DELETE로 설정
                 headers: {
                     'Authorization': 'Bearer ' + token,  // 필요하다면 토큰을 포함
@@ -424,7 +424,7 @@ function initializeReceipeForm() {
                 body: data,
             };
 
-            const response = await fetch("http://localhost:8080/api/user/receipe/create", requestOptions);
+            const response = await fetch("http://43.202.212.78/api/user/receipe/create", requestOptions);
 
             if (response.ok) {
                 alert("데이터 전송 완료!");
