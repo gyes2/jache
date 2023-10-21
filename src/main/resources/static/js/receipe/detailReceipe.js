@@ -98,12 +98,19 @@ async function fetchReceipeDetails() {
     console.log(data.data.orders);
 
     data.data.orders.forEach((order, index) => {
-
         let sequenceDiv = document.createElement("div");
-        sequenceDiv.className = "order-div";
+        sequenceDiv.className = "form-container-items"; // 클래스 수정
+
+        let orderDiv = document.createElement("div");
+        orderDiv.className = "order-div";
 
         let label = document.createElement("label");
-        label.textContent = "요리 순서 " + (index + 1);
+        label.textContent = "순서 " + (index + 1);
+
+        let img = document.createElement("img");
+        img.className = "receipe-detail-sequence-img";
+        console.log(order.contentUrl);
+        img.src = order.contentUrl;
 
         let textarea = document.createElement("textarea");
         textarea.className = "receipe-detail-sequence";
@@ -112,17 +119,12 @@ async function fetchReceipeDetails() {
         textarea.disabled = true;
         textarea.value = order.content;
 
-        let img = document.createElement("img");
-        img.className = "receipe-detail-sequence-img";
-        console.log(order.contentUrl);
-        img.src = order.contentUrl;
-
-        sequenceDiv.appendChild(label);
-        sequenceDiv.appendChild(textarea);
+        orderDiv.appendChild(label);
+        sequenceDiv.appendChild(orderDiv); // orderDiv를 sequenceDiv의 자식으로 추가
         sequenceDiv.appendChild(img);
+        sequenceDiv.appendChild(textarea);
 
         orderContainer.appendChild(sequenceDiv);
-
     });
 }
 
