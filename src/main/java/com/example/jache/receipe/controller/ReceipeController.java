@@ -55,7 +55,7 @@ public class ReceipeController {
     /**
      * 테마별 최신순 조회
      */
-    @GetMapping("/receipe/read/{theme}/all")
+    @GetMapping("/receipe/read/{theme}/all/last")
     public ResponseEntity<ApiResponse<List<ReceipeDto.ReadReceipeResDto>>> readReceipesByTheme(@PathVariable String theme){
         List<ReceipeDto.ReadReceipeResDto> receipes = receipeService.readAllReceipesByTheme(theme);
 

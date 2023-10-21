@@ -116,18 +116,44 @@
                 console.error('There was an error!', error);
             });
     }
+
+    // nav 선택 이벤트
+    // Event listener for anchor buttons
     const menuItems = document.querySelectorAll('.nav_menu_item');
     menuItems.forEach(item => {
         item.addEventListener('click', function(event) {
-            event.preventDefault();  // 기본 앵커 클릭 동작 방지
+            event.preventDefault(); // Prevent the default anchor click behavior
+            console.log('Clicked!');
             const type = this.getAttribute('data-type') || 'S';
-            showMain(type);
+            const selectedValue = document.getElementById("main-sort").value || 'last';
+            showMain(type, selectedValue); // Pass both values to the showMain function
         });
     });
 
+    // Event listener for the select element
+    // Event listener for the select element
+    const selectElement = document.getElementById('main-sort');
+    console.log(selectElement);
+    selectElement.addEventListener('change', function () {
+        console.log('Selected!');
+        const selectedValue = this.value || 'all';
+
+        // Find the selected menu item and get its data-type attribute
+        const menuItems = document.querySelectorAll('.nav_menu_item');
+        let type = 'S'; // Default type if no matching item is found
+        menuItems.forEach(item => {
+            if (item.classList.contains('active')) {
+                type = item.getAttribute('data-type');
+            }
+        });
+
+        showMain(type, selectedValue); // Pass both values to the showMain function
+    });
+
+
     // 메인페이지 조회
-    function showMain(type = 'S') {
-        fetch(`http://localhost:8080/api/receipe/read/${type}/all`, {
+    function showMain(type = 'S',selectedValue = 'last') {
+        fetch(`http://localhost:8080/api/receipe/read/${type}/all/${selectedValue}`, {
             method: 'GET'
         })
             .then(response => {
@@ -221,7 +247,6 @@
             .catch(error => {
                 console.error('There was an error!', error);
             });
-
 
     }
 
