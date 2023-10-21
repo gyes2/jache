@@ -177,7 +177,14 @@
                     receipeDiv.className = "main-item-container";
                     receipeDiv.setAttribute('data-receipe-id', receipe.receipeId);
                     receipeDiv.addEventListener("click", function () {
-                        window.location.href = `/receipe/detailReceipe?receipeId=${receipe.receipeId}`;
+                        if(token){
+                            window.location.href = `/receipe/detailReceipe?receipeId=${receipe.receipeId}`;
+                        }
+                        else{
+                            alert("로그인을 해주세요.");
+                            window.location.href = '/login';
+                        }
+
                     });
 
                     const imgDiv = document.createElement("div");

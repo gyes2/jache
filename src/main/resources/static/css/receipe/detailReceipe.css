@@ -15,9 +15,10 @@
     justify-content: start;
     justify-items: start;
     align-items: center;
+    margin: 3rem auto;
 }
 
-#delete{
+#receipe-delete{
     border: none;
     border-radius: 10px;
     color: white;
@@ -143,11 +144,15 @@
 
 .receipe-detail-sequence-img {
     width: 10rem;
+    height: 10rem;
+    object-fit: fill;
 }
 
 .receipe-detail-sequence {
     width: 25rem;
-    margin-left:2rem;
+    margin-left: 2rem;
     height: 10rem;
+    font-size: 1.8rem;
+    text-align: center;
     resize: none;
 }
