@@ -14,7 +14,6 @@ async function getInfo(){
     // 사용자 정보 가져오기
     if (token) {
         let response = await fetch('http://localhost:8080/api/user/getUserInfo', {
-            method: 'GET',
             headers: {
                 'Authorization': 'Bearer ' + token
             }

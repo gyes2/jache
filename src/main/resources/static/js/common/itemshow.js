@@ -48,8 +48,6 @@
             });
         }
 
-
-
         // 버튼 클릭 이벤트 처리는 여기서 바로 설정
         let button = document.getElementById('login-button');
         if (token) {
@@ -167,7 +165,6 @@
             .then(async data => {
                 console.log(data.data);
 
-
                 // 받아온 데이터를 사용하여 HTML에 표시하기
                 const mainItemsContainer = document.getElementById("main-items-container");
 
@@ -180,7 +177,14 @@
                     receipeDiv.className = "main-item-container";
                     receipeDiv.setAttribute('data-receipe-id', receipe.receipeId);
                     receipeDiv.addEventListener("click", function () {
-                        window.location.href = `/receipe/detailReceipe?receipeId=${receipe.receipeId}`;
+                        if(token){
+                            window.location.href = `/receipe/detailReceipe?receipeId=${receipe.receipeId}`;
+                        }
+                        else{
+                            alert("로그인을 해주세요.");
+                            window.location.href = '/login';
+                        }
+
                     });
 
                     const imgDiv = document.createElement("div");

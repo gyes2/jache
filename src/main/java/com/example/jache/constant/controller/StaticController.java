@@ -59,7 +59,7 @@ public class StaticController {
         return "chef/likeReceipe";
     }
 
-    @GetMapping("/chef/myList")
+    @RequestMapping("/chef/myList")
     public String myList() {
 
         return "chef/myList";

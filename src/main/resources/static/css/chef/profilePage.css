@@ -88,3 +88,8 @@ img{
      margin-left: 2rem;
      resize: none;
  }
+
+ #buttonContainer {
+     display: grid;
+     margin-top: 1rem;
+ }
