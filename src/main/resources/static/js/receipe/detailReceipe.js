@@ -4,10 +4,34 @@ const receipeCheckNum = 21; // 상세조회할 레시피 아이디 불러오기
 
 const urlParams = new URLSearchParams(window.location.search);
 const receipeId = urlParams.get('receipeId');
+let deleteButton = document.getElementById("receipe-delete");
 console.log(receipeId);
 
 window.addEventListener("DOMContentLoaded", async function () {
-    await fetchReceipeDetails();
+
+    deleteButton.addEventListener('click', async function(event) {
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("Authorization", "Bearer " + token);
+
+        var requestOptions = {
+            method: 'DELETE',
+            headers: myHeaders,
+            redirect: 'follow'
+        };
+
+        let responses = await fetch("http://localhost:8080/api/user/receipe/delete/" + receipeId, requestOptions)
+
+        if (!responses.ok) {
+            const errorData = await responses.json();
+            alert("데이터 조회 실패: " + JSON.stringify(errorData));
+        } else {
+            window.location.href = '/main';
+            alert("삭제 완료!");
+        }
+    });
+
+    let check = await fetchReceipeDetails();
     let returnedStatus = await heartStatus();
     const likeBtn = document.querySelector('.heart');
     const likedBtn = document.querySelector('.heart-liked');
@@ -21,29 +45,34 @@ window.addEventListener("DOMContentLoaded", async function () {
         likeBtn.style.display = "none"; // 빈 하트 숨기기
         likedBtn.style.display = "inline-block"; // 클릭된 하트 표시
     }
+
+    await receipeCheck(check);
+
+
 });
 
 async function fetchReceipeDetails() {
-    // API URL을 설정합니다. 실제 API 주소로 수정해주세요.
-    const apiUrl = "http://localhost:8080/api/user/receipe/read/detail/" + receipeId;
+    try {
+        // API URL을 설정합니다. 실제 API 주소로 수정해주세요.
+        const apiUrl = "http://localhost:8080/api/user/receipe/read/detail/" + receipeId;
 
-    var myHeaders = new Headers();
-    myHeaders.append("Authorization", "Bearer " + token);
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", "Bearer " + token);
 
-    var requestOptions = {
-        method: 'GET',
-        headers: myHeaders,
-        redirect: 'follow'
-    };
+        var requestOptions = {
+            method: 'GET',
+            headers: myHeaders,
+            redirect: 'follow'
+        };
 
-    let response = await fetch(apiUrl, requestOptions);
+        // fetch를 사용하여 새로운 요청을 보냅니다.
+        const response = await fetch(apiUrl, requestOptions);
 
-    if (!response.ok) {
-        const errorData = await response.json();
-        alert("데이터 조회 실패: " + JSON.stringify(errorData));
-    }
-
-    let data = await response.json();
+        if (!response.ok) {
+            const errorData = await response.json();
+            alert("데이터 조회 실패: " + JSON.stringify(errorData));
+        } else {
+            const data = await response.json();
 
     console.log(data);
     // 데이터를 HTML 요소에 할당합니다.
@@ -126,7 +155,39 @@ async function fetchReceipeDetails() {
 
         orderContainer.appendChild(sequenceDiv);
     });
+    let receipeidCheck;
+    return receipeidCheck = data.data.chefName;
 }
+
+async function receipeCheck(chefName){
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer " + token);
+
+    var requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow'
+    };
+
+    let response = await fetch("http://localhost:8080/api/user/get/isMyReceipe/" + chefName, requestOptions);
+
+    if (!response.ok) {
+        const errorData = await response.json();
+        alert("데이터 조회 실패: " + JSON.stringify(errorData));
+    }
+
+    let data = await response.json();
+    let check = data.data
+
+    if (check === true){
+        deleteButton.classList.remove('hidden');
+    }else {
+        deleteButton.classList.add('hidden');
+    }
+
+    console.log(data.data)
+}
+
 
 // 클릭시 하트상태 변경만 가능. 데이터 연결 후에 하트 상태 저장하기
 const likeButtons = document.querySelectorAll('.like');
@@ -224,4 +285,5 @@ async function unlove() {
         const errorData = await response.json();
         alert("데이터 조회 실패: " + JSON.stringify(errorData));
     }
+}
 }

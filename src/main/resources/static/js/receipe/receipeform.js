@@ -382,7 +382,6 @@ function initializeReceipeForm() {
             const responseData = await response.json();
 
             if (responseData.success) {
-                alert('재료 추가 완료');
                 return responseData.data.ingredientId;
             } else {
                 alert('재료 추가 실패: ' + responseData.message);
@@ -410,8 +409,6 @@ function initializeReceipeForm() {
             console.log(data);
 
             if (data.isSuccess) {
-                alert('재료 삭제 완료');
-
             } else {
                 alert('재료 삭제 실패');
             }
@@ -437,7 +434,6 @@ function initializeReceipeForm() {
 
             if (response.ok) {
                 const responseData = await response.json(); // JSON 변환
-                alert("데이터 전송 완료!");
 
                 console.log(responseData.data.orderId); // orderId 출력
                 return responseData.data.orderId; // orderId 리턴
@@ -466,7 +462,6 @@ function initializeReceipeForm() {
             console.log(data);
 
             if (data.isSuccess) {
-                alert('요리 순서 삭제 완료');
             } else {
                 alert('요리 순서 삭제 실패');
             }
@@ -490,7 +485,6 @@ function initializeReceipeForm() {
             const response = await fetch("http://localhost:8080/api/user/receipe/create", requestOptions);
 
             if (response.ok) {
-                alert("데이터 전송 완료!");
                 window.location.href = '/main';
             } else {
                 const errorData = await response.json();
