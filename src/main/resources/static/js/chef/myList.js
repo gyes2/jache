@@ -9,8 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // 사용자 정보 가져오기
     if (token) {
-        fetch('/api/user/getUserInfo', {
-            method: 'get',
+        fetch('http://localhost:8080/api/user/getUserInfo', {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + token
@@ -32,20 +31,15 @@ document.addEventListener('DOMContentLoaded', function () {
                 chefNameInput.textContent = apiChefName;
                 chefDetailTextArea.textContent = chefDetail;
                 chefImg.src = chefImgUrl;
-
-                const chefName = chefNameInput.innerText;
                 // 사용자 아이디 비교
-                updateButtons(apiChefName, chefName);
             })
             .catch(error => {
                 console.error('API 호출 중 오류 발생:', error);
-                console.log(chefName);
-
-                // 아무 동작을 하지 않고 버튼을 유지하려면 여기에 추가 로직을 작성하지 않습니다.
             });
     }
 });
 
+//글쓰기
 document.addEventListener('DOMContentLoaded', function () {
     const token = localStorage.getItem('token');
 
@@ -69,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 // 내 글인지 확인 후 처리
                 if (isMyRecipe) {
                     // 내 글일 경우 서버에서 recipeId 가져오기
-                    fetch('/api/user/receipe/initial', {
+                    fetch('http://localhost:8080/api/user/receipe/initial', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -110,28 +104,113 @@ document.addEventListener('DOMContentLoaded', function () {
     // 글쓰기 버튼 클릭 이벤트 리스너 등록
     const writeButton = document.getElementById('writeButton');
     writeButton.addEventListener('click', handleWriteButtonClick);
+});
 
-    // 각 레시피 상자에 대한 클릭 이벤트 처리 로직
-    const receipeBoxes = document.querySelectorAll('.receipeBox');
+document.addEventListener('DOMContentLoaded', function () {
+    const chefNameInput = document.getElementById("chefName"); // 현재 사용자의 아이디로 설정
+    const receipeBoxContainer = document.querySelector('#myReceipe');
 
-    receipeBoxes.forEach(box => {
-        receipeBoxes.forEach(box => {
-            const titleLink = box.querySelector('a');
-            const writerLink = box.querySelectorAll('a')[1];
+    const token = localStorage.getItem('token');
 
-            titleLink.addEventListener('click', function (event) {
-                // 레시피 제목 클릭 시 해당 레시피로 이동
-                event.preventDefault(); // 기본 링크 동작 방지
-                const receipeLink = titleLink.getAttribute('href');
-                location.href = receipeLink;
+    // 사용자 정보 가져오기
+    if (token) {
+        // fetch(`/user/myreceipe/${theme}`, {
+        fetch(`http://localhost:8080/api/user/myreceipe/S`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            }
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed Server responded with: ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(async data => {
+                console.log(data.data);
+                // 받아온 데이터를 사용하여 레시피 목록을 생성
+
+                const myReceipe = document.getElementById("myReceipe");
+
+                myReceipe.innerHTML = "";
+
+                for (const receipe of data.data) {
+                    const receipeDiv = document.createElement("div");
+                    receipeDiv.className = "receipeBox";
+                    receipeDiv.setAttribute('dataReceipeId', receipe.receipeId);
+                    receipeDiv.addEventListener("click", function () {
+                        window.location.href = `http://localhost:8080/receipe/detailReceipe?receipeId=${receipe.receipeId}`;
+                    });
+
+                    const imgDiv = document.createElement("div");
+                    imgDiv.className = "receipeImg"
+
+                    const img = document.createElement("img");
+                    img.src = receipe.imgUrl;
+                    img.alt = receipe.title;
+
+                    imgDiv.appendChild(img);
+
+                    const textDiv = document.createElement("div");
+                    textDiv.className = "main-item-text";
+
+                    /*const heartDiv = document.createElement("div");
+                    heartDiv.className = "heart";
+
+                    const iTag = document.createElement("i");
+                    const heartStatus = await checkHeartStatus(receipe.receipeId);
+
+                      iTag.classList.add('fa');
+                      if (heartStatus === 'y') {
+                          iTag.classList.remove('fa-heart-o');
+                          iTag.classList.add('fa-heart');
+                      } else {
+                          iTag.classList.add('fa-heart-o');
+                          iTag.classList.remove('fa-heart');
+                      }
+
+                    iTag.setAttribute("aria-hidden", "true");
+
+                    heartDiv.appendChild(iTag);*/
+
+                    const titleDiv = document.createElement("div");
+                    titleDiv.className = "receipeTitle";
+                    titleDiv.innerHTML = `<p>${receipe.title}</p>`;
+                    console.log(titleDiv.innerText);
+
+                    const categoryDiv = document.createElement("div");
+                    categoryDiv.className = "receipeCategory";
+                    categoryDiv.innerHTML = "<p>카테고리</p>";
+                    console.log(categoryDiv.innerHTML);
+
+                    const recipeDiv = document.createElement("div");
+                    recipeDiv.className = "receipeContent";
+                    recipeDiv.innerHTML = `<p>${receipe.introduce}</p>`;
+                    console.log(recipeDiv.innerHTML);
+
+                    const chefDiv = document.createElement("div");
+                    chefDiv.className = "receipeChef";
+                    chefDiv.innerHTML = `<p>${receipe.chefName}</p>`;
+                    console.log(chefDiv.innerHTML);
+
+                    // textDiv.appendChild(heartDiv);
+                    textDiv.appendChild(titleDiv);
+                    textDiv.appendChild(categoryDiv);
+                    textDiv.appendChild(recipeDiv);
+                    textDiv.appendChild(chefDiv);
+
+                    receipeDiv.appendChild(imgDiv);
+                    receipeDiv.appendChild(textDiv);
+
+                    receipeBoxContainer.appendChild(receipeDiv);
+                }
+               /*updateContainersAndHearts();
+                toggleItems();*/
+            })
+            .catch(error => {
+                console.error('There was an error!', error);
             });
-
-            writerLink.addEventListener('click', function (event) {
-                // 작성자 이름 클릭 시 작성자 정보 페이지로 이동
-                event.preventDefault();
-                const chefProfileLink = writerLink.getAttribute('href');
-                location.href = chefProfileLink;
-            });
-        });
-    })
+        }
 });

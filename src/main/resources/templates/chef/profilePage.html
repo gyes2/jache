@@ -17,11 +17,11 @@
     <div id = "container">
         <form class="info">
             <div>
-                <p><img th:src="@{/static/img/login.jpg}" alt="chef-img" id = "chefImg"></p>
+                <p><img th:src="@{/static/img/login.png}" alt="chef-img" id = "chefImg"></p>
             </div>
             <div class="idInfo">
                 <div class = "chefId">
-                    <p type="text" id="chefName"></p>
+                        <p type="text" id="chefName"></p>
                 </div><br>
                 <div class = "chefInfo">
                 <p id="chefDetail"></p>
@@ -30,7 +30,6 @@
         </form>
        <div class = "infoSide">
         <div th:replace="~{/common/infoSide :: sidebarFragment}"></div>
-<!--           <div th:replace="common/infoSide :: sidebarFragment"></div>-->
        </div>
     </div>
 
@@ -44,7 +43,6 @@
     </form>
     <div th:replace="~{/common/footer :: footerFragment}"></div>
 <!--    <div th:replace="common/footer :: footerFragment"></div>-->
+    <script th:src="@{/static/js/chef/profilePage.js}"></script>
 </body>
-<script th:src="@{/static/js/adapter.js}"></script>
-<script th:src="@{/static/js/chef/profilePage.js}"></script>
 </html>

@@ -20,20 +20,34 @@
                 <tr>
                     <h2>찜한 레시피</h2>
                 </tr>
-                <tr class="receipeContent" th:each="receipe : ${list}">
+                <tr class="receipeContent">
+                    <td id="foodImg" rowspan="2"><img th:src="@{/static/img/login.png}" alt="chef-img"></td>
+                    <td id="title">
+                        <a><div id="receipeTitle">제목</div></a>
+                        <br><br>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a><div id="writer"> 작성자 </div></a>
+                    </td>
+                </tr>
+
+
+              <!--  <tr class="receipeContent" th:each="receipe : ${list}">
                     <td id="foodImg" rowspan="2"><img th:src="@{/static/img/login.jpg}" alt="chef-img"></td>
                     <td id="title">
-                        <a th:href="'/chef/profilePage/' + ${receipe.chef}"> <!-- 클릭 시 프로필 페이지로 이동 -->
+                        <a th:href="'/chef/profilePage/' + ${receipe.chef}"> &lt;!&ndash; 클릭 시 프로필 페이지로 이동 &ndash;&gt;
                             <div id="receipeTitle" th:text="${receipe.title}">제목</div>
                         </a><br><br>
                         <div id="writer">작성자: ${receipe.chef}</div>
                     </td>
-                </tr>
+                </tr>-->
             </table>
         </form>
    </div>
     <div th:replace="~{/common/footer :: footerFragment}"></div>
+    <script th:src="@{/static/js/chef/likeReceipe.js}"></script>
 </body>
-<script th:src="@{/static/js/adapter.js}"></script>
-<script th:src="@{/static/js/chef/likeReceipe.js}"></script>
+
 </html>
