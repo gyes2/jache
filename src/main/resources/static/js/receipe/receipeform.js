@@ -8,6 +8,42 @@ document.addEventListener("DOMContentLoaded", function() {
     let includeCount = includes.length;
 
     initializeReceipeForm();
+    if (token) {
+        let loginChefName = document.getElementById("main-aside-login-username");
+        let loginChefImg = document.getElementById("main-aside-login-img-id");
+        let loginChefText = document.getElementById("main-aside-login-overview");
+
+        toggleItems();
+
+        fetch('http://localhost:8080/api/user/getUserInfo', {
+            headers: {
+                'Authorization': 'Bearer ' + token
+            }
+        })
+            .then(response => {
+                // 유효하지 않은 토큰에 대한 서버 응답을 확인
+                if (!response.ok) {
+                    throw new Error('Invalid Token');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // 데이터에서 값을 추출합니다.
+                let chefName = data.data.chefName;
+                let chefDetial = data.data.chefDetial;
+                let chefImgUrl = data.data.chefImgUrl;
+
+                // 값들을 DOM 요소에 할당합니다.
+                loginChefName.textContent = chefName;
+                loginChefText.textContent = chefDetial;
+                loginChefImg.src = chefImgUrl;
+            })
+            .catch(error => {
+                console.error('There was an error!', error);
+            });
+    } else{
+        toggleItems();
+    }
 
     Array.prototype.forEach.call(includes, function(element) {
         let path = element.getAttribute("data-include");
@@ -18,9 +54,36 @@ document.addEventListener("DOMContentLoaded", function() {
                 includeCount--;
 
                     // `initializeOtherFeatures` 함수가 정의되지 않았으므로 삭제했습니다.
+
             });
     });
+
+
+
 });
+
+function toggleItems() {
+    let mainAsideLogin = document.getElementById('main-aside-login-html');
+    let mainAside = document.getElementById('main-aside-html');
+
+    if (token) { // 로그인 되어 있을 때
+        if (mainAsideLogin && mainAside) {
+            mainAsideLogin.classList.remove('hidden'); // 로그인 창 숨기기
+            mainAside.classList.add('hidden'); // 로그아웃 창 보여주기
+        }
+    } else { // 로그인 되어 있지 않을 때
+        containers.forEach((container, index) => {
+            if (index >= 4) { // 첫 3개 요소 이후부터는
+                container.classList.add('hidden'); // 숨기기
+            }
+        });
+
+        if (mainAsideLogin && mainAside) {
+            mainAsideLogin.classList.add('hidden'); // 로그인 창 보여주기
+            mainAside.classList.remove('hidden'); // 로그아웃 창 숨기기
+        }
+    }
+}
 
 function initializeReceipeForm() {
     let addButton = document.getElementById("receipe-form-material-button");
