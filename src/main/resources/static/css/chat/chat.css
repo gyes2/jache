@@ -15,7 +15,7 @@ h2 {
     text-align: left;
 }
 
-.chatList {
+/*.chatList {
     border : solid 3px #e3e5e8;
     border-collapse: collapse;
     border-spacing: 0;
@@ -26,7 +26,7 @@ h2 {
     color: black;
     font-weight: bold;
 
-}
+}*/
 
 .chatList div {
     background-color:#ddf7df;

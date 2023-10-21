@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // 사용자 정보 가져오기
     if (token) {
         fetch('http://localhost:8080/api/user/getUserInfo', {
+            method: 'get',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + token
