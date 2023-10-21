@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', function () {
     // 이곳에 사용자 아이디와 토큰을 설정하세요
     const chefNameInput = document.getElementById("chefName"); // 현재 사용자의 아이디로 설정
@@ -31,7 +30,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 chefNameInput.textContent = apiChefName;
                 chefDetailTextArea.textContent = chefDetail;
                 chefImg.src = chefImgUrl;
-                // 사용자 아이디 비교
             })
             .catch(error => {
                 console.error('API 호출 중 오류 발생:', error);

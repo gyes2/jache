@@ -45,6 +45,7 @@ img{
     justify-content: space-evenly;
     align-items: center;
     margin-right: 6rem;
+    cursor: pointer;
 }
 
 .rightMain {
