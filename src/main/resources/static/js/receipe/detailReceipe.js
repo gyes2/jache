@@ -49,7 +49,7 @@ async function fetchReceipeDetails() {
     document.querySelector('input[id="receipe-title"]').value = data.data.title;
     document.querySelector('input[name="작성자"]').value = data.data.chefName;
     document.querySelector('input[name="카테고리"]').value = data.data.theme;
-
+    document.querySelector('input[name="레시피 소개"]').value = data.data.introduce;
     //document.querySelector('.receipe-detail-img').src = data.data.receipeImgUrl;
     let receipeImg = document.getElementById('receipe-img');
     console.log(data.data.receipeImgUrl);

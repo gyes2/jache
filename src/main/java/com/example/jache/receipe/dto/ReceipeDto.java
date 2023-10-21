@@ -38,9 +38,11 @@ public class ReceipeDto {
     @Data
     @Getter
     public static class ReadReceipeDetailResDto{
+        private Long receipeId;
         private String title;
         private String theme;
         private String chefName;
+        private String introduce;
         private String receipeImgUrl;
         private int loveCount;
         private List<IngredientDto.IngredientResDto> ingredients = new ArrayList<>();
@@ -48,9 +50,11 @@ public class ReceipeDto {
         private LocalDate createDate;
 
         public ReadReceipeDetailResDto(Receipe receipe){
+            this.receipeId = receipe.getReceipeId();
             this.title = receipe.getTitle();
             this.theme = receipe.getTheme();
             this.chefName = receipe.getChef().getChefName();
+            this.introduce = receipe.getIntroduce();
             this.receipeImgUrl = receipe.getReceipeImgUrl();
             this.loveCount = receipe.getLoveCount();
             this.ingredients = receipe.getIngredients().stream()
