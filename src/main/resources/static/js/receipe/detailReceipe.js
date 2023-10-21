@@ -1,6 +1,6 @@
 const token = localStorage.getItem('token');
 console.log(token);
-const receipeCheckNum = 21; //상세조회할 레시피 아이디 불러오기
+const receipeCheckNum = 21; // 상세조회할 레시피 아이디 불러오기
 
 const urlParams = new URLSearchParams(window.location.search);
 const receipeId = urlParams.get('receipeId');
@@ -9,13 +9,15 @@ console.log(receipeId);
 window.addEventListener("DOMContentLoaded", async function () {
     await fetchReceipeDetails();
     let returnedStatus = await heartStatus();
+    const likeBtn = document.querySelector('.heart');
+    const likedBtn = document.querySelector('.heart-liked');
+
     if (returnedStatus === "N") {
-        //좋아요안한 상태
+        // 좋아요 안한 상태
         likeBtn.style.display = "inline-block"; // 빈 하트 표시
         likedBtn.style.display = "none"; // 클릭된 하트 숨기기
-    }
-    else {
-        //현재 좋아요한 상태니까
+    } else {
+        // 현재 좋아요한 상태
         likeBtn.style.display = "none"; // 빈 하트 숨기기
         likedBtn.style.display = "inline-block"; // 클릭된 하트 표시
     }
@@ -23,19 +25,18 @@ window.addEventListener("DOMContentLoaded", async function () {
 
 async function fetchReceipeDetails() {
     // API URL을 설정합니다. 실제 API 주소로 수정해주세요.
-    const apiUrl = "http://localhost:8080/api/user/receipe/read/detail/"+receipeId;
+    const apiUrl = "http://localhost:8080/api/user/receipe/read/detail/" + receipeId;
 
     var myHeaders = new Headers();
-    myHeaders.append("Authorization", "Bearer "+token);
+    myHeaders.append("Authorization", "Bearer " + token);
 
     var requestOptions = {
         method: 'GET',
-        headers : myHeaders,
+        headers: myHeaders,
         redirect: 'follow'
     };
 
     let response = await fetch(apiUrl, requestOptions);
-
 
     if (!response.ok) {
         const errorData = await response.json();
@@ -55,23 +56,15 @@ async function fetchReceipeDetails() {
     console.log(data.data.receipeImgUrl);
     let imgUrl = data.data.receipeImgUrl;
     receipeImg.src = imgUrl;
-    // let ingredientsText = '';
-    // if (data.data.ingredients) {
-    //     data.data.ingredients.forEach(ingredient => {
-    //         ingredientsText += `${ingredient.ingredientName} (${ingredient.weight})\n`;
-    //     });
-    //     document.querySelector('.ingredient textarea').textContent = ingredientsText;
-    // }
 
+    // 재료 정보 표시
     let ingredientContainer = document.querySelector('.form-container-ingredientitems');
     console.log(data.data.ingredients);
 
     data.data.ingredients.forEach((ingredient, index) => {
 
         let ingredientDiv = document.createElement("div");
-        ingredientDiv.className = "form-container-items";
-
-        ingredientDiv.dataset.ingredientId = ingredient.ingredientId;
+        ingredientDiv.className = "ingredient-div";
 
         let labelIng = document.createElement("label");
         labelIng.setAttribute("for", "");
@@ -80,14 +73,14 @@ async function fetchReceipeDetails() {
 
         let inputIng = document.createElement("input");
         inputIng.type = "text";
-        inputIng.className = "receipe-form-material";
+        inputIng.className = "receipe-detail-material";
         inputIng.placeholder = "재료명";
         inputIng.value = ingredient.ingredientName;
         inputIng.disabled = true;
 
         let inputUnit = document.createElement("input");
         inputUnit.type = "text";
-        inputUnit.className = "receipe-form-material-unit";
+        inputUnit.className = "receipe-detail-material-unit";
         inputUnit.placeholder = "단위";
         inputUnit.value = ingredient.weight;
         inputUnit.disabled = true;
@@ -107,9 +100,7 @@ async function fetchReceipeDetails() {
     data.data.orders.forEach((order, index) => {
 
         let sequenceDiv = document.createElement("div");
-        sequenceDiv.className = "form-container-items";
-
-        sequenceDiv.dataset.orderId = order.orderId;
+        sequenceDiv.className = "order-div";
 
         let label = document.createElement("label");
         label.textContent = "요리 순서 " + (index + 1);
@@ -133,46 +124,30 @@ async function fetchReceipeDetails() {
         orderContainer.appendChild(sequenceDiv);
 
     });
-
-
 }
 
-
-
-
-//클릭시 하트상태 변경만 가능. 데이터 연결 후에 하트 상태 저장하기
+// 클릭시 하트상태 변경만 가능. 데이터 연결 후에 하트 상태 저장하기
 const likeButtons = document.querySelectorAll('.like');
-const likeBtn = document.querySelector('.heart');
-const likedBtn = document.querySelector('.heart-liked');
 
 likeButtons.forEach(function (button) {
     button.addEventListener('click', async function () {
         console.log("버튼 이벤트 시작");
         let returnedStatus = await heartStatus();
         console.log(returnedStatus);
-        if (returnedStatus === "N"){
+        const likeBtn = document.querySelector('.heart');
+        const likedBtn = document.querySelector('.heart-liked');
+
+        if (returnedStatus === "N") {
             // 현재 하트가 비어 있는 상태일 때
             await love();
             likeBtn.style.display = "none"; // 빈 하트 숨기기
             likedBtn.style.display = "inline-block"; // 클릭된 하트 표시
-        }
-        else{
+        } else {
             // 현재 하트가 클릭된 상태일 때
             await unlove();
             likeBtn.style.display = "inline-block"; // 빈 하트 표시
             likedBtn.style.display = "none"; // 클릭된 하트 숨기기
         }
-
-
-        // if (likedBtn.style.display === "none") {
-        //     // 현재 하트가 비어 있는 상태일 때
-        //     likeBtn.style.display = "none"; // 빈 하트 숨기기
-        //     likedBtn.style.display = "inline-block"; // 클릭된 하트 표시
-        // } else {
-        //     // 현재 하트가 클릭된 상태일 때
-        //     likeBtn.style.display = "inline-block"; // 빈 하트 표시
-        //     likedBtn.style.display = "none"; // 클릭된 하트 숨기기
-        // }
     });
 });
 
@@ -182,20 +157,17 @@ function back() {
     console.log(referrer);
 }
 
-
-async function heartStatus(){
-
+async function heartStatus() {
     var myHeaders = new Headers();
-    myHeaders.append("Authorization", "Bearer "+token);
+    myHeaders.append("Authorization", "Bearer " + token);
 
     var requestOptions = {
         method: 'GET',
-        headers : myHeaders,
+        headers: myHeaders,
         redirect: 'follow'
     };
 
-    let response = await fetch("http://localhost:8080/api/user/love/check/status/"+receipeId, requestOptions);
-
+    let response = await fetch("http://localhost:8080/api/user/love/check/status/" + receipeId, requestOptions);
 
     if (!response.ok) {
         const errorData = await response.json();
@@ -209,10 +181,10 @@ async function heartStatus(){
     return status;
 }
 
-async function love(){
+async function love() {
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("Authorization", "Bearer "+token);
+    myHeaders.append("Authorization", "Bearer " + token);
 
     const raw = JSON.stringify({
         "receipeId": receipeId
@@ -244,8 +216,7 @@ async function unlove() {
         redirect: 'follow'
     };
 
-    let response = await fetch("http://localhost:8080/api/user/unlove/"+receipeId, requestOptions)
-
+    let response = await fetch("http://localhost:8080/api/user/unlove/" + receipeId, requestOptions)
 
     if (!response.ok) {
         const errorData = await response.json();
