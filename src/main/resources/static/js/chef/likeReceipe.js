@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             return response.json();
         })
-        .then(data => {
+        .then(async data => {
             const receipeList = data.data;
             const table = document.querySelector('.receipeList table');
             table.innerHTML = ''; // 테이블 내용 초기화
@@ -71,7 +71,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     const foodImgCell = document.createElement('td');
                     foodImgCell.setAttribute('id', 'foodImg');
                     foodImgCell.setAttribute('rowspan', '2');
-                    foodImgCell.innerHTML = `<img src="${receipe.receipeImgUrl}" alt="food-img">`;
+                    const img = document.createElement("img");
+                    foodImgCell.innerHTML = `<img src="${receipe.imgUrl}" alt="food-img">`;
+               /*     img.src = receip.imgUrl;
+                    img.alt = receipe.title;*/
+
 
                     const titleCell = document.createElement('td');
                     titleCell.setAttribute('id', 'title');
@@ -94,6 +98,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     table.appendChild(row);
                     table.appendChild(writerRow);
+
                 });
             }
         })

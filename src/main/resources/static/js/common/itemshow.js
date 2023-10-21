@@ -165,7 +165,6 @@
             .then(async data => {
                 console.log(data.data);
 
-
                 // 받아온 데이터를 사용하여 HTML에 표시하기
                 const mainItemsContainer = document.getElementById("main-items-container");
 
