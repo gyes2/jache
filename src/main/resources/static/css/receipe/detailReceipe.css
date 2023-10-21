@@ -16,25 +16,51 @@
     justify-items: start;
     align-items: center;
 }
+
+#delete{
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-size: 0.7rem;
+    width: 3rem;
+    height: 1.5rem;
+    margin-left: 38rem;
+}
+
 .mainTop {
     margin-left: 3rem;
+    margin-bottom: 1.5rem;
+    height: 20rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.thumbnail img, .file img{
-    width: 90px;
-    height: 90px;
+.thumImg{
+    width: 8rem;
+    height: 8rem;
+}
+
+.thumImg img{
+    width: 8rem;
+    height: 8rem;
 }
 
 .title-cate {
-    margin-left: 3rem;
+    display: flex;
+    flex-flow: column;
+    margin: 3rem;
+    margin-top: 5rem;
 }
 
 .title-cate input{
-    width: 400px;
-    height: 30px;
+    margin-top: 0.3rem;
+    width: 20rem;
+    height: 2rem;
+}
+
+.intro{
+    margin-top: 1rem;
 }
 
 .like {
@@ -43,6 +69,8 @@
     display: flex;
     align-items: center;
 }
+
+
 
 .like img {
     width: 30px;
@@ -53,14 +81,8 @@
     font-size: 15px;
 }
 
-.ingredient, .order, .file {
-    margin-left: 3rem;
-}
-
-.ingredient textarea, .order textarea {
-    width: 540px;
-    height: 80px;
-    resize: none;
+.ingredient{
+    text-align: center;
 }
 
 .form-container-orderitems {
@@ -74,22 +96,58 @@
     flex-direction: column;
 }
 
-.form-container-ingredientitems {
+.form-datail-item-container{
+    margin: 0 auto;
+    padding: 1rem;
+    width: 95%;
+
+}
+
+.form-datail-item-container label{
+    font-size: 1.3rem;
+}
+
+#hr-div hr{
+    width: 39rem;
+    margin-left: 1rem;
     margin-top: 1rem;
+}
+
+.form-container-ingredientitems {
+    margin: 0 auto;
     display: flex;
-    align-items: center;
     /* 항목들을 중앙에 정렬 */
     gap: 1rem;
-    width: 100%;
+    width: 80%;
     flex-direction: column;
 }
 
-.receipe-detail-sequence-img {
-    /*width: 20px;*/
-    /*//height: auto;*/
-    width: 5rem;
+.ingredient-div{
+    margin: 0.5rem auto;
+    margin-bottom: 1rem;
+    display: flex;
+    gap: 1rem;
 }
 
-.receipe-detail-material-unit{
-    width: 5rem;
+.ingredient-div input{
+    width: 10rem;
+    height: 2rem;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.order-div{
+    margin-bottom: 1rem;
+}
+
+.receipe-detail-sequence-img {
+    width: 10rem;
+}
+
+.receipe-detail-sequence {
+    width: 25rem;
+    margin-left:2rem;
+    height: 10rem;
+    resize: none;
 }

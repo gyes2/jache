@@ -13,15 +13,15 @@
 <body>
     <div th:replace="~{/common/header :: headerFragment}"></div>
     <div th:replace="~{/common/nav :: navFragment}"></div>
-   <div id = "container">
-       <div class = "returnBtn">
-           <label> 이전 목록으로 돌아가기</label>
-           <button th:onclick="back()"> ◀ </button>
-       </div><br>
+    <div id = "container">
+        <div class = "returnBtn">
+            <label> 이전 목록으로 돌아가기</label>
+            <button th:onclick="back()"> ◀ </button>
+        </div><br>
         <form class = "receipe">
+            <button id="delete" class="hidden">삭제</button>
             <div class = "mainTop">
                 <div class = "thumbnail">
-                    <label> 대표사진 </label>
                     <div class = "thumImg">
                         <!--사진 경로 수정 -->
                         <img src="https://3rdprojectbucket.s3.ap-northeast-2.amazonaws.com/initial/receipeInitial.jpg" alt="chef-img" id="receipe-img">
@@ -33,7 +33,7 @@
                         <!-- -->
                         <input type="text" name="제목" id="receipe-title" disabled>
                     </div><br>
-                    
+
                     <div class = "writer">
                         <label> 작성자 </label><br>
                         <input type="text" name="작성자" id="receipe-writer" disabled>
@@ -51,21 +51,33 @@
                         <img class="heart" th:src="@{/static/img/like_empty.png}" alt="heart">
                         <img class="heart-liked" th:src="@{/static/img/like_click.png}" alt="heart-liked" hidden>
                     </p>
-              </div>
-           </div>
 
-            <div class="form-container-ingredientitems">
-<!--                <label  id="ingredient">재료</label>-->
-<!--                <input type="text" class="receipe-detail-material"  placeholder="재료명" disabled/>-->
-<!--                <input type="text" class="receipe-detail-material-unit"  placeholder="단위" disabled/>-->
+                </div>
+
             </div>
-            <div class="form-container-orderitems">
-<!--                <label  id="order">요리순서</label>-->
-<!--                <textarea name="sequence" class="receipe-detail-sequence"  cols="10" rows="10" disabled></textarea>-->
-<!--                <img src="" class="receipe-detail-sequence-img" />-->
+            <div id="hr-div">
+                <hr>
+            </div>
+
+            <div class="form-datail-item-container">
+                <div class="form-container-ingredientitems">
+                    <label class="ingredient">재료</label>
+                    <div class="ingredient-div">
+                        <input type="text" class="receipe-detail-material"  placeholder="재료명" disabled/>
+                        <input type="text" class="receipe-detail-material-unit"  placeholder="단위" disabled/>
+                    </div>
+                </div>
+                <hr>
+                <div class="form-container-orderitems">
+                    <label class="order">요리순서</label>
+                    <div class="order-div">
+                        <img src="https://3rdprojectbucket.s3.ap-northeast-2.amazonaws.com/initial/receipeInitial.jpg" class="receipe-detail-sequence-img" />
+                        <textarea name="sequence" class="receipe-detail-sequence"  cols="10" rows="10" disabled></textarea>
+                    </div>
+                </div>
             </div>
         </form>
-   </div>
+    </div>
    <div th:replace="~{/common/footer :: footerFragment}"></div>
 </body>
 <script th:src="@{/static/js/adapter.js}"></script>
