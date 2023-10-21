@@ -92,7 +92,7 @@ public class ReceipeServiceImpl implements ReceipeService {
 
     @Override
     public List<ReceipeDto.ReadReceipeResDto> readAllReceipesByTheme(String theme) {
-        Sort sort = Sort.by(Sort.Direction.DESC,"creatDate");
+        Sort sort = Sort.by(Sort.Direction.ASC,"createDate");
         List<Receipe> receipes = receipeRepository.findAllByTheme(sort, theme);
         return receipes.stream()
                 .map(ReceipeDto.ReadReceipeResDto::new)

@@ -80,7 +80,7 @@ function sendRegData(){
         "email": email
     };
 
-    fetch('http://43.202.212.78/api/all/join', {
+    fetch('http://localhost:8080/api/all/join', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
