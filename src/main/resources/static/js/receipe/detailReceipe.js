@@ -214,6 +214,85 @@ deleteButton.addEventListener('click', async function(event) {
 });
 
 
+async function heartStatus() {
+    try {
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", "Bearer " + token);
+
+        var requestOptions = {
+            method: 'GET',
+            headers: myHeaders,
+            redirect: 'follow'
+        };
+
+        let response = await fetch("http://localhost:8080/api/user/love/check/status/" + receipeId, requestOptions);
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            alert("데이터 조회 실패: " + JSON.stringify(errorData));
+        }
+
+        let data = await response.json();
+
+        let status = data.data.status;
+
+        return status;
+    } catch (error) {
+        console.error("에러 발생: " + error.message);
+    }
+}
+
+async function love() {
+    try {
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("Authorization", "Bearer " + token);
+
+        const raw = JSON.stringify({
+            "receipeId": receipeId
+        });
+
+        const requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+
+        let response = await fetch("http://localhost:8080/api/user/love", requestOptions);
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            alert("데이터 조회 실패: " + JSON.stringify(errorData));
+        }
+    } catch (error) {
+        console.error("에러 발생: " + error.message);
+    }
+}
+
+async function unlove() {
+    try {
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("Authorization", "Bearer " + token);
+
+        var requestOptions = {
+            method: 'DELETE',
+            headers: myHeaders,
+            redirect: 'follow'
+        };
+
+        let response = await fetch("http://localhost:8080/api/user/unlove/" + receipeId, requestOptions)
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            alert("데이터 조회 실패: " + JSON.stringify(errorData));
+        }
+    } catch (error) {
+        console.error("에러 발생: " + error.message);
+    }
+}
+
 // 페이지 로드 시 상세 정보 불러오기
 window.addEventListener("DOMContentLoaded", async function () {
     await fetchReceipeDetails();

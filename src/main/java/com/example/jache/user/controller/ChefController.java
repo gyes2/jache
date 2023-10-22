@@ -67,7 +67,7 @@ public class ChefController {
     }
 
     /**
-     * 이메일 중복 체크
+     * 이메일 보내기
      */
     @GetMapping("/all/email-verification/{email}")
     public ResponseEntity<ApiResponse<String>> sendEmail(@PathVariable String email) throws Exception {
