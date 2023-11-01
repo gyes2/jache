@@ -1,4 +1,4 @@
-
+const token = localStorage.getItem('token');
 document.addEventListener('DOMContentLoaded', function () {
     // 이곳에 사용자 아이디와 토큰을 설정하세요
     const chefNameInput = document.getElementById("chefName"); // 현재 사용자의 아이디로 설정
@@ -29,19 +29,44 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 // 값들을 DOM 요소에 할당합니다.
                 chefNameInput.textContent = apiChefName;
-                chefDetailTextArea.textContent = chefDetail;
+                if(chefDetail == null || chefDetail == ""){
+                    chefDetailTextArea.innerHTML = "안녕하세요! <br>" + apiChefName + " 입니다!";
+                }else{
+                    chefDetailTextArea.textContent = chefDetail;
+                }
                 chefImg.src = chefImgUrl;
-                const chefName = chefNameInput.innerText;
-                // 사용자 아이디 비교
-                updateButtons(apiChefName, chefName);
-                console.log(chefName);
-                console.log(apiChefName);
             })
             .catch(error => {
                 console.error('API 호출 중 오류 발생:', error);
             });
     }
 });
+
+function logout(){
+    let logoutA = document.getElementById("logout-a");
+    fetch('http://localhost:8080/api/user/logout', {
+        method: 'POST',
+        headers: {
+            'Authorization': 'Bearer ' + token
+        }
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to logout. Server responded with: ' + response.statusText);
+            }
+            return response.json();
+        })
+        .then(data => {
+            // 로그아웃 성공 후 토큰 삭제
+            localStorage.removeItem('token');
+            // 추가적인 로그아웃 후 처리 로직
+            alert('Successfully logged out!');
+            window.location.href = "/main";
+        })
+        .catch(error => {
+            console.error('There was an error!', error);
+        });
+}
 
 // 버튼 업데이트 함수
 function updateButtons(apiChefName, chefName) {

@@ -77,7 +77,13 @@
 
                     // 값들을 DOM 요소에 할당합니다.
                     loginChefName.textContent = chefName;
-                    loginChefText.textContent = chefDetial;
+                    if(chefDetial == null || chefDetial == ""){
+                        loginChefText.innerHTML = "안녕하세요! <br>" + chefName + " 입니다!";
+                    }else{
+                        loginChefText.textContent = chefDetial;
+                    }
+
+
                     loginChefImg.src = chefImgUrl;
                 })
                 .catch(error => {
@@ -110,7 +116,7 @@
                 // 추가적인 로그아웃 후 처리 로직
                 alert('Successfully logged out!');
                 toggleItems();
-                logoutA.href = "/main";
+                window.location.href = "/main";
             })
             .catch(error => {
                 console.error('There was an error!', error);
@@ -130,7 +136,6 @@
         });
     });
 
-    // Event listener for the select element
     // Event listener for the select element
     const selectElement = document.getElementById('main-sort');
     console.log(selectElement);

@@ -15,17 +15,25 @@
 <!--    <div th:replace="common/header :: headerFragment"></div>-->
     <hr>
     <div id = "container">
-        <form class="info">
-            <div>
-                <p><img th:src="@{/static/img/login.png}" alt="chef-img" id = "chefImg"></p>
-            </div>
-            <div class="idInfo">
-                <div class = "chefId">
-                        <p type="text" id="chefName"></p>
-                </div><br>
-                <div class = "chefInfo">
-                <p id="chefDetail"></p>
-                </div><br>
+<!--        <form class="info">-->
+<!--            <div>-->
+<!--                <p><img th:src="@{/static/img/login.png}" alt="chef-img" id = "chefImg"></p>-->
+<!--            </div>-->
+<!--            <div class="idInfo">-->
+<!--                <div class = "chefId">-->
+<!--                        <p type="text" id="chefName"></p>-->
+<!--                </div><br>-->
+<!--                <div class = "chefInfo">-->
+<!--                <p id="chefDetail"></p>-->
+<!--                </div><br>-->
+<!--            </div>-->
+<!--        </form>-->
+        <form class="menu">
+            <div id="buttonContainer">
+                <button id="menuButtonMyList" type="button" data-url="@{/chef/myList}" th:onclick="|location.href='@{/chef/myList}'|"> 내가 쓴 글 </button><br>
+                <button id="menuButtonLikeRecipe" type="button" data-url="@{/chef/likeRecipe}" th:onclick="|location.href='@{/chef/likeReceipe}'|"> 찜한 레시피 </button><br>
+                <button id="menuButtonChat" type="button" data-url="@{/chat/chat}" th:onclick="|location.href='@{/chat/chat}'|"> 나의 정보 공유 </button><br>
+                <button id="menuButtonInfoEdit" type="button" data-url="@{/chef/infoEdit}" th:onclick="|location.href='@{/chef/infoEdit}'|"> 내 정보 수정 </button><br>
             </div>
         </form>
        <div class = "infoSide">
@@ -33,14 +41,7 @@
        </div>
     </div>
 
-    <form class="menu">
-        <div id="buttonContainer">
-            <button id="menuButtonMyList" type="button" data-url="@{/chef/myList}" th:onclick="|location.href='@{/chef/myList}'|"> 내가 쓴 글 </button><br>
-            <button id="menuButtonLikeRecipe" type="button" data-url="@{/chef/likeRecipe}" th:onclick="|location.href='@{/chef/likeReceipe}'|"> 찜한 레시피 </button><br>
-            <button id="menuButtonChat" type="button" data-url="@{/chat/chat}" th:onclick="|location.href='@{/chat/chat}'|"> 나의 정보 공유 </button><br>
-            <button id="menuButtonInfoEdit" type="button" data-url="@{/chef/infoEdit}" th:onclick="|location.href='@{/chef/infoEdit}'|"> 내 정보 수정 </button><br>
-        </div>
-    </form>
+
     <div th:replace="~{/common/footer :: footerFragment}"></div>
 <!--    <div th:replace="common/footer :: footerFragment"></div>-->
     <script th:src="@{/static/js/chef/profilePage.js}"></script>
