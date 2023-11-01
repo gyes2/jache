@@ -157,7 +157,6 @@ async function receipeCheck(chefName) {
 
 // 클릭시 하트상태 변경만 가능. 데이터 연결 후에 하트 상태 저장하기
 const likeButtons = document.querySelectorAll('.like');
-
 likeButtons.forEach(function (button) {
     button.addEventListener('click', async function () {
         console.log("버튼 이벤트 시작");
@@ -214,7 +213,104 @@ deleteButton.addEventListener('click', async function(event) {
 });
 
 
+async function heartStatus() {
+    try {
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", "Bearer " + token);
+
+        var requestOptions = {
+            method: 'GET',
+            headers: myHeaders,
+            redirect: 'follow'
+        };
+
+        let response = await fetch("http://localhost:8080/api/user/love/check/status/" + receipeId, requestOptions);
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            alert("데이터 조회 실패: " + JSON.stringify(errorData));
+        }
+
+        let data = await response.json();
+
+        let status = data.data.status;
+
+        return status;
+    } catch (error) {
+        console.error("에러 발생: " + error.message);
+    }
+}
+
+async function love() {
+    try {
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("Authorization", "Bearer " + token);
+
+        const raw = JSON.stringify({
+            "receipeId": receipeId
+        });
+
+        const requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+
+        let response = await fetch("http://localhost:8080/api/user/love", requestOptions);
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            alert("데이터 조회 실패: " + JSON.stringify(errorData));
+        }
+    } catch (error) {
+        console.error("에러 발생: " + error.message);
+    }
+}
+
+async function unlove() {
+    try {
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("Authorization", "Bearer " + token);
+
+        var requestOptions = {
+            method: 'DELETE',
+            headers: myHeaders,
+            redirect: 'follow'
+        };
+
+        let response = await fetch("http://localhost:8080/api/user/unlove/" + receipeId, requestOptions)
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            alert("데이터 조회 실패: " + JSON.stringify(errorData));
+        }
+    } catch (error) {
+        console.error("에러 발생: " + error.message);
+    }
+}
+
+async function checkHeartStatusAndUpdateUI() {
+    let status = await heartStatus();
+
+    const likeBtn = document.querySelector('.heart');
+    const likedBtn = document.querySelector('.heart-liked');
+
+    if (status === "N") {
+        // 현재 하트가 비어 있는 상태
+        likeBtn.style.display = "inline-block";  // 빈 하트 표시
+        likedBtn.style.display = "none";  // 클릭된 하트 숨기기
+    } else {
+        // 현재 하트가 클릭된 상태
+        likeBtn.style.display = "none";  // 빈 하트 숨기기
+        likedBtn.style.display = "inline-block";  // 클릭된 하트 표시
+    }
+}
+
 // 페이지 로드 시 상세 정보 불러오기
 window.addEventListener("DOMContentLoaded", async function () {
     await fetchReceipeDetails();
+    await checkHeartStatusAndUpdateUI();
 });
