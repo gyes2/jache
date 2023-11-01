@@ -24,16 +24,18 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(data => {
                 // 데이터에서 값을 추출합니다.
                 const apiChefName = data.data.chefName;
-                const chefDetail = data.data.chefDetail;
+                let chefDetial = data.data.chefDetial;
                 const chefImgUrl = data.data.chefImgUrl;
 
                 // 값들을 DOM 요소에 할당합니다.
                 chefNameInput.textContent = apiChefName;
+
                 if(chefDetail == null || chefDetail == ""){
                     chefDetailTextArea.innerHTML = "안녕하세요! <br>" + apiChefName + " 입니다!";
                 }else{
                     chefDetailTextArea.textContent = chefDetail;
                 }
+
                 chefImg.src = chefImgUrl;
             })
             .catch(error => {
@@ -92,3 +94,4 @@ function updateButtons(apiChefName, chefName) {
         }
     });
 }
+});

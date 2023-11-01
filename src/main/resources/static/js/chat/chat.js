@@ -1,6 +1,3 @@
-const token = localStorage.getItem('token');
-document.addEventListener('DOMContentLoaded', function () {
-
 function back() { //이전 페이지로 돌아가기
     var referrer = document.referrer;
     window.location.href = referrer;
@@ -60,10 +57,12 @@ document.getElementById('popup_open_btn').addEventListener('click', function() {
     modal('my_modal');
 });
 
+
 const chefNameInput = document.getElementById("chefName"); // 현재 사용자의 아이디로 설정
 const chefDetailTextArea = document.getElementById("chefDetail");
 const chefImg = document.getElementById("chefImg");
-
+const token = localStorage.getItem('token');
+document.addEventListener('DOMContentLoaded', function () {
 // 사용자 정보 가져오기
 if (token) {
     fetch('http://localhost:8080/api/user/getUserInfo', {

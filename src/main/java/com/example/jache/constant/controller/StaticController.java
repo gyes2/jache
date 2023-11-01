@@ -66,8 +66,8 @@ public class StaticController {
     }
 
     @GetMapping("/chef/profilePage")
-    public String profilePage(Model model, ChefDto chef) {
-        model.addAttribute("chef", chef);
+    public String profilePage() {
+
         return "chef/profilePage";
     }
 
