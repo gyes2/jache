@@ -15,6 +15,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
+
 @Service
 @AllArgsConstructor
 @Slf4j
@@ -41,6 +43,7 @@ public class ChefServiceImpl implements ChefService{
                 .build();
 
         chefRepository.save(chef);
+
 
         return ChefDto.SignUpResponseDto.builder()
                 .chefName(chef.getChefName())
