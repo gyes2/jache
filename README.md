@@ -16,11 +16,26 @@
 
 ## 🌳 기술 스택
 
-### 개발환경
+### FrameWork / Library
+- Spring Boot
+- Spring Security
+- Thymleaf
+- stomp
+- JWT
+- JPA
+- Oracle
 
 ### 언어
+- JAVA
+- HTML
+- CSS
+- JS
+
+### DB
+- Oracle
 
 ### 협업 
+- GIT
 
 ## 👍주요 기능
 #### 로그인 / 회원가입
